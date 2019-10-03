@@ -1,0 +1,53 @@
+@media only screen and (max-width: 600px) {
+  span.nav-project-title { display: none; }
+  .thumbnails { margin-top: 24px; }
+}
+
+/*general*/
+
+body { color: #333333;  }
+h1, h2, h3 , section, ul, li, p{ margin: 0; padding: 0; }
+a { color: #333333; }
+a:link { text-decoration: none;  }
+a:hover { color: #317af6; }
+a p { color: #333333; }
+p { font-size: 16px; line-height: 24px; }
+h2 { font-size: 48px; font-weight: bold; padding-bottom: 16px; }
+h3 { font-size: 24px; line-height: 30px; padding-top: 8px; padding-bottom: 8px; }
+section { margin-top: 40px; }
+img { width: 100%; }
+.deactive { color: #AAAAAA !important; }
+
+/*fixed header*/
+
+nav { position: fixed; top: 0; background-color: white; width: 100%; max-width: 1151px; z-index: 2; }
+nav ul { margin-top: 6px; }
+nav ul li { display: inline-block; padding: 8px; color: #437aee; font-size: 16px; }
+nav.project-title { font-weight: normal; }
+.chevron { width: 8px; }
+span.back-home { color: #317af6; font-weight: bold; }
+
+/*main*/
+
+.main { max-width: 1151px; margin: 0 auto; } 
+.portfolio-section {  margin-top: 40px; text-align: left; }
+.solid-top { border-bottom: 2px solid black; }
+.chevron { position: relative; top: -1px; }
+ul, ol { font-size: 16px;  margin-left: 24px; margin-top: 16px;  }
+ul li, ol li { padding: 4px; }
+ol { padding-left: 0; }
+ul.results { list-style: none; padding-bottom: 8px; }
+ul.results li { list-style: none; margin-top: 4px; }
+.hero-banner { background-color: black; height: 480px; }
+.hero img { width: 100%; margin: auto; display: block; margin-top: 24px; }
+span.subtitle { font-size: 14px; text-transform: uppercase; color: #AAAAAA; letter-spacing: 1px; }
+p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: left; line-height: 16px; }
+
+.menu-title { font-size: 14px; color: #AAAAAA; font-weight: normal; letter-spacing: 0.5px; }
+.linked-block { color: black; padding-top: 24px; padding-bottom: 24px; border-bottom: 1px dotted black; }
+
+/*shared margins*/
+
+.p-1 { margin-top: 12px; margin-bottom: 12px; }
+.m-1 { margin-top: 40px; }
+.no-padding { padding: 0; }
