@@ -18,7 +18,7 @@ section { margin-top: 40px; }
 img { width: 100%; }
 .deactive { color: #AAAAAA !important; }
 .mini-text { font-size: 8px !important; }
-.justify { text-align: justify; }
+.justify { text-align: justify; max-width: 440px; }
 
 /*fixed header*/
 
