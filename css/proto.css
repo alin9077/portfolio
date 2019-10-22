@@ -1,6 +1,7 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   span.nav-project-title { display: none; }
-  .thumbnails { margin-top: 24px; }
+  .t-2 { font-size: 20px; font-weight: 500; }
+  .intro-container { border-left: 0 !important; }
 }
 
 /*general*/
@@ -20,7 +21,19 @@ img { width: 100%; }
 .mini-text { font-size: 8px !important; }
 .justify { text-align: justify; max-width: 480px; }
 .t-1 { font-size: 16px; line-height: 28px; font-weight: 500; }
-
+.t-2 { font-size: 20px; font-weight: 500; }
+.t-3 { font-family: courier, serifs; font-weight: normal; color: #CCCCCC; font-size: 12px; padding-bottom: 6px; }
+.thumbnail-textbox { padding-bottom: 16px;  }
+.grey { background-color: #f9f9f9; }
+.logo { font-size: 20px; font-weight: 400; letter-spacing: 0.01em; line-height: 30px; }
+.subtitle-logo {  font-size: 16px; font-weight: 500; line-height: 1.3em; }
+.intro-container { margin-bottom: 48px; border-left: 1px solid #cccccc }
+.user-story { 
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(201,201,201,1); 		
+	-moz-box-shadow: 2px 2px 5px 0px rgba(201,201,201,1);
+	box-shadow: 2px 2px 5px 0px rgba(201,201,201,1); 
+	padding: 16px;
+}
 /*fixed header*/
 
 nav { position: fixed; top: 0; background-color: white; width: 100%; max-width: 1151px; z-index: 2; }
@@ -33,7 +46,7 @@ span.back-home { color: #317af6; font-weight: bold; }
 /*main*/
 
 .main { max-width: 1151px; margin: 0 auto; } 
-.portfolio-section {  margin-top: 40px; text-align: left; }
+.portfolio-section {  margin-top: 56px; text-align: left; }
 .solid-top { border-bottom: 2px solid black; }
 .chevron { position: relative; top: -1px; }
 ul, ol { font-size: 16px;  margin-left: 24px; margin-top: 16px;  }
@@ -47,7 +60,7 @@ span.subtitle { font-size: 14px; text-transform: uppercase; color: #AAAAAA; lett
 p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: left; line-height: 16px; }
 
 .menu-title { font-size: 14px; color: #AAAAAA; font-weight: normal; letter-spacing: 0.5px; }
-.linked-block { color: black; padding-top: 24px; padding-bottom: 24px; border-bottom: 1px dotted black; }
+.linked-block { background-color: white; color: black; margin-top: 16px; padding: 16px; border-bottom: 1px; border: 1px solid #eeeeee; }
 
 /*shared margins*/
 
