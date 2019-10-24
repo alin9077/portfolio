@@ -66,4 +66,6 @@ p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: l
 
 .p-1 { margin-top: 12px; margin-bottom: 12px; }
 .m-1 { margin-top: 40px; }
+.m-2 { margin-top: 64px; margin-bottom: 64px; }
 .no-padding { padding: 0; }
+.clear { clear: both; }
