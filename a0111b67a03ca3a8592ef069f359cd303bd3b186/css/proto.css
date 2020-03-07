@@ -23,6 +23,7 @@ img { width: 100%; }
 .t-1 { font-size: 16px; line-height: 28px; font-weight: 500; }
 .t-2 { font-size: 20px; font-weight: 500; }
 .t-3 { font-family: courier, serifs; font-weight: normal; color: #CCCCCC; font-size: 12px; padding-bottom: 6px; }
+.t-4 { color: #aaaaaa; font-size: 12px; font-style: italic; line-height: 20px; margin-top: 8px; }
 .thumbnail-textbox { padding-bottom: 16px;  }
 .grey { background-color: #f9f9f9; }
 .logo { font-size: 20px; font-weight: 400; letter-spacing: 0.01em; line-height: 30px; }
@@ -46,7 +47,7 @@ span.back-home { color: #317af6; font-weight: bold; }
 /*main*/
 
 .main { max-width: 1151px; margin: 0 auto; } 
-.portfolio-section {  margin-top: 56px; text-align: left; }
+.portfolio-section {  margin-top: 72px; text-align: left; }
 .solid-top { border-bottom: 2px solid black; }
 .chevron { position: relative; top: -1px; }
 ul, ol { font-size: 16px;  margin-left: 24px; margin-top: 16px;  }
@@ -55,7 +56,7 @@ ol { padding-left: 0; }
 ul.results { list-style: none; padding-bottom: 8px; }
 ul.results li { list-style: none; margin-top: 4px; }
 .hero-banner { background-color: black; height: 480px; }
-.hero img { width: 100%; margin: auto; display: block; margin-top: 24px; }
+.hero img { width: 100%; margin: auto; display: block; margin-top: 8px; }
 span.subtitle { font-size: 14px; text-transform: uppercase; color: #AAAAAA; letter-spacing: 1px; }
 p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: left; line-height: 16px; }
 

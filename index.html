@@ -26,9 +26,9 @@
             }
 
             .protected {
-                background: #fff;
-                -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
-                box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+                background: transparent;
+                /*-webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+                box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);*/
                 border-radius: 3px;
                 min-width: 500px;
 
@@ -68,6 +68,7 @@
                 border-color: #228843;
             }
             .protected__content__btn {
+                width: 100%;
                 background-color: #228843;
                 border-radius: 3px;
                 cursor: pointer;
@@ -92,8 +93,8 @@
         <div class="protected">
             <div class="protected__alert" data-id="alert">You entered the wrong password</div>
             <div class="protected__content">
-                <h1 class="protected__content__heading">You need a password to continue</h1>
-                <input class="protected__content__input" data-id="password" type="password" placeholder="password"/>
+                <h1 class="protected__content__heading"> </h1>
+                <input class="protected__content__input" data-id="password" type="password" placeholder="Enter password"/>
                 <button data-id="button" type="button" class="protected__content__btn">Continue</button>
             </div>
         </div>
