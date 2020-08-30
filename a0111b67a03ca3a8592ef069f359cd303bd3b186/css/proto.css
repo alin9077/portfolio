@@ -47,7 +47,7 @@ span.back-home { color: #317af6; font-weight: bold; }
 /*main*/
 
 .main { max-width: 1151px; margin: 0 auto; } 
-.portfolio-section {  margin-top: 72px; text-align: left; }
+.portfolio-section {  margin-top: 72px; padding-bottom: 72px; text-align: left; }
 .solid-top { border-bottom: 2px solid black; }
 .chevron { position: relative; top: -1px; }
 ul, ol { font-size: 16px;  margin-left: 24px; margin-top: 16px;  }
