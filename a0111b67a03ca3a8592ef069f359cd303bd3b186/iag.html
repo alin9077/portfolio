@@ -24,63 +24,80 @@
 		<div class="col-md-8 col-md-offset-2 p-1">		
 			<p class="menu-title">
 				<a href="index.html"><img class="chevron" src="img/ic_chevron_left.svg"><b> Back </b></a>
-<!-- 				<span class="nav-project-title"><b> IAG's omni-channel platform </b></span> 
- -->			</p>
+				<span class="nav-project-title"><b> IAG Digital Transformation </b></span> 
+			</p>
 		</div> 
 	</nav>
 	<section class="portfolio-item">
 		<div class="col-md-10 col-md-offset-1 hero">
 			<img src="img/iag/hero.png">
+			<p class="subtitle text-uppercase"> NRMA Home and Motor Insurance Pilot </p>		
 		</div>
 		<div class="col-md-6 col-md-offset-3 portfolio-section">
 			<h2> A central system for IAG's brands and products </h2>
-		
 			<p> 
 				<b><i> This project and case-study is still under construction. </i></b>
 				IAG is undergoing a digital transformation project that leverages a single system to unite all of IAG brands and products into a central system. This strategic manoeuvre unlocks IAG’s ability to hatch new insurance products at speed, and maintain all polices under a central Customer Relationship Management (CRM) platform for an omni-channel digital and assisted experience.
 			</p>
-			<br>
+		</div>
+		<div class="col-md-6 col-md-offset-3 hero">
+			<img src="img/iag/hero-2.png">
+			<p class="subtitle text-uppercase"> United system to originate and maintain all of IAG's products </p>
+		</div>
+		<div class="col-md-6 col-md-offset-3 portfolio-section" style="margin-top: 24px">
 			<p>
-				The first phase of this project is to deliver NRMA’s Buildings and Contents Insurance and Vehicle Insurance products. This program of work delivers a new tech stack and a host of new design and technical constraints. I lead the foundation interaction design and UX frameworks for future and current projects to inherit and leverage. Some of these core frameworks is detailed at a high level in the next sections.
+				<i><b> My responsibilities </b></i> The first phase of this project is to deliver NRMA’s Buildings and Contents Insurance and Vehicle Insurance products which I am delivering in unison. This program of work delivers a new technology stack and a host of new design and technical constraints. I am leading and laying the foundational interaction design and UX frameworks for future and current projects to inherit and reuse.<br><br><u> Also responsible for technical designs, UI design and writing content to communicate abstract and complex insurance products and services. </u>
 			</p>
 		</div>
-
-		<div class="col-md-6 col-md-offset-3 portfolio-section">
-			<span class="subtitle"> Product qualfiication  </span>
-			<h3> A series of questions before the starting the main workflow to determine how the property is occupied. </h3>
+		
+		<div class="col-md-8 col-md-offset-2 portfolio-section">
+			<h2> Case studies </h2>
+			<span class="subtitle"> no.1 - Product qualfication  </span>
+			<h3> 
+				Before we start the app, we qualify the customer by asking a series of questions to establish the property occupancy type.
+			</h3>
 			<p> 
-				 The property occupancy type allows us to navigate customers to their desired destination, this could be another brand or another product. However, and most importantly – we can alert and stop customers from progressing if they’re disqualified at the very start which saves them time and a frustrating experience.
+				This data point allows customers to navigate to their desired destination, this could be another brand / another product or a referral to speak to someone over the phone. Most importantly – we can alert and stop customers from progressing if they’re disqualified at the very start which saves them time and a frustrating experience.
 			</p>
 		</div>
-		<!-- <div class="col-md-6 col-md-offset-3 hero">
-			<img src="img/booking/approach.jpg">
-			<p class="subtitle text-uppercase"> CommBank's research lab, 18 participants, 3 rounds over 4 months. </p>
-		</div> -->
-		<div class="col-md-6 col-md-offset-3 portfolio-section">
-			<span class="subtitle"> The exceptions </span>
+		<div class="col-md-8 col-md-offset-2 hero">
+			<img src="img/iag/pre-qual.png">
+			<!-- <p class="subtitle text-uppercase"> Product qualification </p> -->
+		</div>
+		<div class="col-md-8 col-md-offset-2 portfolio-section">
+			<span class="subtitle"> The exceptions (negative paths) </span>
 			<h3> 
 				9 unique types of exceptions can execute all at the same time in the worst-case scenario. 
 			</h3>
 			<p> 
-				We approached this problem by modelling the edge-cases and working backwards to create a flexible system that priorities customers/business needs. This includes everything from when we hand off to Assisted Channels, when we refer to another IAG product and how we communicate policy exclusions anywhere within the quote funnel.
+				We approached this problem by modelling the edge-cases and working backwards to create a flexible system that priorities customers/business needs. This includes everything from when we hand off to Assisted Channels, when we refer to another IAG product and how we communicate policy exclusions anywhere within the quote funnel. 
+			</p>
+			<p>
+				</br>
+				By creating an <b>exception hierarchy </b> we are able to prioritise and serve up exceptions in a fixed order. This can be observed by how we prioritise clearing input validations and not wasting service calls in a scenario where our data is not clean. Another examples is if we have a better product for customers, we'll re-direct them before we boot them out the funnel. <i><b>Obvious?</b> Not really. We could only solve all of these exceptions in unison - once we took a step back, analysed and solved this as a system. </i>
 			</p>
 		</div>
-	<!-- 	<div class="col-md-8 col-md-offset-2 hero">
-			<img src="img/booking/context.png">
-		</div> -->
+		<div class="col-md-8 col-md-offset-2 hero">
+			<img src="img/iag/exceptions.png">
+			<!-- <p class="subtitle text-uppercase"> Product qualification </p> -->
+		</div>
 
-		<div class="col-md-6 col-md-offset-3 portfolio-section">
+		<div class="col-md-8 col-md-offset-2 portfolio-section">
 			<span class="subtitle"> Policy variations and consent capture  </span>
 			<h3> 
 				Some customers may be on the boundaries of our policy rules. Variations to policies may also be applied retrospectively in a 24/7 window. This meant we needed a dynamic system to cater for geographic exclusions caused by natural disasters like bushfires, storms, floods, tsunamis and pandemics. 
 			</h3>
 			<p> 
-				These system events need to be communicated and accepted by the customer. In our approach we wanted to warn customers of exclusion when they provided their locality at the beginning of the funnel. The challenge was that the initial acceptance could be invalidate because another exclusion was applied any time between when they started the quote to paying for the policy. 
+				These system events need to be communicated and accepted by the customer. In our approach we wanted to warn customers of exclusion when they provided their locality at the beginning of the funnel. The challenge was that the initial acceptance could be invalid by the time the customer reaches the final steps of the quote funnel.
 			</p>
 		</div>
-		<!-- <div class="col-md-8 col-md-offset-2 hero">
-			<img src="img/booking/themes.png">
-		</div> -->
+		<div class="col-md-8 col-md-offset-2 hero">
+			<img src="img/iag/consent.png">
+			<!-- <p class="subtitle text-uppercase"> Product qualification </p> -->
+		</div>
+		<div class="col-md-8 col-md-offset-2 portfolio-section">
+			<span class="subtitle"><i> More to come... </i>  </span>
+		</div>
 	</section>
 	<!-- more portfolio section -->
 		<div class="portfolio-section m-2">
