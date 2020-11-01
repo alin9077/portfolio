@@ -24,7 +24,7 @@ img { width: 100%; }
 .t-2 { font-size: 20px; font-weight: 500; }
 .t-3 { font-family: courier, serifs; font-weight: normal; color: #CCCCCC; font-size: 12px; padding-bottom: 6px; }
 .t-4 { color: #aaaaaa; font-size: 12px; font-style: italic; line-height: 20px; margin-top: 8px; }
-.thumbnail-textbox { padding-bottom: 16px; min-height: 96px; }
+.thumbnail-textbox { padding-bottom: 16px; min-height: 72px; }
 .grey { background-color: #f9f9f9; }
 .logo { font-size: 20px; font-weight: 400; letter-spacing: 0.01em; line-height: 30px; }
 .subtitle-logo {  font-size: 16px; font-weight: 500; line-height: 1.3em; }
@@ -37,7 +37,7 @@ img { width: 100%; }
 }
 /*fixed header*/
 
-nav { position: fixed; top: 0; background-color: white; width: 100%; max-width: 1151px; z-index: 2; }
+nav { position: fixed; top: 0; opacity: 0.95; background-color: white; width: 100%; max-width: 1151px; z-index: 2; }
 nav ul { margin-top: 6px; }
 nav ul li { display: inline-block; padding: 8px; color: #437aee; font-size: 16px; }
 nav.project-title { font-weight: normal; }
@@ -65,8 +65,12 @@ p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: l
 
 /*shared margins*/
 
+.black { color: black !important; }
+.uppercase { text-transform: uppercase; }
+.underline { text-decoration: underline; }
 .p-1 { margin-top: 12px; margin-bottom: 12px; }
 .m-1 { margin-top: 40px; }
 .m-2 { position: relative; top: 64px; bottom: 64px; }
-.no-padding { padding: 0; }
+.subline { padding: 0 0 16px 0; }
+.right { float: right; text-align: right; }
 .clear { clear: both; }
