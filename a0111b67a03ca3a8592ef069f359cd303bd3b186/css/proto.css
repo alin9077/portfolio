@@ -12,7 +12,7 @@ a { color: #333333;  }
 a:link { text-decoration: none;  }
 a:hover { color: #317af6; }
 a p { color: #333333; }
-p { font-size: 20px; line-height: 32px; margin-top: 12px; }
+p { font-size: 18px; line-height: 32px; margin-top: 12px; }
 h2 { font-size: 48px; font-weight: bold; padding-bottom: 16px; }
 h3 { font-size: 28px; line-height: 30px; padding-top: 16px; padding-bottom: 16px; }
 section { margin-top: 40px; }
