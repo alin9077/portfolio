@@ -8,27 +8,34 @@
 
 body { color: #333333;  }
 h1, h2, h3 , section, ul, li, p{ margin: 0; padding: 0; }
-a { color: #333333; }
+a { color: #333333;  }
 a:link { text-decoration: none;  }
 a:hover { color: #317af6; }
 a p { color: #333333; }
-p { font-size: 16px; line-height: 26px; }
+p { font-size: 20px; line-height: 32px; margin-top: 12px; }
 h2 { font-size: 48px; font-weight: bold; padding-bottom: 16px; }
 h3 { font-size: 24px; line-height: 30px; padding-top: 8px; padding-bottom: 8px; }
 section { margin-top: 40px; }
-img { width: 100%; }
+img { width: 100%; 
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+} 
 .deactive { color: #AAAAAA !important; }
 .mini-text { font-size: 8px !important; }
 .justify { text-align: justify; max-width: 480px; }
 .t-1 { font-size: 16px; line-height: 28px; font-weight: 500; }
-.t-2 { font-size: 20px; font-weight: 500; }
-.t-3 { font-family: courier, serifs; font-weight: normal; color: #CCCCCC; font-size: 12px; padding-bottom: 6px; }
+.t-2 { font-size: 40px; line-height: 48px; font-weight: normal; }
+.t-3 { font-family: courier, serifs; font-weight: normal; font-size: 14px; padding-bottom: 6px; }
 .t-4 { color: #aaaaaa; font-size: 12px; font-style: italic; line-height: 20px; margin-top: 8px; }
+.t-5 { font-size: 20px; font-weight: bold; }
 .thumbnail-textbox { padding-bottom: 16px; min-height: 72px; }
-.grey { background-color: #f9f9f9; }
-.logo { font-size: 20px; font-weight: 400; letter-spacing: 0.01em; line-height: 30px; }
+/*.grey { background-color: #f9f9f9; }*/
+.logo { font-size: 20px; font-weight: 400; line-height: 30px; }
 .subtitle-logo {  font-size: 16px; font-weight: 500; line-height: 1.3em; }
-.intro-container { margin-bottom: 48px; border-left: 1px solid #cccccc }
+/*.intro-container { margin-bottom: 48px; }*/
+.intro-container p { margin-top: 16px; }
+.intro-container a { text-decoration: underline; font-weight: bold; color: #307af6; }
 .user-story { 
 	-webkit-box-shadow: 2px 2px 5px 0px rgba(201,201,201,1); 		
 	-moz-box-shadow: 2px 2px 5px 0px rgba(201,201,201,1);
@@ -59,9 +66,9 @@ ul.results li { list-style: none; margin-top: 4px; }
 .hero img { width: 100%; margin: auto; display: block; margin-top: 16px; }
 span.subtitle { font-size: 14px; text-transform: uppercase; color: #AAAAAA; letter-spacing: 1px; }
 p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: left; line-height: 16px; }
+p.card-description { font-size: 20px;  margin-top: 14px; }
 
 .menu-title { font-size: 14px; color: #AAAAAA; font-weight: normal; letter-spacing: 0.5px; }
-.linked-block { background-color: white; color: black; margin-top: 16px; padding: 16px; border-bottom: 1px; border: 1px solid #eeeeee; }
 
 /*shared margins*/
 
@@ -70,7 +77,7 @@ p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: l
 .underline { text-decoration: underline; }
 .p-1 { margin-top: 12px; margin-bottom: 12px; }
 .m-1 { margin-top: 40px; }
-.m-2 { position: relative; top: 64px; bottom: 64px; }
-.subline { padding: 0 0 16px 0; }
+.m-2 {  }
+.subline { border-top: 1px dotted black; padding: 24px 0 16px 0; }
 .right { float: right; text-align: right; }
 .clear { clear: both; }
