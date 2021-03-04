@@ -15,6 +15,7 @@ a p { color: #333333; }
 p { font-size: 18px; line-height: 32px; margin-top: 12px; }
 h2 { font-size: 48px; font-weight: bold; padding-bottom: 16px; }
 h3 { font-size: 28px; line-height: 36px; padding-top: 24px; }
+h4 { font-size: 24px; }
 section { margin-top: 40px; }
 img { width: 100%; 
   image-rendering: auto;
@@ -69,11 +70,13 @@ ul.results li { list-style: none; margin-top: 4px; }
 span.subtitle { font-size: 14px; text-transform: uppercase; color: #AAAAAA; letter-spacing: 1px; }
 p.subtitle { font-size: 10px; color: black; letter-spacing: 1.5px; text-align: left; line-height: 16px; }
 p.card-description { font-size: 20px;  margin-top: 14px; }
-
+.r-theme-img { width: 40%; margin-bottom: 24px; }
+.r-theme-img-2 { width: 20%; margin-bottom: 24px; }
 .menu-title { font-size: 14px; color: #AAAAAA; font-weight: normal; letter-spacing: 0.5px; }
 
 /*shared margins*/
 
+.blue-text { color: #107BBF; }
 .black { color: black !important; }
 .uppercase { text-transform: uppercase; }
 .underline { text-decoration: underline; }
@@ -83,3 +86,4 @@ p.card-description { font-size: 20px;  margin-top: 14px; }
 .subline { border-top: 1px dotted black; padding: 24px 0 16px 0; }
 .right { float: right; text-align: right; }
 .clear { clear: both; }
+.center-text { text-align: center; }
