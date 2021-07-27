@@ -24,9 +24,10 @@ img { width: 100%; }
 /*Sections*/
 .new-section { height: auto; width: 100%; margin: 0 auto;  }
 .hero-image-container { display: block; max-width: 1024px; margin: 0 auto; }
+.hero-image-container-lg { display: block; max-width: 1440px; margin: 0 auto; }
 .hero-image-container img { width: 100%; }
 
-section { max-width: 1072px; margin: 0 auto; padding-top: 88px; padding-bottom: 88px;}
+section { max-width: 1440px; margin: 0 auto; padding-top: 88px; padding-bottom: 88px;}
 
 /*Margins*/
 .m--b-0 { margin-bottom: 4px; }
