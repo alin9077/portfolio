@@ -8,6 +8,7 @@ img { width: 100%; }
 .reset-margin { margin: 0; }
 
 /*Overrides*/
+.heritage-blue { background-color: #0e2096; color: #0e2096; }
 .yellow { background-color: #ffcc00; }
 .grey { background-color: #f7f7f7; }
 .grey-2 { background-color: #e8e8e8; }
