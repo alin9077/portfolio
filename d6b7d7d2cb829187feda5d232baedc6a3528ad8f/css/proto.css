@@ -20,12 +20,15 @@ img { width: 100%; }
 .blue { background-color: #0e79f6; }
 .italics { font-style: italic; }
 .list-circles { margin-left: 16px; list-style: square; }
+.profile-img { width: 128px; height: 128px; }
+.inline { display: inline-block; }
 
 /*Sections*/
 .new-section { height: auto; width: 100%; margin: 0 auto;  }
 .hero-image-container { display: block; max-width: 1024px; margin: 0 auto; }
 .hero-image-container-lg { display: block; max-width: 1440px; margin: 0 auto; }
 .hero-image-container img { width: 100%; }
+
 
 section { max-width: 1440px; margin: 0 auto; padding-top: 88px; padding-bottom: 88px;}
 
@@ -66,3 +69,4 @@ p { font-size: 20px; line-height: 36px; }
 /*Badges*/
 .badge { font-size: 12px; padding: 6px; color: white; background-color: #0177cc; font-family: helvetica; font-weight: normal; line-height: 12px; }
 .ready { background-color: #08700c; }
+.in-progress { background-color: #0a209c; }
