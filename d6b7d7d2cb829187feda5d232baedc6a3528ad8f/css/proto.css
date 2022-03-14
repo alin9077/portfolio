@@ -13,6 +13,7 @@ img { width: 100%; }
 .blue-3 { background-color: #000D7A; }
 .heritage-blue { background-color: #0e2096; color: #0e2096; }
 .yellow { background-color: #ffcc00; }
+.red { background-color: #e40000; }
 .grey { background-color: #f7f7f7; }
 .grey-2 { background-color: #e8e8e8; }
 .grey-text { color: #6a6a6a; }
@@ -25,7 +26,7 @@ img { width: 100%; }
 
 /*Sections*/
 .new-section { height: auto; width: 100%; margin: 0 auto;  }
-.hero-image-container { display: block; max-width: 1024px; margin: 0 auto; }
+.hero-image-container { display: block; max-width: 1076px; margin: 0 auto; }
 .hero-image-container-lg { display: block; max-width: 1440px; margin: 0 auto; }
 .hero-image-container img { width: 100%; }
 
