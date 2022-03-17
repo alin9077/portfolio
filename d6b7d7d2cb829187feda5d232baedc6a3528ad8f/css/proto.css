@@ -3,8 +3,12 @@ body { font-family: 'Vollkorn', serif; }
 h1, h2, h3, ul, li { padding: 0; margin: 0; }
 a { font-size: 20px; color: #24488D; text-decoration: underline; }
 a:hover { text-decoration: none; }
+a:visited { color: #24488D; }
 li { text-decoration: none; list-style: none; }
 img { width: 100%; }
+.back-nav {  position: fixed; background-color: white; }
+.back-nav a {  font-family: Helvetica, sans-serif; font-size: 14px; color: white; text-decoration: none;  }
+.icon-back { width: 14px; height: 14px; }
 .reset-margin { margin: 0; }
 
 /*Overrides*/
@@ -41,6 +45,8 @@ section { max-width: 1440px; margin: 0 auto; padding-top: 88px; padding-bottom: 
 .m--b-6 { margin-bottom: 48px; }
 .m--t-4 { margin-top: 32px; }
 .m--b-4 { margin-bottom: 32px; }
+.p--t-1 { padding-top: 8px; }
+.p--b-1 { padding-bottom: 8px; }
 .p--t-4 { padding-top: 32px; }
 .p--b-4 { padding-bottom: 32px; }
 .p--t-11 { padding-top: 88px; }
