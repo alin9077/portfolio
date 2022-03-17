@@ -1,3 +1,5 @@
+
+
 /*Resets*/
 body { font-family: 'Vollkorn', serif; }
 h1, h2, h3, ul, li { padding: 0; margin: 0; }
@@ -7,8 +9,8 @@ a:visited { color: #24488D; }
 li { text-decoration: none; list-style: none; }
 img { width: 100%; }
 .back-nav {  position: fixed; background-color: white; }
-.back-nav a {  font-family: Helvetica, sans-serif; font-size: 14px; color: white; text-decoration: none;  }
-.icon-back { width: 14px; height: 14px; }
+.back-nav a {  font-family: Helvetica, sans-serif; font-size: 14px; font-weight: normal; color: #317af6; text-decoration: none;  }
+.icon-back { width: 12px; height: 12px; position: relative; top: -1px; }
 .reset-margin { margin: 0; }
 
 /*Overrides*/
@@ -77,3 +79,13 @@ p { font-size: 20px; line-height: 36px; }
 .badge { font-size: 12px; padding: 6px; color: white; background-color: #0177cc; font-family: helvetica; font-weight: normal; line-height: 12px; }
 .ready { background-color: #08700c; }
 .in-progress { background-color: #0a209c; }
+
+@media only screen and (max-width: 600px) {
+  section { padding: 32px; }
+
+}
+
+
+
+
+
