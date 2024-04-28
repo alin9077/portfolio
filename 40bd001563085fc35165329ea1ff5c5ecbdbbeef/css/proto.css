@@ -105,7 +105,7 @@ p { font-size: 18px; line-height: 36px; }
 
 .drop-arrow { box-sizing: inherit;  }
 
-ul.main-feature-points li { padding-top: 24px; }
+ul.main-feature-points li { padding-top: 12px; }
 
 
 @media (min-width: 768px) {
