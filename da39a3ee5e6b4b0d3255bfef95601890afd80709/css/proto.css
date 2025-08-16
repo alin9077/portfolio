@@ -40,6 +40,7 @@ img { width: 100%; }
 .caption-image { width: 20px; height: 20px; margin-top: 8px; flex-shrink: 0; }
 .icon-small { width: 16px; height: 16px; margin: 0; }
 section { max-width: 1440px; margin: 0 auto; padding-top: 48px; padding-bottom: 48px;}
+.portfolio-items { max-width: 740px; margin-left: auto; margin-right: auto; }
 
 /*Margins*/
 .m--0 { margin: 0}
@@ -636,5 +637,43 @@ ul.main-feature-points li { padding-top: 4px; margin-bottom: 4px; }
     
     .carousel-controls {
         padding: 8px;
+    }
+}
+
+/* Force stacked layout (image first, then text) for portfolio sections on desktop too */
+/* Ensure order utility classes apply across all breakpoints */
+.mobile-order-1 { order: -1; }
+.mobile-order-2 { order: 1; }
+
+@media (min-width: 769px) {
+    /* Stack the generic two-column flex wrappers */
+    .flex-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .flex-wrapper .col-md-5,
+    .flex-wrapper .col-md-5.offset-md-1 {
+        width: 100% !important;
+        margin: 0 0 24px 0;
+    }
+    .flex-wrapper .col-md-5:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Stack the special mobile-reorder wrapper on desktop as well */
+    .flex-wrapper-mobile-reorder {
+        flex-direction: column !important;
+        align-items: stretch;
+        max-width: 1076px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    .flex-wrapper-mobile-reorder .content-wrapper,
+    .flex-wrapper-mobile-reorder .image-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+    .flex-wrapper-mobile-reorder .image-wrapper {
+        margin-bottom: 32px;
     }
 }
