@@ -1,0 +1,1662 @@
+{
+  "booking-question": {
+    "source": "newassets/appointment booking/appointment triage.webp",
+    "crop": [
+      65,
+      330,
+      765,
+      1240
+    ],
+    "alt": "Channel-selection question, cropped to the interaction",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      829,
+      1671
+    ],
+    "source_sha256": "a66aeed05b1faa2b89421889ec337ec10417d337956e7d247c8f774f66209e56",
+    "size": [
+      700,
+      910
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-question-480.webp",
+        "width": 480,
+        "height": 624,
+        "bytes": 10266
+      },
+      {
+        "path": "assets/f/booking-question-960.webp",
+        "width": 700,
+        "height": 910,
+        "bytes": 15288
+      },
+      {
+        "path": "assets/f/booking-question-1440.webp",
+        "width": 700,
+        "height": 910,
+        "bytes": 15288
+      }
+    ]
+  },
+  "booking-time": {
+    "source": "newassets/appointment booking/time triage.png",
+    "crop": null,
+    "alt": "Separate appointment-time question",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      774,
+      1488
+    ],
+    "source_sha256": "cae2950cee7c7002efc03f29c56b95bdb4a8310493f5839805d8b22fd615d8f1",
+    "size": [
+      774,
+      1488
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-time-480.webp",
+        "width": 480,
+        "height": 923,
+        "bytes": 36566
+      },
+      {
+        "path": "assets/f/booking-time-960.webp",
+        "width": 774,
+        "height": 1488,
+        "bytes": 72568
+      },
+      {
+        "path": "assets/f/booking-time-1440.webp",
+        "width": 774,
+        "height": 1488,
+        "bytes": 72568
+      }
+    ]
+  },
+  "booking-form": {
+    "source": "newassets/appointment booking/old legacy static form.png",
+    "crop": null,
+    "alt": "Original callback request form",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      1230,
+      1104
+    ],
+    "source_sha256": "9313bbf90a7be3a6b778ca91c15c7fc75bd5fbd3768ee04c31f2a8958e27b2bc",
+    "size": [
+      1230,
+      1104
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-form-480.webp",
+        "width": 480,
+        "height": 431,
+        "bytes": 12862
+      },
+      {
+        "path": "assets/f/booking-form-960.webp",
+        "width": 960,
+        "height": 862,
+        "bytes": 38078
+      },
+      {
+        "path": "assets/f/booking-form-1440.webp",
+        "width": 1230,
+        "height": 1104,
+        "bytes": 54094
+      }
+    ]
+  },
+  "booking-filter": {
+    "source": "newassets/appointment booking/filters v1.png",
+    "crop": null,
+    "alt": "Early combined appointment filter",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      855,
+      1488
+    ],
+    "source_sha256": "f9481313886f4078fbbb36063ac13bcc560b2699b2c3f5ddc77f1f14b0f68b30",
+    "size": [
+      855,
+      1488
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-filter-480.webp",
+        "width": 480,
+        "height": 835,
+        "bytes": 36714
+      },
+      {
+        "path": "assets/f/booking-filter-960.webp",
+        "width": 855,
+        "height": 1488,
+        "bytes": 85222
+      },
+      {
+        "path": "assets/f/booking-filter-1440.webp",
+        "width": 855,
+        "height": 1488,
+        "bytes": 85222
+      }
+    ]
+  },
+  "booking-book": {
+    "source": "newassets/appointment booking/book appointment.png",
+    "crop": null,
+    "alt": "Appointment review and booking",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      782,
+      1288
+    ],
+    "source_sha256": "a8ed98be416042ca9425da6fdf66adb80af4bac0f387a4e37bad4b28c8dc27d9",
+    "size": [
+      782,
+      1288
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-book-480.webp",
+        "width": 480,
+        "height": 791,
+        "bytes": 48992
+      },
+      {
+        "path": "assets/f/booking-book-960.webp",
+        "width": 782,
+        "height": 1288,
+        "bytes": 90948
+      },
+      {
+        "path": "assets/f/booking-book-1440.webp",
+        "width": 782,
+        "height": 1288,
+        "bytes": 90948
+      }
+    ]
+  },
+  "booking-confirm": {
+    "source": "newassets/appointment booking/booking confirmed.png",
+    "crop": null,
+    "alt": "Booking confirmation and next steps",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      799,
+      1288
+    ],
+    "source_sha256": "c20ef5f957ca2ab48303fd6fdd00eef3396e9cb1171f15fea186a7e332e47b6f",
+    "size": [
+      799,
+      1288
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-confirm-480.webp",
+        "width": 480,
+        "height": 774,
+        "bytes": 42722
+      },
+      {
+        "path": "assets/f/booking-confirm-960.webp",
+        "width": 799,
+        "height": 1288,
+        "bytes": 88572
+      },
+      {
+        "path": "assets/f/booking-confirm-1440.webp",
+        "width": 799,
+        "height": 1288,
+        "bytes": 88572
+      }
+    ]
+  },
+  "booking-times": {
+    "source": "newassets/appointment booking/more appointment times.png",
+    "crop": null,
+    "alt": "Expanded appointment availability",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      781,
+      1288
+    ],
+    "source_sha256": "17f3110ed1130b1ecf0db2950f1d82cf843d7138e083d8cda8933184989375f5",
+    "size": [
+      781,
+      1288
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-times-480.webp",
+        "width": 480,
+        "height": 792,
+        "bytes": 46270
+      },
+      {
+        "path": "assets/f/booking-times-960.webp",
+        "width": 781,
+        "height": 1288,
+        "bytes": 85342
+      },
+      {
+        "path": "assets/f/booking-times-1440.webp",
+        "width": 781,
+        "height": 1288,
+        "bytes": 85342
+      }
+    ]
+  },
+  "booking-pattern": {
+    "source": "newassets/appointment booking/scalable appointment patterns.webp",
+    "crop": null,
+    "alt": "Shared availability pattern across appointment channels",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      2658,
+      2127
+    ],
+    "source_sha256": "424abefbb6c0178f80bb7deb9cfa276083929ef17ac0b0c51ffa3757bc956448",
+    "size": [
+      2658,
+      2127
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-pattern-480.webp",
+        "width": 480,
+        "height": 384,
+        "bytes": 43220
+      },
+      {
+        "path": "assets/f/booking-pattern-960.webp",
+        "width": 960,
+        "height": 768,
+        "bytes": 109820
+      },
+      {
+        "path": "assets/f/booking-pattern-1440.webp",
+        "width": 1440,
+        "height": 1152,
+        "bytes": 191200
+      }
+    ]
+  },
+  "booking-unavailable": {
+    "source": "newassets/appointment booking/unavailable appointments.png",
+    "crop": null,
+    "alt": "Alternative appointment locations when a branch has no availability",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      777,
+      1288
+    ],
+    "source_sha256": "a0969dddffb272aede0896795a930dca72b0a3eb33be13503d86a36cbb417a41",
+    "size": [
+      777,
+      1288
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-unavailable-480.webp",
+        "width": 480,
+        "height": 796,
+        "bytes": 53426
+      },
+      {
+        "path": "assets/f/booking-unavailable-960.webp",
+        "width": 777,
+        "height": 1288,
+        "bytes": 100612
+      },
+      {
+        "path": "assets/f/booking-unavailable-1440.webp",
+        "width": 777,
+        "height": 1288,
+        "bytes": 100612
+      }
+    ]
+  },
+  "booking-faces": {
+    "source": "newassets/appointment booking/profile images used for appointments.webp",
+    "crop": null,
+    "alt": "Early lender-profile designs used in testing",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      2661,
+      1350
+    ],
+    "source_sha256": "7ae3984ba1badfab422f21cd10a215f42814ad200191511cc02af96b2e48e107",
+    "size": [
+      2661,
+      1350
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-faces-480.webp",
+        "width": 480,
+        "height": 244,
+        "bytes": 17352
+      },
+      {
+        "path": "assets/f/booking-faces-960.webp",
+        "width": 960,
+        "height": 487,
+        "bytes": 45120
+      },
+      {
+        "path": "assets/f/booking-faces-1440.webp",
+        "width": 1440,
+        "height": 731,
+        "bytes": 76722
+      }
+    ]
+  },
+  "work-create": {
+    "source": "newassets/canwork/branchmanagers-shiftcreation.png",
+    "crop": [
+      18,
+      70,
+      750,
+      1310
+    ],
+    "alt": "Manager creating a shift",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      774,
+      1344
+    ],
+    "source_sha256": "788e0c180fc5e1c45d729895609c5b830060297e6297ef6934fc8784be9bab85",
+    "size": [
+      732,
+      1240
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-create-480.webp",
+        "width": 480,
+        "height": 813,
+        "bytes": 13990
+      },
+      {
+        "path": "assets/f/work-create-960.webp",
+        "width": 732,
+        "height": 1240,
+        "bytes": 22122
+      },
+      {
+        "path": "assets/f/work-create-1440.webp",
+        "width": 732,
+        "height": 1240,
+        "bytes": 22122
+      }
+    ]
+  },
+  "work-candidates": {
+    "source": "newassets/canwork/branchmanagers-candidates.png",
+    "crop": [
+      18,
+      70,
+      744,
+      1302
+    ],
+    "alt": "Manager reviewing candidates for a shift",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      768,
+      1335
+    ],
+    "source_sha256": "91a85fbc6709a476fb0d4d440382b19b01f9f9f219f460ecc19209496ece77ff",
+    "size": [
+      726,
+      1232
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-candidates-480.webp",
+        "width": 480,
+        "height": 815,
+        "bytes": 28322
+      },
+      {
+        "path": "assets/f/work-candidates-960.webp",
+        "width": 726,
+        "height": 1232,
+        "bytes": 44044
+      },
+      {
+        "path": "assets/f/work-candidates-1440.webp",
+        "width": 726,
+        "height": 1232,
+        "bytes": 44044
+      }
+    ]
+  },
+  "work-invited": {
+    "source": "newassets/canwork/branchmanagers-candidates invited.png",
+    "crop": [
+      18,
+      70,
+      750,
+      1310
+    ],
+    "alt": "Manager confirmation that invitations have been sent",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      774,
+      1344
+    ],
+    "source_sha256": "a3c7969550f5f4fc694468179878f2298194c267424586958daf177287e06c8a",
+    "size": [
+      732,
+      1240
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-invited-480.webp",
+        "width": 480,
+        "height": 813,
+        "bytes": 11210
+      },
+      {
+        "path": "assets/f/work-invited-960.webp",
+        "width": 732,
+        "height": 1240,
+        "bytes": 18156
+      },
+      {
+        "path": "assets/f/work-invited-1440.webp",
+        "width": 732,
+        "height": 1240,
+        "bytes": 18156
+      }
+    ]
+  },
+  "work-available": {
+    "source": "newassets/canwork/shiftworker-availability.png",
+    "crop": [
+      18,
+      72,
+      738,
+      1295
+    ],
+    "alt": "Employee selecting availability",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      762,
+      1323
+    ],
+    "source_sha256": "c2556c827f4c20d0138ded7b4c239f64dc673c33f9fd979a7df5cef018e87a8a",
+    "size": [
+      720,
+      1223
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-available-480.webp",
+        "width": 480,
+        "height": 815,
+        "bytes": 18490
+      },
+      {
+        "path": "assets/f/work-available-960.webp",
+        "width": 720,
+        "height": 1223,
+        "bytes": 27436
+      },
+      {
+        "path": "assets/f/work-available-1440.webp",
+        "width": 720,
+        "height": 1223,
+        "bytes": 27436
+      }
+    ]
+  },
+  "work-offer": {
+    "source": "newassets/canwork/shiftworker-shiftdetails.png",
+    "crop": [
+      18,
+      70,
+      744,
+      1300
+    ],
+    "alt": "Employee reviewing an offered shift",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      768,
+      1332
+    ],
+    "source_sha256": "55f0be9ba1d6890578bfea959033ae45a066b35f0e0dcc957d2d48369e828298",
+    "size": [
+      726,
+      1230
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-offer-480.webp",
+        "width": 480,
+        "height": 813,
+        "bytes": 22260
+      },
+      {
+        "path": "assets/f/work-offer-960.webp",
+        "width": 726,
+        "height": 1230,
+        "bytes": 35466
+      },
+      {
+        "path": "assets/f/work-offer-1440.webp",
+        "width": 726,
+        "height": 1230,
+        "bytes": 35466
+      }
+    ]
+  },
+  "work-accepted": {
+    "source": "newassets/canwork/shiftworker-accepted.png",
+    "crop": [
+      18,
+      70,
+      744,
+      1300
+    ],
+    "alt": "Employee confirmation that a shift has been accepted",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      768,
+      1332
+    ],
+    "source_sha256": "5e33fe63cef0ef5906ea447c7c9a59114c68aad435dc82e1af22644b76c5da90",
+    "size": [
+      726,
+      1230
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-accepted-480.webp",
+        "width": 480,
+        "height": 813,
+        "bytes": 9352
+      },
+      {
+        "path": "assets/f/work-accepted-960.webp",
+        "width": 726,
+        "height": 1230,
+        "bytes": 14066
+      },
+      {
+        "path": "assets/f/work-accepted-1440.webp",
+        "width": 726,
+        "height": 1230,
+        "bytes": 14066
+      }
+    ]
+  },
+  "work-declined": {
+    "source": "newassets/canwork/shiftworker-declined.png",
+    "crop": null,
+    "alt": "Shift no longer available state",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      768,
+      1332
+    ],
+    "source_sha256": "2562389bbc967dd3781aacb167d16f54f67d2226048b0f6656d730b551b85c4d",
+    "size": [
+      768,
+      1332
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-declined-480.webp",
+        "width": 480,
+        "height": 833,
+        "bytes": 35198
+      },
+      {
+        "path": "assets/f/work-declined-960.webp",
+        "width": 768,
+        "height": 1332,
+        "bytes": 73662
+      },
+      {
+        "path": "assets/f/work-declined-1440.webp",
+        "width": 768,
+        "height": 1332,
+        "bytes": 73662
+      }
+    ]
+  },
+  "iag-account": {
+    "source": "newassets/iag/my account desktop.png",
+    "crop": null,
+    "alt": "NRMA account dashboard with claims, quotes and policies",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      1392,
+      2116
+    ],
+    "source_sha256": "18980a98b24e73abcd23fa55dd07905e20ed013f8bc8f4ce5a349d1edb8cdd47",
+    "size": [
+      1392,
+      2116
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-account-480.webp",
+        "width": 480,
+        "height": 730,
+        "bytes": 23456
+      },
+      {
+        "path": "assets/f/iag-account-960.webp",
+        "width": 960,
+        "height": 1459,
+        "bytes": 68026
+      },
+      {
+        "path": "assets/f/iag-account-1440.webp",
+        "width": 1392,
+        "height": 2116,
+        "bytes": 113140
+      }
+    ]
+  },
+  "iag-account-crop": {
+    "source": "newassets/iag/my account desktop.png",
+    "crop": [
+      0,
+      0,
+      1392,
+      1320
+    ],
+    "alt": "Account dashboard detail: claims, quotes and policy list",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      1392,
+      2116
+    ],
+    "source_sha256": "18980a98b24e73abcd23fa55dd07905e20ed013f8bc8f4ce5a349d1edb8cdd47",
+    "size": [
+      1392,
+      1320
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-account-crop-480.webp",
+        "width": 480,
+        "height": 455,
+        "bytes": 15048
+      },
+      {
+        "path": "assets/f/iag-account-crop-960.webp",
+        "width": 960,
+        "height": 910,
+        "bytes": 42908
+      },
+      {
+        "path": "assets/f/iag-account-crop-1440.webp",
+        "width": 1392,
+        "height": 1320,
+        "bytes": 71388
+      }
+    ]
+  },
+  "iag-mobile": {
+    "source": "newassets/iag/my account mobile claims.png",
+    "crop": null,
+    "alt": "Responsive account dashboard and active claim",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      358,
+      761
+    ],
+    "source_sha256": "3ac6153216035c4dfbeae3db9bd9f3dc87d275d58d145f43c31a3b5e3d360024",
+    "size": [
+      358,
+      761
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-mobile-480.webp",
+        "width": 358,
+        "height": 761,
+        "bytes": 25878
+      },
+      {
+        "path": "assets/f/iag-mobile-960.webp",
+        "width": 358,
+        "height": 761,
+        "bytes": 25878
+      },
+      {
+        "path": "assets/f/iag-mobile-1440.webp",
+        "width": 358,
+        "height": 761,
+        "bytes": 25878
+      }
+    ]
+  },
+  "iag-renewal": {
+    "source": "newassets/iag/multi-asset-renewal.png",
+    "crop": null,
+    "alt": "Reviewing multiple insured assets during renewal",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      920,
+      944
+    ],
+    "source_sha256": "499acaa29c14e85b00bb1eecf99095769a849a76b50522feb5736d05561d7f3b",
+    "size": [
+      920,
+      944
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-renewal-480.webp",
+        "width": 480,
+        "height": 493,
+        "bytes": 18074
+      },
+      {
+        "path": "assets/f/iag-renewal-960.webp",
+        "width": 920,
+        "height": 944,
+        "bytes": 47990
+      },
+      {
+        "path": "assets/f/iag-renewal-1440.webp",
+        "width": 920,
+        "height": 944,
+        "bytes": 47990
+      }
+    ]
+  },
+  "iag-policy": {
+    "source": "newassets/iag/renew policy.png",
+    "crop": null,
+    "alt": "Full renewal journey and cover adjustments",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      1380,
+      2852
+    ],
+    "source_sha256": "968c1f02956523207b8af36391330cfb9e01da69af80d517b3b671562aad8b6b",
+    "size": [
+      1380,
+      2852
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-policy-480.webp",
+        "width": 480,
+        "height": 992,
+        "bytes": 27198
+      },
+      {
+        "path": "assets/f/iag-policy-960.webp",
+        "width": 960,
+        "height": 1984,
+        "bytes": 80016
+      },
+      {
+        "path": "assets/f/iag-policy-1440.webp",
+        "width": 1380,
+        "height": 2852,
+        "bytes": 137018
+      }
+    ]
+  },
+  "iag-bills": {
+    "source": "newassets/iag/renewal-bills.png",
+    "crop": null,
+    "alt": "Renewal documents and payment guidance",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      1423,
+      1744
+    ],
+    "source_sha256": "f0bf9d1b49b53d491203b819e4a38cd73bc6d90ff934b395be6f8da407ca979a",
+    "size": [
+      1423,
+      1744
+    ],
+    "variants": [
+      {
+        "path": "assets/f/iag-bills-480.webp",
+        "width": 480,
+        "height": 588,
+        "bytes": 35424
+      },
+      {
+        "path": "assets/f/iag-bills-960.webp",
+        "width": 960,
+        "height": 1177,
+        "bytes": 117074
+      },
+      {
+        "path": "assets/f/iag-bills-1440.webp",
+        "width": 1423,
+        "height": 1744,
+        "bytes": 195762
+      }
+    ]
+  },
+  "qantas-before": {
+    "source": "newassets/qantas/multipolicy qantas insurance undesigned.webp",
+    "crop": [
+      835,
+      325,
+      1508,
+      1775
+    ],
+    "alt": "Earlier multi-policy rewards presentation, first variant",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      3024,
+      1964
+    ],
+    "source_sha256": "f141dc77ca17206df64970d6e19271644f5bb42691debce94a2179b81519d16c",
+    "size": [
+      673,
+      1450
+    ],
+    "variants": [
+      {
+        "path": "assets/f/qantas-before-480.webp",
+        "width": 480,
+        "height": 1034,
+        "bytes": 48118
+      },
+      {
+        "path": "assets/f/qantas-before-960.webp",
+        "width": 673,
+        "height": 1450,
+        "bytes": 72216
+      },
+      {
+        "path": "assets/f/qantas-before-1440.webp",
+        "width": 673,
+        "height": 1450,
+        "bytes": 72216
+      }
+    ]
+  },
+  "qantas-after": {
+    "source": "newassets/qantas/multipolicy qantasinsurance designed.webp",
+    "crop": [
+      806,
+      267,
+      1489,
+      1699
+    ],
+    "alt": "Revised multi-policy rewards presentation, first variant",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      3024,
+      1964
+    ],
+    "source_sha256": "538bc20a9a35adcd828705668516e2ddda2ba429acc12020fd5381c5b5f93a90",
+    "size": [
+      683,
+      1432
+    ],
+    "variants": [
+      {
+        "path": "assets/f/qantas-after-480.webp",
+        "width": 480,
+        "height": 1006,
+        "bytes": 42132
+      },
+      {
+        "path": "assets/f/qantas-after-960.webp",
+        "width": 683,
+        "height": 1432,
+        "bytes": 63250
+      },
+      {
+        "path": "assets/f/qantas-after-1440.webp",
+        "width": 683,
+        "height": 1432,
+        "bytes": 63250
+      }
+    ]
+  },
+  "qantas-pair": {
+    "source": "newassets/qantas/multipolicy qantasinsurance designed.webp",
+    "crop": null,
+    "alt": "Two revised multi-policy rewards variants",
+    "provenance": "User-supplied new asset",
+    "original_size": [
+      3024,
+      1964
+    ],
+    "source_sha256": "538bc20a9a35adcd828705668516e2ddda2ba429acc12020fd5381c5b5f93a90",
+    "size": [
+      3024,
+      1964
+    ],
+    "variants": [
+      {
+        "path": "assets/f/qantas-pair-480.webp",
+        "width": 480,
+        "height": 312,
+        "bytes": 9004
+      },
+      {
+        "path": "assets/f/qantas-pair-960.webp",
+        "width": 960,
+        "height": 623,
+        "bytes": 26790
+      },
+      {
+        "path": "assets/f/qantas-pair-1440.webp",
+        "width": 1440,
+        "height": 935,
+        "bytes": 47174
+      }
+    ]
+  },
+  "expense-sketch": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-5.png",
+    "crop": null,
+    "alt": "Original expense-entry structure sketches",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2164,
+      1722
+    ],
+    "source_sha256": "825f46aa4ad1eb669134734677420aadbf21301c3eea0d70e499224e13421e2b",
+    "size": [
+      2164,
+      1722
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-sketch-480.webp",
+        "width": 480,
+        "height": 382,
+        "bytes": 15876
+      },
+      {
+        "path": "assets/f/expense-sketch-960.webp",
+        "width": 960,
+        "height": 764,
+        "bytes": 44420
+      },
+      {
+        "path": "assets/f/expense-sketch-1440.webp",
+        "width": 1440,
+        "height": 1146,
+        "bytes": 77180
+      }
+    ]
+  },
+  "expense-evolution": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-11.png",
+    "crop": null,
+    "alt": "Expense-category design evolution",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2164,
+      798
+    ],
+    "source_sha256": "aad8b837a88d7fbc597417221a9daec1492bd5bbb130d95b677d60047739be5e",
+    "size": [
+      2164,
+      798
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-evolution-480.webp",
+        "width": 480,
+        "height": 177,
+        "bytes": 8822
+      },
+      {
+        "path": "assets/f/expense-evolution-960.webp",
+        "width": 960,
+        "height": 354,
+        "bytes": 23816
+      },
+      {
+        "path": "assets/f/expense-evolution-1440.webp",
+        "width": 1440,
+        "height": 531,
+        "bytes": 40626
+      }
+    ]
+  },
+  "expense-routes": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-14.png",
+    "crop": null,
+    "alt": "Original expense entry and guided calculation designs",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2205,
+      1956
+    ],
+    "source_sha256": "ddc067416a5d94499bdccea8826778658e6a9d4be93cb1f4d1b75d0b7d980fe2",
+    "size": [
+      2205,
+      1956
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-routes-480.webp",
+        "width": 480,
+        "height": 426,
+        "bytes": 23360
+      },
+      {
+        "path": "assets/f/expense-routes-960.webp",
+        "width": 960,
+        "height": 852,
+        "bytes": 60142
+      },
+      {
+        "path": "assets/f/expense-routes-1440.webp",
+        "width": 1440,
+        "height": 1277,
+        "bytes": 99444
+      }
+    ]
+  },
+  "expense-language": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-21.png",
+    "crop": null,
+    "alt": "Housing and property expense wording",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2844,
+      2424
+    ],
+    "source_sha256": "c1953bdd88aabd508368a59f203fe0d864a6c849d7b9ffadfd3e7a9e2e8f7839",
+    "size": [
+      2844,
+      2424
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-language-480.webp",
+        "width": 480,
+        "height": 409,
+        "bytes": 11866
+      },
+      {
+        "path": "assets/f/expense-language-960.webp",
+        "width": 960,
+        "height": 818,
+        "bytes": 31746
+      },
+      {
+        "path": "assets/f/expense-language-1440.webp",
+        "width": 1440,
+        "height": 1227,
+        "bytes": 54182
+      }
+    ]
+  },
+  "expense-gaze": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-84.png",
+    "crop": null,
+    "alt": "Supplied eye-tracking research artefact",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      3576,
+      3696
+    ],
+    "source_sha256": "498de945270973d8a3d3fab654c2cea7472ac07f8b71c6722d99a89bc054a405",
+    "size": [
+      3576,
+      3696
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-gaze-480.webp",
+        "width": 480,
+        "height": 496,
+        "bytes": 12132
+      },
+      {
+        "path": "assets/f/expense-gaze-960.webp",
+        "width": 960,
+        "height": 992,
+        "bytes": 33750
+      },
+      {
+        "path": "assets/f/expense-gaze-1440.webp",
+        "width": 1440,
+        "height": 1488,
+        "bytes": 60514
+      }
+    ]
+  },
+  "booking-research": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/booking-2/testingNotes.png",
+    "crop": null,
+    "alt": "Original appointment-booking testing notes",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      1990,
+      1270
+    ],
+    "source_sha256": "a74dc5fd071b97badcb4fa7af055ac29f86b1f3c1a72c78bf6fed50b984305d3",
+    "size": [
+      1990,
+      1270
+    ],
+    "variants": [
+      {
+        "path": "assets/f/booking-research-480.webp",
+        "width": 480,
+        "height": 306,
+        "bytes": 35454
+      },
+      {
+        "path": "assets/f/booking-research-960.webp",
+        "width": 960,
+        "height": 613,
+        "bytes": 93792
+      },
+      {
+        "path": "assets/f/booking-research-1440.webp",
+        "width": 1440,
+        "height": 919,
+        "bytes": 157936
+      }
+    ]
+  },
+  "work-research": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/work-2/interview-cards.png",
+    "crop": null,
+    "alt": "Original CanWork interview synthesis",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      1620,
+      762
+    ],
+    "source_sha256": "c593922a9db1f15c8ffe79d72c8dd36f68b073f0618be3b1918286099a3e6f65",
+    "size": [
+      1620,
+      762
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-research-480.webp",
+        "width": 480,
+        "height": 226,
+        "bytes": 18742
+      },
+      {
+        "path": "assets/f/work-research-960.webp",
+        "width": 960,
+        "height": 452,
+        "bytes": 59010
+      },
+      {
+        "path": "assets/f/work-research-1440.webp",
+        "width": 1440,
+        "height": 677,
+        "bytes": 105008
+      }
+    ]
+  },
+  "work-states": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/work-2/info-arch.jpg",
+    "crop": null,
+    "alt": "Original CanWork information architecture",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      1900,
+      1740
+    ],
+    "source_sha256": "baf1738e639fbabb4bb428cca25824391eadab4e26bc38574e0b5e03eed352e0",
+    "size": [
+      1900,
+      1740
+    ],
+    "variants": [
+      {
+        "path": "assets/f/work-states-480.webp",
+        "width": 480,
+        "height": 440,
+        "bytes": 18426
+      },
+      {
+        "path": "assets/f/work-states-960.webp",
+        "width": 960,
+        "height": 879,
+        "bytes": 46452
+      },
+      {
+        "path": "assets/f/work-states-1440.webp",
+        "width": 1440,
+        "height": 1319,
+        "bytes": 79782
+      }
+    ]
+  },
+  "qantas-research": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/qantas/Qinterviews.jpg",
+    "crop": null,
+    "alt": "Travel-insurance research board",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      4312,
+      3462
+    ],
+    "source_sha256": "799edf10a6e22d3dd25481b324f4b221d89849458212a94a1c2532d462854f03",
+    "size": [
+      4312,
+      3462
+    ],
+    "variants": [
+      {
+        "path": "assets/f/qantas-research-480.webp",
+        "width": 480,
+        "height": 385,
+        "bytes": 18050
+      },
+      {
+        "path": "assets/f/qantas-research-960.webp",
+        "width": 960,
+        "height": 771,
+        "bytes": 55794
+      },
+      {
+        "path": "assets/f/qantas-research-1440.webp",
+        "width": 1440,
+        "height": 1156,
+        "bytes": 96076
+      }
+    ]
+  },
+  "qantas-proposal": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/qantas/QpostResearch.jpg",
+    "crop": null,
+    "alt": "Post-research travel-insurance journey proposal",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      4312,
+      3546
+    ],
+    "source_sha256": "516e33dffe9a08e25fd6da45da1a86d477470e2aea707f78cca43570745d1f2e",
+    "size": [
+      4312,
+      3546
+    ],
+    "variants": [
+      {
+        "path": "assets/f/qantas-proposal-480.webp",
+        "width": 480,
+        "height": 395,
+        "bytes": 20078
+      },
+      {
+        "path": "assets/f/qantas-proposal-960.webp",
+        "width": 960,
+        "height": 789,
+        "bytes": 63862
+      },
+      {
+        "path": "assets/f/qantas-proposal-1440.webp",
+        "width": 1440,
+        "height": 1184,
+        "bytes": 124252
+      }
+    ]
+  },
+  "expense-entry": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-14.png",
+    "crop": [
+      125,
+      615,
+      689,
+      1780
+    ],
+    "alt": "Expense entry: enter a total or choose guided calculation",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2205,
+      1956
+    ],
+    "source_sha256": "ddc067416a5d94499bdccea8826778658e6a9d4be93cb1f4d1b75d0b7d980fe2",
+    "size": [
+      564,
+      1165
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-entry-480.webp",
+        "width": 480,
+        "height": 991,
+        "bytes": 37374
+      },
+      {
+        "path": "assets/f/expense-entry-960.webp",
+        "width": 564,
+        "height": 1165,
+        "bytes": 43888
+      },
+      {
+        "path": "assets/f/expense-entry-1440.webp",
+        "width": 564,
+        "height": 1165,
+        "bytes": 43888
+      }
+    ]
+  },
+  "expense-detail": {
+    "source": "../da39a3ee5e6b4b0d3255bfef95601890afd80709/img/nab/x-14.png",
+    "crop": [
+      1527,
+      605,
+      2104,
+      1770
+    ],
+    "alt": "Guided insurance and medical expense inputs",
+    "provenance": "Original portfolio archive",
+    "original_size": [
+      2205,
+      1956
+    ],
+    "source_sha256": "ddc067416a5d94499bdccea8826778658e6a9d4be93cb1f4d1b75d0b7d980fe2",
+    "size": [
+      577,
+      1165
+    ],
+    "variants": [
+      {
+        "path": "assets/f/expense-detail-480.webp",
+        "width": 480,
+        "height": 969,
+        "bytes": 32672
+      },
+      {
+        "path": "assets/f/expense-detail-960.webp",
+        "width": 577,
+        "height": 1165,
+        "bytes": 39570
+      },
+      {
+        "path": "assets/f/expense-detail-1440.webp",
+        "width": 577,
+        "height": 1165,
+        "bytes": 39570
+      }
+    ]
+  },
+  "ev-baseline": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 12.5,
+    "crop": [
+      440,
+      96,
+      1752,
+      1408
+    ],
+    "ground": "#77b8d4",
+    "alt": "Listed price chapter: a fixed Tesla Model Y baseline card beside the BYD Sealion 7, each with its trim, price and footnote",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-baseline-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 14128
+      },
+      {
+        "path": "assets/f/ev-baseline-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 36082
+      },
+      {
+        "path": "assets/f/ev-baseline-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 59528
+      }
+    ]
+  },
+  "ev-scene-driving": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 25,
+    "crop": [
+      1320,
+      520,
+      2632,
+      1832
+    ],
+    "ground": "#77b8d4",
+    "alt": "Automated driving scene: Model Y paid FSD (Supervised) option beside Sealion 7, not offered",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-scene-driving-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 14948
+      },
+      {
+        "path": "assets/f/ev-scene-driving-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 39984
+      },
+      {
+        "path": "assets/f/ev-scene-driving-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 88502
+      }
+    ]
+  },
+  "ev-scene-charging": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 6,
+    "crop": [
+      1430,
+      330,
+      2742,
+      1642
+    ],
+    "ground": "#b4e464",
+    "alt": "Charging cost scene: the same 50 kWh at a Supercharger and at home off-peak",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-scene-charging-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 15348
+      },
+      {
+        "path": "assets/f/ev-scene-charging-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 39484
+      },
+      {
+        "path": "assets/f/ev-scene-charging-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 101524
+      }
+    ]
+  },
+  "ev-scene-boot": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 95,
+    "crop": [
+      1440,
+      560,
+      2752,
+      1872
+    ],
+    "ground": "#eccc4c",
+    "alt": "Boot space scene: Model Y 822 L boot beside Jaecoo J5 EV 384 L boot, luggage loaded",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-scene-boot-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 11254
+      },
+      {
+        "path": "assets/f/ev-scene-boot-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 30018
+      },
+      {
+        "path": "assets/f/ev-scene-boot-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 92458
+      }
+    ]
+  },
+  "ev-evidence-energy": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 78,
+    "crop": [
+      1090,
+      520,
+      2402,
+      1832
+    ],
+    "ground": "#16232c",
+    "alt": "Energy use cards marked Conditional, European figure and Not published in Australia, above battery cards marked Not confirmed from an opened source",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-evidence-energy-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 16010
+      },
+      {
+        "path": "assets/f/ev-evidence-energy-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 43536
+      },
+      {
+        "path": "assets/f/ev-evidence-energy-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 72880
+      }
+    ]
+  },
+  "ev-evidence-cargo": {
+    "source": "assets/img/EV/EV screen recording.mov",
+    "time": 105.5,
+    "crop": [
+      440,
+      520,
+      1752,
+      1832
+    ],
+    "ground": "#16232c",
+    "alt": "Maximum folded cargo cards: a conditional figure explains why and names its source",
+    "provenance": "Frame from the user-supplied EV Side by Side screen recording",
+    "original_size": [
+      3832,
+      1920
+    ],
+    "source_sha256": "1fd2812f0ccdbf1e02dd3566e64012b592ada180a7f717e25eed0ea26d603ac1",
+    "size": [
+      1440,
+      1440
+    ],
+    "variants": [
+      {
+        "path": "assets/f/ev-evidence-cargo-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 11578
+      },
+      {
+        "path": "assets/f/ev-evidence-cargo-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 31028
+      },
+      {
+        "path": "assets/f/ev-evidence-cargo-1440.webp",
+        "width": 1440,
+        "height": 1440,
+        "bytes": 50668
+      }
+    ]
+  },
+  "income-workflow": {
+    "alt": "Explanatory film still: manual document review and copying figures between systems.",
+    "source": "income-film.html",
+    "time": 17.3,
+    "kind": "explanatory film still"
+  },
+  "income-evidence": {
+    "alt": "Explanatory film still: monthly income with its calculation and chart; sample values.",
+    "source": "income-film.html",
+    "time": 38.8,
+    "kind": "explanatory film still"
+  },
+  "income-control": {
+    "alt": "Explanatory film still: source payslip beside assessed income, before banker confirmation.",
+    "source": "income-film.html",
+    "time": 43.1,
+    "kind": "explanatory film still"
+  }
+}

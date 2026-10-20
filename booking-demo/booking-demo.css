@@ -1,0 +1,86 @@
+/* CBA booking demo: a rounded tile with drifting site pages, a phone and a pixel hand.
+   Everything except the phone screen is drawn here, sized from the tile width (--s). */
+.cba-demo {
+  --s: 600px;                      /* tile size, set by booking-demo.js */
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 9.2%;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+  cursor: pointer;
+  contain: layout paint;
+  -webkit-tap-highlight-color: transparent;
+}
+.cba-demo:focus-visible { outline: 3px solid #fccb0a; outline-offset: 4px; }
+
+.cba-demo__field, .cba-demo__shade { position: absolute; inset: 0; }
+.cba-demo__card {
+  position: absolute;
+  left: 0; top: 0;
+  display: block;
+  aspect-ratio: 3 / 2;
+  height: auto;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.cba-demo__shade { background: rgba(0, 0, 0, 0.65); }   /* keeps the pages behind the phone */
+
+/* phone: the screen is 1180 x 2556 source px; f = one source px */
+.cba-demo__phone {
+  --w: calc(var(--s) * 0.3693);
+  --f: calc(var(--w) / 1180);
+  position: absolute;
+  left: 50%; top: 50%;
+  width: var(--w);
+  aspect-ratio: 1180 / 2556;
+  transform: translate(-50%, -50%);
+}
+.cba-demo__body, .cba-demo__rim, .cba-demo__bezel {
+  position: absolute;
+  inset: calc(var(--f) * -52);
+  border-radius: calc(var(--f) * 217);
+  background: #b0acaa;
+  box-shadow: 0 calc(var(--f) * 60) calc(var(--f) * 160) rgba(0, 0, 0, 0.65);
+}
+.cba-demo__rim { inset: calc(var(--f) * -47); border-radius: calc(var(--f) * 212); background: #3c3a3a; box-shadow: none; }
+.cba-demo__bezel { inset: calc(var(--f) * -40); border-radius: calc(var(--f) * 205); background: #0a0a0c; box-shadow: none; }
+.cba-demo__btn {
+  position: absolute;
+  width: calc(var(--f) * 8);
+  border-radius: calc(var(--f) * 4);
+  background: #9c9894;
+}
+.cba-demo__screen {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--f) * 165);
+  overflow: hidden;
+  background: #fff;
+}
+.cba-demo__screen video, .cba-demo__screen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* the hand pointer: pixel art, kept crisp */
+.cba-demo__hand {
+  position: absolute;
+  left: 0; top: 0;
+  width: calc(var(--f) * 7.6 * 19);
+  height: auto;
+  transform-origin: 36.8% 4.2%;      /* fingertip: (7, 1) of 19 x 24 */
+  shape-rendering: crispEdges;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 calc(var(--f) * 6) calc(var(--f) * 8) rgba(0, 0, 0, 0.25));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cba-demo__card { will-change: auto; }
+}

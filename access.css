@@ -1,0 +1,6 @@
+/* Keep the portfolio hidden until the invitation link is accepted. */
+html:not([data-access="granted"]) body > :not(.access-message) { display: none !important; }
+html[data-access="granted"] .access-message { display: none; }
+.access-message { max-width: 38rem; margin: 15vh auto; padding: 2rem; }
+.access-message h1 { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; margin: 0 0 1rem; }
+.access-message p { max-width: 32rem; line-height: 1.6; }
