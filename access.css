@@ -23,3 +23,14 @@ html[data-loading="true"] body > :not(.portfolio-loader) { visibility: hidden; }
 .portfolio-loader p { margin: 0; font-size: 15px; line-height: 1.5; text-align: center; }
 @keyframes loader-float { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-6px) rotate(2deg); } }
 @media (prefers-reduced-motion: reduce) { .portfolio-loader__card { animation: none; } }
+
+.portfolio-loader__spinner {
+  width: 24px; height: 24px; flex: none;
+  border: 2px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-top-color: currentColor; border-radius: 50%;
+  animation: loader-spin .85s linear infinite;
+}
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-loader__spinner { animation: none; }
+}
