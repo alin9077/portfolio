@@ -1643,20 +1643,26 @@
   },
   "income-workflow": {
     "alt": "Explanatory film still: manual document review and copying figures between systems.",
-    "source": "income-film.html",
+    "source": "../portfolio - austin/portfolio/studio/income-film.html",
     "time": 17.3,
-    "kind": "explanatory film still"
+    "kind": "explanatory film still",
+    "provenance": "Imported explanatory concept film still; the original film source is retained in the adjacent portfolio studio.",
+    "current_film": "income-film-square.js"
   },
   "income-evidence": {
     "alt": "Explanatory film still: monthly income with its calculation and chart; sample values.",
-    "source": "income-film.html",
+    "source": "../portfolio - austin/portfolio/studio/income-film.html",
     "time": 38.8,
-    "kind": "explanatory film still"
+    "kind": "explanatory film still",
+    "provenance": "Imported explanatory concept film still; the original film source is retained in the adjacent portfolio studio.",
+    "current_film": "income-film-square.js"
   },
   "income-control": {
     "alt": "Explanatory film still: source payslip beside assessed income, before banker confirmation.",
-    "source": "income-film.html",
+    "source": "../portfolio - austin/portfolio/studio/income-film.html",
     "time": 43.1,
-    "kind": "explanatory film still"
+    "kind": "explanatory film still",
+    "provenance": "Imported explanatory concept film still; the original film source is retained in the adjacent portfolio studio.",
+    "current_film": "income-film-square.js"
   }
 }

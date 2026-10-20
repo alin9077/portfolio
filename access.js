@@ -43,7 +43,7 @@
         document.body.appendChild(script);
       });
     }
-    document.title = 'Portfolio 2027 — Austin Lin';
+    document.title = 'Designer Austin Lin';
     root.dataset.access = 'granted';
     // The overview measures visible media after a resize; refresh it after reveal.
     window.dispatchEvent(new Event('resize'));

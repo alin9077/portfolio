@@ -1,10 +1,11 @@
 /* H / Print — native scrolling through persistent brand sections.
-   Paper lighting uses compositor opacity; only the active card receives local light variables. */
+   Decorative motion settles at rest; only visible, active media autoplays. */
 (() => {
   document.documentElement.classList.add('js');
   const ME = window.H_PROFILE, B = window.H_BRANDS, PR = window.H_PROJECTS;
   const G = Object.fromEntries(window.G_PROJECTS.map((p) => [p.id, p]));
   const N = B.length;
+  const CARD_SPIN_ENABLED = false; // Park the prototype without its layers or scroll work.
   const $ = (s) => document.querySelector(s);
   const root = document.documentElement, body = document.body;
   const top = $('#top'), picker = $('#picker'), pageEl = $('#page');
@@ -18,7 +19,6 @@
   const themeControls = () => `<div class="theme-control" role="group" aria-label="Colour mode"><button type="button" data-theme="light" aria-pressed="false">Light</button><button type="button" data-theme="dark" aria-pressed="false">Dark</button></div>`;
   const R = (ms) => (reduce.matches ? Math.min(ms, 140) : ms);
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-  const q = (v, step) => Math.round(v / step) * step;
   const EXPO = 'cubic-bezier(.16,1,.3,1)';
 
   const ICONS = {
@@ -85,11 +85,7 @@
     const d = b.deck.image, base = `public/cards/${d.file}`;
     return `<div class="card__tilt"><div class="card__face is-image">
       <img class="card__image" src="${base}${mini ? '-thumb' : ''}.webp" ${mini ? "" : `srcset="${base}-240.webp 240w, ${base}-600.webp 600w, ${base}.webp ${d.width}w" sizes="(max-width: 760px) min(20.8vw, 117px), min(20.15vw, 292.5px, 36.3svh)"`} width="${d.width}" height="${d.height}" alt="" decoding="async"${lazy ? ' loading="lazy"' : ''} draggable="false">
-      ${mini ? '' : `<div class="card__finish" aria-hidden="true">
-        <div class="card__prism"><i class="card__spectrum"></i></div>
-        <div class="card__sparkles"><i class="card__shimmer"></i></div>
-        <i class="card__reflection"></i>
-      </div>`}
+      ${mini ? '' : '<i class="card__sheen" aria-hidden="true"></i>'}
     </div></div>`;
   }
   function cardHTML(b, i, mini = false, lazy = false) {
@@ -154,6 +150,7 @@
     applyTheme(Math.max(sel, 0));
   }));
   const aboutHTML = `<section class="about" id="about" aria-label="About Austin">
+    ${ME.summary ? `<p class="about__summary">${ME.summary}</p>` : ''}
     <section><h2>My interests</h2><ul>${ME.interests.map(x => `<li>${x}</li>`).join('')}</ul></section>
     <section><h2>Looking for</h2><ul>${ME.lookingFor.map(x => `<li>${x}</li>`).join('')}</ul></section>
     <p class="links hud">${contacts.map(([l, h]) => h ? `<a href="${h}"${h === '#cv' ? ' data-open="cv"' : h.startsWith('mailto:') ? '' : ' target="_blank" rel="noopener noreferrer"'}>${l} ↗</a>` : `<span class="ph" title="CV coming soon">${l}</span>`).join('')}</p>
@@ -168,7 +165,7 @@
   /* ── Rows: a rounded picture or film, then the words ── */
   // a project's own subs (curated, with real shots) win over its G insights (placeholders for now)
   const subsOf = (p) => p.subs || (p.gid && G[p.gid] ? G[p.gid].subs : null);
-  const hasPage = (p) => !p.brief && !!subsOf(p) && subsOf(p).some((s) => s.more);
+  const hasPage = (p) => !p.brief && (!!p.shortStory || (!!subsOf(p) && subsOf(p).some((s) => s.more)));
   function demoHTML(p, id, b) {
     const demo = p.media && p.media.demo;
     if (!demo) return '';
@@ -193,17 +190,23 @@
     return `<img src="${m.image}" data-full="${m.image}" alt="${m.alt}" style="object-fit:${m.fit || 'cover'};object-position:${m.pos || '50% 50%'}" loading="lazy" decoding="async">`;
   }
   function mediaHTML(p, id, linked, b) {
+    if (p.media?.showcase) {
+      const display = showcaseHTML(p.media.showcase, { decorative: true, caption: false });
+      return linked
+        ? `<a class="row__media is-showcase" href="#${b.id}/${id}" data-open="${id}" aria-label="Explore ${p.name}">${display}</a>`
+        : `<div class="row__media is-showcase">${display}</div>`;
+    }
     if (p.media && p.media.embed) return filmHTML(p, linked ? id : null);
     if (p.media && p.media.demo) return demoHTML(p, linked ? id : null, b);
     if (p.media?.comparison) return `<div class="row__media is-artwork is-comparison" data-comparison role="group" aria-label="${p.name}: old and new designs">
-      ${p.media.comparison.map((m, i) => `<button type="button" class="comparison__layer${i === 0 ? ' is-current' : ''}" data-view-artwork aria-label="Enlarge ${m.label.toLowerCase()} designs" ${i ? 'inert aria-hidden="true"' : ''}>${artworkImageHTML({ media: m })}</button>`).join('')}
+      ${p.media.comparison.map((m, i) => `<div class="comparison__layer${i === 0 ? ' is-current' : ''}" ${i ? 'inert aria-hidden="true"' : ''}>${artworkImageHTML({ media: m })}</div>`).join('')}
     </div>`;
     if (p.media && p.media.image) {
       const image = artworkImageHTML(p);
       const ground = `style="background:${p.media.ground || '#e6e6e6'}"`;
       return linked
         ? `<a class="row__media is-artwork" ${ground} href="#${b.id}/${id}" data-open="${id}" aria-label="Explore ${p.name}">${image}</a>`
-        : `<button class="row__media is-artwork row__enlarge" ${ground} type="button" data-view-artwork aria-label="Enlarge: ${p.name}">${image}</button>`;
+        : `<div class="row__media is-artwork" ${ground}>${image}</div>`;
     }
     return linked
       ? `<a class="row__media is-placeholder" href="#${b.id}/${id}" data-open="${id}" aria-label="Explore ${p.name}"></a>`
@@ -216,11 +219,15 @@
       const p = PR[id], linked = hasPage(p);
       const [client, ...context] = p.eyebrow.split(' · ');
       const brand = b.id === 'iag' ? b.name : client;
-      const logoFile = { NAB: 'nab-mark.svg', CommBank: 'commbank-mark.svg', Qantas: 'qantas-mark.svg', IAG: 'iag-mark.png' }[brand];
-      const logo = logoFile ? `<img class="row__logo" src="assets/brands/${logoFile}" width="16" height="16" alt="">` : '';
-      return `<article class="row${p.brief ? ' is-brief' : ''}" id="p-${id}">
-        ${mediaHTML(p, id, linked, b)}
+      const logoFile = { NAB: 'nab-mark.svg', 'NAB AI': 'nab-mark.svg', CommBank: 'commbank-mark.svg', Qantas: 'qantas-mark.svg', IAG: 'iag-mark.png' }[brand];
+      const brandLogos = logoFile ? [{ name: brand, icon: logoFile }, ...(b.partnerBrands || [])] : [];
+      const logo = brandLogos.length > 1
+        ? `<span class="row__brand-logos" role="img" aria-label="${brandLogos.map(item => item.name).join(', ')}" title="${brandLogos.map(item => item.name).join(', ')}">${brandLogos.map((item, index) => `<span class="row__logo-badge" style="z-index:${brandLogos.length - index}"><img class="row__logo" src="assets/brands/${item.icon}" width="16" height="16" alt="" decoding="async"></span>`).join('')}</span>`
+        : logoFile ? `<img class="row__logo" src="assets/brands/${logoFile}" width="16" height="16" alt="">` : '';
+      return `<article class="row${p.brief ? ' is-brief' : ''}${p.compact ? ' is-compact' : ''}" id="p-${id}">
+        ${p.compact ? '' : mediaHTML(p, id, linked, b)}
         <div class="row__text">
+          ${p.brandMark ? `<img class="project-brand-mark project-brand-mark--row" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}
           <p class="row__eyebrow"><span class="row__identity"><span class="row__number">${i + 1}.${k + 1}</span><span class="row__brand">${logo}${brand}</span></span>${context.length ? `<span class="row__context">${context.join(' · ')}</span>` : ''}</p>
           <h3 class="row__title">${p.name}</h3>
           ${p.headline ? `<p class="row__p">${p.headline}</p>` : ''}
@@ -234,26 +241,29 @@
     if (e.isIntersecting) { e.target.classList.add('is-in'); reveal.unobserve(e.target); }
   }), { threshold: 0, rootMargin: '80px 0px' });
 
-  /* Films share the demo lifecycle: only visible, active media plays. */
+  /* Autoplay only the visible, active project; respect manual pause and reduced motion. */
   let level = 1;
   const films = new Map();
-  let focusedProject = null, projectFocusDirty = true, focusCandidate = null, focusTimer = 0;
+  let focusedProject = null, focusFrame = 0, focusCandidate = null, focusTimer = 0;
   const mediaBlocked = () => document.hidden || !$('#viewer').inert;
   let filmReduced = reduce.matches;
   function filmUI(f) {
     const on = !!f.api?.playing;
+    if (f.playingUI === on) return;
+    f.playingUI = on;
     f.toggle.setAttribute('aria-pressed', String(on));
     f.toggle.setAttribute('aria-label', `${on ? 'Pause' : 'Play'} the film`);
   }
   function filmSet(f, on) {
-    if (f.api) on ? f.api.play() : f.api.pause();
+    if (f.api && f.api.playing !== on) on ? f.api.play() : f.api.pause();
     filmUI(f);
   }
   function syncFilm(f) {
     if (!f.ready) return;
     if (f.reduced !== reduce.matches) { f.reduced = reduce.matches; f.api.setReduced?.(f.reduced); }
-    const on = f.visible && !mediaBlocked() && !f.userPaused &&
-      (!reduce.matches || f.manualPlay) && (f.inPage ? level === 3 : level === 1 && f.row === focusedProject);
+    const on = f.visible && !mediaBlocked() && !f.userPaused && (!reduce.matches || f.manualPlay) &&
+      (f.inPage ? level === 3 : level === 1 && f.row === focusedProject);
+    if (on && !f.started) { f.api.set(0); f.started = true; }
     if (f.api.playing !== on) filmSet(f, on);
   }
   function syncFilms() {
@@ -263,6 +273,7 @@
   function loadFilm(f) {
     if (f.ready) return;
     f.api = (f.source === 'menu-film-square.html' ? window.MenuFilm : window.IncomeFilm).mount(f.host);
+    // Show a useful still for readers who prefer reduced motion.
     if (reduce.matches) f.api.set(f.source === 'menu-film-square.html' ? 51.5 : 43.1);
     f.ready = true;
   }
@@ -320,17 +331,33 @@
     section.querySelectorAll('.row').forEach(r => reveal.observe(r));
     return section;
   });
+  window.RoadmarkLogo?.mount(pageEl);
   const heroSlots = sections.map(s => s.querySelector('.stage__card'));
   const heroCards = heroSlots.map(s => s.querySelector('.card'));
-  // the parts of each hero that move; all of them by transform, so the card is never repainted while it sways
-  const parts = heroCards.map((c) => ({
-    tilt: c.querySelector('.card__tilt'), back: c.querySelector('.k-back'), mid: c.querySelector('.k-mid'), front: c.querySelector('.k-front'),
-    spec: [...c.querySelectorAll('.k-spec, .card__rainbow, .card__spectrum')],
-    spot: c.querySelector('.k-spot, .card__shimmer'), glare: c.querySelector('.card__glare, .card__reflection')
-  }));
+  // Cache the moving parts; the supplied card uses one small, unmasked sheen.
+  const parts = heroCards.map((c) => {
+    const tilt = c.querySelector('.card__tilt'), face = c.querySelector('.card__face');
+    // The reel rotates independently of the existing pointer tilt and foil lighting.
+    let rotor = null;
+    if (CARD_SPIN_ENABLED) {
+      rotor = document.createElement('div');
+      rotor.className = 'card__rotor';
+      tilt.append(rotor); rotor.append(face);
+      rotor.insertAdjacentHTML('beforeend', `<div class="card__reverse" aria-hidden="true">
+        <span class="card__reverse-mark">✦</span><span class="card__reverse-label">Card back<br>Placeholder</span>
+      </div>`);
+    }
+    return {
+      tilt, rotor, back: c.querySelector('.k-back'), mid: c.querySelector('.k-mid'), front: c.querySelector('.k-front'),
+      spec: [...c.querySelectorAll('.k-spec, .card__rainbow, .card__spectrum')],
+      spot: c.querySelector('.k-spot, .card__shimmer'), glare: c.querySelector('.card__glare, .card__sheen'),
+      spin: { active: false, animation: null }
+    };
+  });
   demos('init', pageEl);
   demos('setActive', pageEl, false);
   mountFilms(pageEl);
+  window.ShowcaseComparison?.mount(pageEl);
 
   pageEl.querySelectorAll('[data-demo-toggle]').forEach(toggle => {
     const demo = toggle.parentElement.querySelector('.cba-demo, .ev-demo');
@@ -354,10 +381,12 @@
     heroBox = { x: r.left, y: r.top, w: r.width, h: r.height };
   }
   function measure() {
+    // Read all dimensions before writing, avoiding a layout flush for every card.
+    const sizes = heroSlots.map((slot, i) => ({ w: slot.offsetWidth, h: slot.offsetHeight, thumb: slots[i].offsetHeight }));
     cards.forEach((c, i) => {
-      const w = heroSlots[i].offsetWidth, h = heroSlots[i].offsetHeight;
+      const { w, h, thumb } = sizes[i];
       c.style.width = w + 'px'; c.style.height = h + 'px';
-      c.style.transform = `scale(${(slots[i].offsetHeight / h).toFixed(4)})`;
+      c.style.transform = `scale(${(thumb / Math.max(h, 1)).toFixed(4)})`;
     });
     sectionTops = sections.map(s => s.offsetTop);
     syncHeroBox();
@@ -424,55 +453,117 @@
     let i = 0;
     while (i + 1 < N && sectionTops[i + 1] <= line) i++;
     selectBrand(i); syncHeroBox();
-  }
-
-  /* ── Light: follows the pointer, drifts when left alone ── */
-  const light = { x: innerWidth * .25, y: innerHeight * .15, tx: innerWidth * .25, ty: innerHeight * .15 };
-  const paperX = $('.paper__x'), paperXn = $('.paper__xn'), paperY = $('.paper__y'), paperYn = $('.paper__yn');
-  let lastInput = -1e9;
-  function updateLight(now, dt) {
-    const cx = heroBox.x + heroBox.w / 2, cy = heroBox.y + heroBox.h / 2;
-    const idle = now - lastInput > 3500 || reduce.matches;
-    if (idle) {
-      const t = reduce.matches ? 0 : now / 1000;
-      light.tx = cx + Math.cos(t * .21 + 2.4) * innerWidth * .32;
-      light.ty = cy + Math.sin(t * .29 + 3.6) * innerHeight * .4 - innerHeight * .1;
-    }
-    const k = Math.min(1, dt * (idle ? 1.2 : 8));
-    light.x += (light.tx - light.x) * k; light.y += (light.ty - light.y) * k;
-    let lx = (light.x - cx) / (innerWidth * .45), ly = (light.y - cy) / (innerHeight * .5);
-    const len = Math.hypot(lx, ly);
-    if (len > 1) { lx /= len; ly /= len; }
-    if (len < .35) { const f = .35 / Math.max(len, .001); lx *= f; ly *= f; }
-    put(paperX, 'opacity', q(Math.max(0, lx) * .15, .02).toFixed(2));
-    put(paperXn, 'opacity', q(.03 + Math.max(0, -lx) * .15, .02).toFixed(2));
-    put(paperY, 'opacity', q(Math.max(0, ly) * .15, .02).toFixed(2));
-    put(paperYn, 'opacity', q(.03 + Math.max(0, -ly) * .15, .02).toFixed(2));
-    return { lx, ly };
+    wakeMotion();
+    if (CARD_SPIN_ENABLED) playPendingSpin();
   }
 
   /* ── Project page: the row's picture grows into the page ── */
+  function comparisonShowcaseHTML(showcase, caption) {
+    const copy = showcase.transition;
+    const imageHTML = item => {
+      const preview = window.H_SHOWCASE_ASSETS?.[item.image];
+      return `<img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="(max-width: 760px) calc(33vw - 15px), (max-width: 1000px) 215px, (min-width: 1500px) 231px, 16vw" width="${preview.width}" height="${preview.height}"` : ''} alt="${item.alt}" loading="lazy" decoding="async">`;
+    };
+    return `<figure class="story-showcase story-showcase--browser story-showcase--comparison rewards-comparison" data-showcase-comparison data-phase="before" aria-label="Original and redesigned multi-policy rewards">
+      <div class="story-showcase__stage">
+        <div class="story-showcase__browser" aria-hidden="true"><span class="story-showcase__browser-controls"><i></i><i></i><i></i></span><span class="story-showcase__browser-title">${showcase.browserTitle}</span></div>
+        <div class="story-showcase__heading story-showcase__heading--branded"><span><img class="story-showcase__brand-logo" src="${showcase.brandLogo}" width="32" height="32" alt="">${showcase.brand}</span><h4><span data-comparison-copy="before">${copy.beforeTitle}</span><span data-comparison-copy="after" hidden>${copy.afterTitle}</span></h4></div>
+        <p class="rewards-comparison__note"><span data-comparison-copy="before">${copy.beforeNote}</span><span data-comparison-copy="after" hidden>${copy.afterNote}</span></p>
+        <div class="rewards-comparison__cards">
+          ${[1, 2].map(pair => `<div class="rewards-comparison__card rewards-comparison__card--${pair}"><div class="rewards-comparison__rotor">${['before', 'after'].map(phase => {
+            const item = showcase.images.find(image => image.phase === phase && image.pair === pair);
+            return `<div class="rewards-comparison__face rewards-comparison__face--${phase}" data-comparison-face="${phase}" aria-hidden="${phase !== 'before'}">${imageHTML(item)}</div>`;
+          }).join('')}</div></div>`).join('')}
+        </div>
+        <div class="rewards-comparison__controls">
+          <div class="rewards-comparison__switch" role="group" aria-label="Choose a rewards design"><button type="button" data-comparison-phase="before" aria-pressed="true">Original</button><button type="button" data-comparison-phase="after" aria-pressed="false">Redesign</button></div>
+          <button type="button" class="rewards-comparison__pause" data-comparison-pause aria-label="Pause comparison animation"><i aria-hidden="true"></i><span>Pause</span></button>
+        </div>
+      </div>
+      ${caption ? `<figcaption>${showcase.caption}</figcaption>` : ''}
+    </figure>`;
+  }
+  function showcaseHTML(showcase, { decorative = false, caption = true, illustrative = false } = {}) {
+    if (showcase.transition) return comparisonShowcaseHTML(showcase, caption);
+    const phones = showcase.images.every(item => item.position === 'phone');
+    return `<figure class="story-showcase story-showcase--${showcase.theme}${showcase.layout === 'separated-boards' ? ' story-showcase--separated-boards' : ''}${showcase.browserTitle ? ' story-showcase--browser' : ''}${phones ? ` story-showcase--phones story-showcase--phones-${showcase.images.length}` : ''}${phones && showcase.images.length === 1 ? ' story-showcase--single-phone' : ''}">
+      <div class="story-showcase__stage">
+        ${showcase.browserTitle ? `<div class="story-showcase__browser" aria-hidden="true"><span class="story-showcase__browser-controls"><i></i><i></i><i></i></span><span class="story-showcase__browser-title">${showcase.browserTitle}</span></div>` : ''}
+        <div class="story-showcase__heading${showcase.brandLogo ? ' story-showcase__heading--branded' : ''}"><span>${showcase.brandLogo ? `<img class="story-showcase__brand-logo" src="${showcase.brandLogo}" width="32" height="32" alt="">` : ''}${showcase.brand || 'ROADMARK EV'}${showcase.number ? ` / ${showcase.number}` : ''}</span><h4>${showcase.title}</h4></div>
+        ${showcase.images.map((item, index) => {
+          const preview = window.H_SHOWCASE_ASSETS?.[item.image];
+          const fraction = showcase.layout === 'separated-boards' ? (item.position === 'detail' ? .57 : .84) : showcase.theme === 'cards' ? .35 : showcase.theme === 'workspace' ? (item.position === 'phone' ? .25 : .72) : item.position === 'phone' ? (phones ? (showcase.images.length === 1 ? .44 : showcase.images.length === 3 ? (showcase.theme === 'flow' ? .25 : .31) : .39) : .27) : ({ main: .93, detail: .67, index: .88, left: .68, right: .64 }[item.position] || 1);
+          const sizes = `(max-width: 760px) calc(${(fraction * 100).toFixed(2)}vw - ${(fraction * 44).toFixed(2)}px), (max-width: 1000px) ${Math.round(650 * fraction)}px, (min-width: 1500px) ${Math.round(700 * fraction)}px, ${(fraction * 48).toFixed(2)}vw`;
+          const mobileHeader = item.position === 'phone' && showcase.mobileHeader;
+          return `<span ${decorative ? 'aria-hidden="true"' : `id="${item.id}"`} class="case-media__image story-showcase__screen story-showcase__screen--${item.position} story-showcase__screen--slot-${index + 1}${mobileHeader ? ' story-showcase__screen--mobile-header' : ''}${item.contentInset ? ' story-showcase__screen--spaced-content' : ''}${item.squareTop ? ' story-showcase__screen--flat-content' : ''}${item.scrollContent ? ' story-showcase__screen--scroll-content' : ''}${item.frame === 'board' ? ' story-showcase__screen--board' : ''}${item.frame === 'device' ? ' story-showcase__screen--device' : ''}${item.frame === 'handset' ? ' story-showcase__screen--handset' : ''}">
+          ${item.frame === 'board' || item.frame === 'device' ? '' : `<span class="story-showcase__chrome" aria-hidden="true"><i></i><i></i><i></i><span>${item.label}</span></span>`}
+          ${mobileHeader ? `<span class="story-showcase__mobile-header" aria-hidden="true"><span class="story-showcase__mobile-status"><b>9:41</b><svg viewBox="0 0 38 12"><path d="M1 10V8h2v2zm4 0V6h2v4zm4 0V4h2v6zm4 0V2h2v8z"/><path d="M19 4q4-4 8 0m-6 2q2-2 4 0" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="23" cy="8" r="1"/><rect x="30" y="3" width="6" height="6" rx="1" fill="none" stroke="currentColor"/><path d="M31 4h4v4h-4zm6 1h1v2h-1z"/></svg></span><span class="story-showcase__mobile-toolbar"><span>aA</span><span class="story-showcase__mobile-address"><i style="background-image:url(${showcase.brandLogo || 'assets/brands/nab-mark.svg'})"></i>${showcase.mobileHeader}<svg viewBox="0 0 12 12"><path d="M9 4a4 4 0 1 0 .7 4M9 1v3H6"/></svg></span><span>⋯</span></span></span>` : ''}
+          ${mobileHeader ? '<span class="story-showcase__mobile-content">' : ''}
+          <img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="${sizes}" width="${preview.width}" height="${preview.height}"` : ''} alt="${item.alt}${!decorative && illustrative ? ' — illustrative only.' : ''}" loading="lazy" decoding="async">
+          ${mobileHeader ? '</span>' : ''}
+          ${!decorative && illustrative ? '<span class="illustrative-label story-showcase__illustrative" aria-hidden="true">"ILLUSTRATIVE ONLY"</span>' : ''}
+        </span>
+        ${showcase.theme === 'flow' ? `<span class="story-showcase__step story-showcase__step--${index + 1}" aria-hidden="true"><b>0${index + 1}</b>${item.step || item.label}</span>` : ''}`;
+        }).join('')}
+      </div>
+      ${caption ? `<figcaption>${showcase.caption}</figcaption>` : ''}
+    </figure>`;
+  }
+
   function caseMediaHTML(s) {
     const figures = s.media.map((item) => `<figure class="case-media__item">
-      <button class="case-media__image${item.frame ? ` case-media__image--${item.frame}` : ''}" type="button" aria-label="Enlarge: ${item.label || item.alt}">
+      <div class="case-media__image${item.frame ? ` case-media__image--${item.frame}` : ''}">
         <img src="${item.image || src(item.key, 'm')}" ${item.image ? '' : `srcset="${src(item.key, 's')} 480w, ${src(item.key, 'm')} 960w, ${src(item.key, 'l')} 1440w"`} sizes="(max-width: 760px) 85vw, 40vw" ${item.key ? `data-media-key="${item.key}"` : ''} data-full="${item.image || src(item.key, 'l')}" alt="${item.alt || alt(item.key)}" loading="lazy" decoding="async">
-      </button>
+      </div>
       ${item.label ? `<figcaption>${item.label}</figcaption>` : ''}
     </figure>`).join('');
     return `<div class="sc__media case-media case-media--${s.mediaLayout}"><div class="case-media__figures">${figures}</div></div>`;
   }
   function pageHTML(p) {
-    const shot = (item) => { const k = typeof item === 'string' ? item : item.key; return `<figure class="${item.caption ? 'is-captioned' : ''}"><img src="${src(k, 'm')}" srcset="${src(k, 's')} 480w, ${src(k, 'm')} 960w, ${src(k, 'l')} 1440w" sizes="${item.caption ? '(max-width: 760px) 90vw, 55vw' : '300px'}" data-media-key="${k}" data-full="${src(k, 'l')}" alt="${item.alt || alt(k)}" width="1440" height="1440" loading="lazy" decoding="async">${item.caption ? `<figcaption>${item.caption}</figcaption>` : ''}</figure>`; };
+    if (p.shortStory) {
+      const s = p.shortStory;
+      return `<header class="ev-story__intro">
+        <img class="project-brand-mark project-brand-mark--case" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}">
+        <p class="sc__eyebrow">${p.eyebrow}</p>
+        <h2 class="sc__title">${p.headline}</h2>
+        <p class="sc__lede">${p.text}</p>
+      </header>
+      <ul class="ev-story__moments" aria-label="The buying problem and design response">
+        ${s.moments.map(m => `<li><h3>${m.label}</h3><p>${m.text}</p></li>`).join('')}
+      </ul>
+      <figure class="ev-story__proof">
+        <div class="case-media__image">
+          <img src="${s.proof}" data-full="${s.proof}" alt="${s.proofAlt}" decoding="async">
+        </div>
+        <figcaption>${s.caption}</figcaption>
+      </figure>
+      <details class="ev-story__details">
+        <summary>How it works + limits</summary>
+        <ul>${s.details.map(t => `<li>${t}</li>`).join('')}</ul>
+      </details>`;
+    }
+    const shot = (item) => {
+      const m = typeof item === 'string' ? { key: item } : item, k = m.key;
+      const image = m.image || src(k, 'm'), full = m.image || src(k, 'l');
+      const responsive = m.image ? '' : k.startsWith('f:')
+        ? ` srcset="${src(k, 's')} 480w, ${src(k, 'm')} 960w, ${src(k, 'l')} 1440w"`
+        : ` srcset="${src(k, 'm')} 720w, ${src(k, 'l')} 1600w"`;
+      return `<figure class="${m.caption ? 'is-captioned' : ''}"><img src="${image}"${responsive} sizes="${m.caption ? '(max-width: 760px) 90vw, 55vw' : '300px'}"${k ? ` data-media-key="${k}"` : ''} data-full="${full}" alt="${m.alt || (k ? alt(k) : '')}" loading="lazy" decoding="async">${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}</figure>`;
+    };
     const secs = subsOf(p).filter((s) => s.more).map((s) => {
       const media = s.mediaLayout ? caseMediaHTML(s) : s.media ? `<div class="sc__media">${s.media.map((k) => p.subs ? shot(k) : '<figure class="is-placeholder" aria-hidden="true"></figure>').join('')}</div>` : '';
-      return `<li class="sc__sec${s.mediaLayout ? ' sc__sec--composed' : ''}"><span class="sc__lab">${s.label}</span><div><h3 class="sc__h">${s.title}</h3>${s.more.map((t) => `<p class="sc__p">${t}</p>`).join('')}${s.mediaLayout ? '' : media}</div>${s.mediaLayout ? media : ''}</li>`;
+      const pictogram = s.pictogram ? `<img class="sc__pictogram" src="assets/menu-story/${s.pictogram}-192.webp" srcset="assets/menu-story/${s.pictogram}-192.webp 192w, assets/menu-story/${s.pictogram}-384.webp 384w" sizes="(max-width: 760px) 72px, 88px" width="88" height="88" alt="" loading="lazy" decoding="async">` : '';
+      const bullets = s.bullets ? `<ul class="sc__p sc__bullets">${s.bullets.map((t) => `<li>${t}</li>`).join('')}</ul>` : '';
+      return `<li class="sc__sec${s.mediaLayout ? ' sc__sec--composed' : ''}${s.showcase ? ' sc__sec--showcase' : ''}"><span class="sc__lab${s.pictogram ? ' sc__lab--illustrated' : ''}">${pictogram}${s.label}</span><div class="sc__body"><h3 class="sc__h">${s.title}</h3>${s.more.map((t) => `<p class="sc__p">${t}</p>`).join('')}${bullets}${s.mediaLayout ? '' : media}</div>${s.showcase ? showcaseHTML(s.showcase, { illustrative: p.illustrativeImages === true }) : ''}${s.mediaLayout ? media : ''}</li>`;
     }).join('');
-    return `<p class="sc__eyebrow">${p.eyebrow}</p><h2 class="sc__title">${p.headline || p.name}</h2><p class="sc__lede">${p.text}</p><ol class="sc__sections">${secs}</ol>`;
+    const intro = `${p.brandMark ? `<img class="project-brand-mark project-brand-mark--case" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}<p class="sc__eyebrow">${p.eyebrow}</p><h2 class="sc__title">${p.headline || p.name}</h2><p class="sc__lede">${p.text}</p>`;
+    return `${p.visualStory ? `<header class="visual-story__intro">${intro}</header>` : intro}<ol class="sc__sections">${secs}</ol>`;
   }
   function subHeroHTML(p) {
+    if (p.media?.showcase) return `<div class="row__media is-showcase">${showcaseHTML(p.media.showcase, { caption: false, illustrative: p.illustrativeImages === true })}</div>`;
     if (p.media && p.media.embed) return filmHTML(p);
     if (p.media && p.media.demo) return demoHTML(p);
-    if (p.media && p.media.image) return `<button class="row__media is-artwork case-media__image" style="background:${p.media.ground || '#e6e6e6'}" type="button" aria-label="Enlarge: ${p.name}">${artworkImageHTML(p)}</button>`;
+    if (p.media && p.media.image) return `<div class="row__media is-artwork case-media__image" style="background:${p.media.ground || '#e6e6e6'}">${artworkImageHTML(p)}</div>`;
     return '<div class="row__media is-placeholder" aria-hidden="true"></div>';
   }
 
@@ -524,7 +615,7 @@
         ${job.team ? `<p class="cv-team">${job.team}</p>` : ''}<p class="cv-date">${job.dates}${tenure}</p>
         ${job.points ? `<ul class="cv-points" role="list">${job.points.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}</li>`;
     }).join('');
-    return `<header class="cv-header"><p class="sc__eyebrow">Curriculum vitae</p><h2 class="sc__title" id="cv-title">Austin Lin</h2><p class="sc__lede">${cv.title}</p></header>
+    return `<header class="cv-header"><p class="sc__eyebrow">Curriculum vitae</p><h2 class="sc__title" id="cv-title">Austin Lin</h2><p class="sc__lede">${cv.title}</p>${cv.summary ? `<p class="cv-summary">${cv.summary}</p>` : ''}</header>
       <section class="cv-experience"><h3>Experience</h3><ol>${experience}</ol></section>`;
   }
 
@@ -550,6 +641,8 @@
     subEl.classList.remove('is-returned');
     subEl.classList.toggle('is-entering', !!shouldTravel);
     subEl.classList.toggle('is-cv', isCV);
+    subEl.classList.toggle('is-ev-story', !!p.shortStory);
+    subEl.classList.toggle('is-visual-story', !!p.visualStory);
     if (isCV) { subEl.setAttribute('role', 'dialog'); subEl.setAttribute('aria-modal', 'true'); subEl.setAttribute('aria-labelledby', 'cv-title'); top.inert = true; }
     level = 3; body.dataset.level = '3'; subEl.setAttribute('aria-hidden', 'false');
     body.style.position = 'fixed'; body.style.top = -overviewY + 'px'; body.style.width = '100%';
@@ -557,6 +650,7 @@
     $('#page').inert = true; picker.inert = true; $('#themeFooter').inert = true;
     films.forEach((f) => { if (f.ready) filmSet(f, false); });
     demos('setActive', pageEl, false);
+    window.ShowcaseComparison?.setActive(pageEl, false);
     demos('destroy', subHero);
     destroyFilms(subHero);
     subHero.innerHTML = isCV ? cvSidebarHTML() : subHeroHTML(p);
@@ -576,6 +670,9 @@
     demos('init', subHero);
     mountFilms(subHero, true);
     subCopy.innerHTML = isCV ? cvHTML() : pageHTML(p);
+    window.ShowcaseComparison?.mount(subEl);
+    window.ShowcaseComparison?.setActive(subEl, !mediaBlocked());
+    window.RoadmarkLogo?.mount(subCopy);
     subEl.scrollTop = 0;
     const current = open = { id, pushed: push, overviewY, returnFocus, source, mediaHome };
     const b = B[sel];
@@ -606,6 +703,7 @@
     } else {
       subHero.firstElementChild.animate([{ opacity: 0, transform: 'scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: R(800), easing: EXPO });
     }
+    if (open === current && !current.closing && p.visualStory) window.ProjectStickyMedia?.mount({ root: subEl, hero: subHero, title: p.demoLabel || p.brandMark?.alt || (p.media?.demo === 'booking' ? 'Appointment booking' : 'Project demo') });
     if (open === current && !current.closing && (keyboard || isCV)) back.focus({ preventScroll: true });
   }
   function closePage() {
@@ -617,6 +715,8 @@
     return current.closePromise;
   }
   async function returnToOverview(current) {
+    window.ProjectStickyMedia?.destroy();
+    window.ShowcaseComparison?.destroy(subEl);
     const { id, overviewY, returnFocus, source, mediaHome, motion } = current;
     // Capture the rendered frame before cancelling an unfinished entrance.
     const start = source?.getBoundingClientRect();
@@ -659,7 +759,7 @@
     $('#page').inert = false; picker.inert = false; $('#themeFooter').inert = false;
     subEl.setAttribute('aria-hidden', 'true');
     demos('setActive', subHero, false);
-    projectFocusDirty = true;
+    scheduleProjectFocus();
     history.replaceState(null, '', `#${B[sel].id}`);
     destroyFilms(subHero);
     syncProjectMedia();
@@ -689,7 +789,7 @@
   const viewer = (() => {
     const v = $('#viewer'), frame = v.querySelector('.viewer__frame'), img = frame.querySelector('img'), pct = v.querySelector('.viewer__pct');
     let s = 1, tx = 0, ty = 0, thumb = null, isOpen = false, bw = 0, bh = 0, pinch = null, panFrom = null, moved = false, downOn = null;
-    let closing = false, returnFocus = null, backgroundStates = [], savedOverflow = '';
+    let closing = false, returnFocus = null, backgroundStates = [], savedOverflow = '', zoomFromThumb = true;
     const pts = new Map();
     function apply(smooth) {
       img.style.transition = smooth && !reduce.matches ? 'transform .5s cubic-bezier(.16,1,.3,1)' : 'none';
@@ -717,22 +817,24 @@
       const a = el.getBoundingClientRect(), b = frame.getBoundingClientRect();
       return `translate(${a.left + a.width / 2 - (b.left + b.width / 2)}px, ${a.top + a.height / 2 - (b.top + b.height / 2)}px) scale(${a.width / b.width}, ${a.height / b.height})`;
     }
-    async function openV(el) {
+    async function openV(el, trigger) {
       if (isOpen || closing) return;
       isOpen = true; thumb = el;
-      returnFocus = el.closest('button, a') || document.activeElement;
+      returnFocus = trigger || el.closest('button, a') || document.activeElement;
+      zoomFromThumb = !trigger;
       savedOverflow = body.style.overflow;
       backgroundStates = [...body.children].filter(node => node !== v && !node.matches('script, style, link')).map(node => [node, node.inert]);
       backgroundStates.forEach(([node]) => { node.inert = true; });
       body.style.overflow = 'hidden';
+      v.dataset.illustrative = String(el.dataset.illustrative === 'true');
       img.src = el.dataset.full || el.currentSrc || el.src; img.alt = el.alt || '';
       try { await img.decode(); } catch (e) { /* show anyway */ }
       if (!isOpen) return;
       s = 1; tx = ty = 0; apply(false); fit();
       v.inert = false;
       v.classList.add('is-open'); v.setAttribute('aria-hidden', 'false');
-      thumb.style.visibility = 'hidden';
-      frame.animate([{ transform: flipFrom(thumb) }, { transform: 'none' }], { duration: R(700), easing: 'cubic-bezier(.7,0,.15,1)' });
+      if (zoomFromThumb) thumb.style.visibility = 'hidden';
+      frame.animate(zoomFromThumb ? [{ transform: flipFrom(thumb) }, { transform: 'none' }] : [{ opacity: 0, transform: 'scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: R(zoomFromThumb ? 700 : 220), easing: 'cubic-bezier(.7,0,.15,1)' });
       v.querySelector('.viewer__close').focus({ preventScroll: true });
     }
     async function closeV() {
@@ -741,10 +843,11 @@
       if (s > 1.01) { s = 1; tx = ty = 0; apply(true); }
       v.classList.remove('is-open'); v.setAttribute('aria-hidden', 'true');
       const t = thumb;
-      const a = frame.animate([{ transform: 'none' }, { transform: flipFrom(t) }], { duration: R(560), easing: 'cubic-bezier(.7,0,.15,1)', fill: 'forwards' });
+      const a = frame.animate(zoomFromThumb ? [{ transform: 'none' }, { transform: flipFrom(t) }] : [{ opacity: 1 }, { opacity: 0 }], { duration: R(zoomFromThumb ? 560 : 200), easing: 'cubic-bezier(.7,0,.15,1)', fill: 'forwards' });
       await a.finished.catch(() => {});
       t.style.visibility = ''; a.cancel(); img.removeAttribute('src');
       v.inert = true;
+      delete v.dataset.illustrative;
       backgroundStates.forEach(([node, inert]) => { node.inert = inert; });
       body.style.overflow = savedOverflow;
       closing = false;
@@ -792,15 +895,6 @@
     addEventListener('resize', () => { if (isOpen) { fit(); bound(); apply(false); } });
     return { open: openV, close: closeV, get isOpen() { return isOpen || closing; } };
   })();
-  subEl.addEventListener('click', (e) => {
-    const imageButton = e.target.closest('.case-media__image');
-    const im = imageButton ? imageButton.querySelector('img') : e.target.closest('.sc__media img, .sub__hero .row__media > img');
-    if (im) viewer.open(im);
-  });
-  pageEl.addEventListener('click', (e) => {
-    const button = e.target.closest('[data-view-artwork]');
-    if (button) viewer.open(button.querySelector('img'));
-  });
 
   /* Automatic two-second comparison crossfade with no off-screen timer. */
   const comparisons = [...pageEl.querySelectorAll('[data-comparison]')].map(el => {
@@ -837,15 +931,31 @@
   reduce.addEventListener('change', () => { comparisons.forEach(state => { state.paused = reduce.matches; }); syncComparisons(); });
 
   /* One project owns motion. A spatial buffer and short dwell prevent boundary jitter. */
-  const projectRows = [...pageEl.querySelectorAll('.row')];
+  const projectRows = [...pageEl.querySelectorAll('.row')].filter(row => row.querySelector('.row__media'));
+  const projectMediaOwners = new WeakMap(projectRows.map(row => [row.querySelector('.row__media'), row]));
+  const visibleProjectRows = new Set();
+  const projectIO = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      // A live player can temporarily move from its row into a detail page.
+      const row = projectMediaOwners.get(entry.target);
+      if (entry.isIntersecting) visibleProjectRows.add(row); else visibleProjectRows.delete(row);
+    });
+    scheduleProjectFocus();
+  });
+  projectRows.forEach(row => projectIO.observe(row.querySelector('.row__media')));
+  function scheduleProjectFocus() {
+    if (!focusFrame) focusFrame = requestAnimationFrame(updateProjectFocus);
+  }
   function syncProjectMedia() {
     // Stop every outgoing player before allowing the incoming player to start.
     projectRows.forEach(row => {
       if (row !== focusedProject || level !== 1 || mediaBlocked()) demos('setActive', row, false);
+      window.ShowcaseComparison?.setActive(row, row === focusedProject && level === 1 && !mediaBlocked());
     });
     films.forEach(f => { if (!f.inPage && f.row !== focusedProject) filmSet(f, false); });
     if (focusedProject && level === 1 && !mediaBlocked()) demos('setActive', focusedProject, true);
-    demos('setActive', subHero, level === 3 && !mediaBlocked());
+    demos('setActive', subEl, level === 3 && !mediaBlocked());
+    window.ShowcaseComparison?.setActive(subEl, level === 3 && !mediaBlocked());
     syncFilms();
     syncComparisons();
   }
@@ -856,10 +966,10 @@
     syncProjectMedia();
   }
   function updateProjectFocus() {
-    projectFocusDirty = false;
+    focusFrame = 0;
     if (level !== 1 || mediaBlocked()) return;
     const center = innerHeight * .5;
-    const candidates = projectRows.map(row => {
+    const candidates = [...visibleProjectRows].map(row => {
       const r = row.querySelector('.row__media').getBoundingClientRect();
       const visible = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
       return { row, distance: Math.abs(r.top + r.height / 2 - center), visible: visible / Math.min(r.height, innerHeight) };
@@ -875,23 +985,23 @@
       clearTimeout(focusTimer); focusCandidate = next.row;
       focusTimer = setTimeout(() => {
         setProjectFocus(next.row);
-        projectFocusDirty = true;
+        scheduleProjectFocus();
       }, 120);
     }
   }
   pageEl.addEventListener('project-play', e => setProjectFocus(e.target.closest('.row')));
-  addEventListener('scroll', () => { projectFocusDirty = true; }, { passive: true });
-  addEventListener('resize', () => { projectFocusDirty = true; });
-  new ResizeObserver(() => { projectFocusDirty = true; }).observe(pageEl);
-  const refreshProjectMedia = () => { projectFocusDirty = true; syncProjectMedia(); };
+  addEventListener('scroll', scheduleProjectFocus, { passive: true });
+  addEventListener('resize', scheduleProjectFocus);
+  new ResizeObserver(scheduleProjectFocus).observe(pageEl);
+  const refreshProjectMedia = () => { scheduleProjectFocus(); syncProjectMedia(); wakeMotion(); };
+  subEl.addEventListener('project-media-relocated', () => { demos('setActive', subEl, false); syncProjectMedia(); });
   document.addEventListener('visibilitychange', refreshProjectMedia);
   new MutationObserver(refreshProjectMedia).observe($('#viewer'), { attributes: true, attributeFilter: ['inert'] });
 
   /* ── Input ───────────────────────────────── */
   let keyboard = false;
   addEventListener('keydown', () => { keyboard = true; }, true);
-  addEventListener('pointerdown', () => { keyboard = false; lastInput = performance.now(); }, true);
-  addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') { lastInput = performance.now(); light.tx = e.clientX; light.ty = e.clientY; } }, { passive: true });
+  addEventListener('pointerdown', () => { keyboard = false; }, true);
 
   // the deck: pointing at a card names it; choosing it lifts it out
   const point = (i, on) => { if (cards[i].classList.contains('in-slot')) cards[i].classList.toggle('is-pointed', on); showLabel(on ? i : null); };
@@ -921,10 +1031,90 @@
   // Actual page travel drives a damped spring, so wheel, touch and keys all create the same breeze.
   // Navigation/restoration resets its baseline instead of turning a page jump into a gust.
   const wind = { y: scrollY, time: performance.now(), force: 0, position: 0, velocity: 0, ignoreUntil: 0 };
+  // Only a very fast, sustained flick earns a spin: 300px at >6,000px/second.
+  // A burst gets one animation and must go quiet before it can trigger another.
+  const SPIN_THRESHOLD = 6, SPIN_MIN_TRAVEL = 300, SPIN_WINDOW = 80, SPIN_REARM = 200;
+  const spinInput = { samples: [], pending: 0, lastScroll: 0, armed: true, cooldownUntil: 0 };
+  let spinningCard = -1;
+  function finishSpin(i) {
+    const s = parts[i].spin, animation = s.animation;
+    s.animation = null; s.active = false;
+    if (animation) { animation.onfinish = null; animation.cancel(); }
+    heroCards[i].classList.remove('is-spinning');
+    if (spinningCard === i) spinningCard = -1;
+    if (i !== sel) rest(i);
+  }
+  function resetSpins() {
+    spinInput.samples.length = 0; spinInput.pending = 0;
+    spinInput.armed = true; spinInput.lastScroll = 0; spinInput.cooldownUntil = 0;
+    if (spinningCard >= 0) finishSpin(spinningCard);
+  }
   function resetWind() {
     wind.y = scrollY; wind.time = performance.now(); wind.ignoreUntil = wind.time + 140;
     wind.force = wind.position = wind.velocity = 0;
+    if (CARD_SPIN_ENABLED) resetSpins();
     aim = null;
+    wakeMotion();
+  }
+  function collectSpinImpulse(delta, now) {
+    if (!delta) return;
+    const samples = spinInput.samples;
+    if (now - spinInput.lastScroll >= SPIN_REARM) {
+      spinInput.armed = true;
+      samples.length = 0;
+    }
+    spinInput.lastScroll = now;
+    if (!spinInput.armed || spinningCard >= 0 || now < spinInput.cooldownUntil) {
+      spinInput.armed = false;
+      samples.length = 0;
+      return;
+    }
+    if (samples.length && Math.sign(delta) !== Math.sign(samples.at(-1).delta)) samples.length = 0;
+    samples.push({ delta, time: now });
+    while (samples.length && now - samples[0].time > SPIN_WINDOW) samples.shift();
+    const travel = samples.reduce((sum, sample) => sum + sample.delta, 0);
+    const speed = travel / Math.max(32, now - samples[0].time + 16);
+    if (samples.length >= 2 && Math.abs(travel) >= SPIN_MIN_TRAVEL && Math.abs(speed) > SPIN_THRESHOLD) {
+      spinInput.pending = speed;
+      spinInput.armed = false;
+      samples.length = 0;
+    }
+  }
+  function playPendingSpin() {
+    const impulse = spinInput.pending;
+    spinInput.pending = 0;
+    if (!impulse || spinningCard >= 0 || reduce.matches || level !== 1 || mediaBlocked()) return;
+    // Choose one visible card, measuring only once at launch, never during a spin.
+    let index = -1, best = .3;
+    heroSlots.forEach((slot, i) => {
+      const rect = slot.getBoundingClientRect();
+      const visible = Math.max(0, Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0));
+      const ratio = visible / Math.max(1, Math.min(rect.height, innerHeight));
+      const score = ratio + (i === sel && ratio > .3 ? .05 : 0);
+      if (score > best) { best = score; index = i; }
+    });
+    if (index < 0) return;
+    const m = parts[index], turns = Math.abs(impulse) >= 10 ? 3 : 2;
+    const duration = turns === 3 ? 1650 : 1350;
+    spinningCard = index; m.spin.active = true;
+    spinInput.cooldownUntil = performance.now() + duration + 250;
+    heroCards[index].classList.add('is-spinning');
+    // The browser owns every intermediate frame. Never restart a running reel.
+    const animation = m.rotor.animate([
+      { transform: 'rotateX(0deg)' },
+      { transform: `rotateX(${Math.sign(impulse) * turns * 360}deg)` }
+    ], { duration, easing: 'cubic-bezier(.25,.6,.35,1)', fill: 'forwards' });
+    m.spin.animation = animation;
+    animation.onfinish = () => {
+      if (m.spin.animation === animation) finishSpin(index);
+    };
+  }
+  if (CARD_SPIN_ENABLED) {
+    const spinVisibility = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (spinningCard >= 0 && !entry.isIntersecting && entry.target === heroSlots[spinningCard]) finishSpin(spinningCard);
+    }));
+    heroSlots.forEach(slot => spinVisibility.observe(slot));
+    new MutationObserver(resetSpins).observe($('#viewer'), { attributes: true, attributeFilter: ['inert'] });
   }
   function updateWind(dt) {
     if (reduce.matches || level !== 1 || document.hidden) {
@@ -949,32 +1139,37 @@
   addEventListener('pointermove', (e) => {
     if (e.pointerType === 'touch' || reduce.matches || level !== 1 || document.hidden) return;
     aim = { x: e.clientX, y: e.clientY };
+    wakeMotion();
   }, { passive: true });
-  document.addEventListener('pointerout', (e) => { if (!e.relatedTarget) aim = null; });
-  addEventListener('pointercancel', () => { aim = null; });
+  document.addEventListener('pointerout', (e) => { if (!e.relatedTarget) { aim = null; wakeMotion(); } });
+  addEventListener('pointercancel', () => { aim = null; wakeMotion(); });
   addEventListener('blur', resetWind);
   const sway = { rx: 0, ry: 0 };
   const tf = (el, v) => { if (el) put(el, 'transform', v); };
   const tr = (x, y) => `translate3d(${x.toFixed(2)}%,${y.toFixed(2)}%,0)`;
   function rest(i) {
     const m = parts[i];
+    if (m.spin.active) return;
     [m.tilt, m.back, m.mid, m.front, m.spot, m.glare, ...m.spec].forEach((el) => tf(el, 'none'));
   }
   function swayCard(now, dt) {
     const m = parts[sel];
+    // Spin two static faces. Live masked foil layers are expensive inside a 3D reel.
+    if (m.spin.active) return;
     let tx = 0, ty = 0;
     if (reduce.matches) { sway.rx = 2; sway.ry = -4; tx = 2; ty = -4; }
     else if (aim) {
-      tx = Math.tanh((heroBox.y + heroBox.h / 2 - aim.y) / (heroBox.h * .7)) * 7.5;
-      ty = Math.tanh((aim.x - heroBox.x - heroBox.w / 2) / (heroBox.w * .7)) * 10;
-    }
-    else if (!reduce.matches) {
-      const t = now / 1000;
-      tx = Math.sin(t * .43) * 1.2;
-      ty = Math.sin(t * .31 + 1.3) * 2.8;
+      const cx = heroBox.x + heroBox.w / 2, cy = heroBox.y + heroBox.h / 2;
+      // Use the full viewport range so distant pointer movement still changes the tilt.
+      const reachX = Math.max(cx, innerWidth - cx, 1);
+      const reachY = Math.max(cy, innerHeight - cy, 1);
+      tx = clamp((cy - aim.y) / reachY, -1, 1) * 7.5;
+      ty = clamp((aim.x - cx) / reachX, -1, 1) * 10;
     }
     const k = 1 - Math.exp(-dt * (aim ? 8 : 2.2));
     sway.rx += (tx - sway.rx) * k; sway.ry += (ty - sway.ry) * k;
+    const settling = Math.abs(tx - sway.rx) + Math.abs(ty - sway.ry) > .015;
+    if (!settling) { sway.rx = tx; sway.ry = ty; }
     const breeze = reduce.matches ? 0 : wind.position;
     // Flutter follows the gust's energy and disappears as the spring settles.
     const gust = reduce.matches ? 0 : clamp(Math.abs(breeze) + Math.abs(wind.velocity) * .06, 0, 1);
@@ -984,13 +1179,14 @@
     const roll = -breeze * 2 + gust * flutter * .55;
     // Keep enlarged reflection sheets covering the face even at the strongest combined tilt.
     const nx = Math.tanh(ry / 11) * .8, ny = Math.tanh(-rx / 7.5) * .8;
-    tf(m.tilt, `perspective(1500px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${roll.toFixed(2)}deg) translate3d(${(breeze * 3).toFixed(2)}px,${(-breeze * 6 + gust * flutter * 1.2).toFixed(2)}px,0)`);
+    tf(m.tilt, `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${roll.toFixed(2)}deg) translate3d(${(breeze * 3).toFixed(2)}px,${(-breeze * 6 + gust * flutter * 1.2).toFixed(2)}px,0)`);
     tf(m.back, tr(nx * 1.1, ny * 1.1));
     tf(m.mid, tr(-nx * .5, -ny * .5));
     tf(m.front, tr(-nx * 2.2, -ny * 2.2));
     m.spec.forEach((el) => tf(el, tr(-nx * 18, -ny * 18)));
     tf(m.spot, tr(nx * 34, ny * 34));
     tf(m.glare, tr(nx * 26, ny * 26));
+    return settling || Math.abs(wind.position) + Math.abs(wind.velocity) + Math.abs(wind.force) > 0;
   }
 
   addEventListener('keydown', (e) => {
@@ -1023,8 +1219,9 @@
     const speed = (y - wind.y) / clamp(now - wind.time, 16, 64);
     if (level === 1 && !reduce.matches && !document.hidden && now > wind.ignoreUntil) {
       wind.force = clamp(speed / 1.4, -1, 1);
+      if (CARD_SPIN_ENABLED && !mediaBlocked()) collectSpinImpulse(y - wind.y, now);
     }
-    wind.y = y; wind.time = now; lastInput = now;
+    wind.y = y; wind.time = now;
     if (!scrollFrame) scrollFrame = requestAnimationFrame(trackBrand);
   }, { passive: true });
   reduce.addEventListener('change', resetWind);
@@ -1032,18 +1229,22 @@
   new ResizeObserver(measure).observe(pageEl);
   if (document.fonts) document.fonts.ready.then(measure);
 
-  /* ── Loop ────────────────────────────────── */
-  let last = performance.now();
+  /* Sleep completely at rest. Decorative rendering is capped at 30fps. */
+  let last = performance.now(), motionFrame = 0;
+  function wakeMotion() {
+    if (!motionFrame && !document.hidden) {
+      last = performance.now() - 1000 / 30;
+      motionFrame = requestAnimationFrame(tick);
+    }
+  }
   function tick(now) {
-    const dt = Math.min(.05, (now - last) / 1000); last = now;
-    if (projectFocusDirty) updateProjectFocus();
-    syncFilms();
-    updateWind(dt);
-    updateLight(now, dt);
-    const c = sel >= 0 ? heroCards[sel] : null;
+    motionFrame = 0;
     const seen = heroBox.y + heroBox.h > 0 && heroBox.y < innerHeight;
-    if (c && seen && level === 1 && !document.hidden) swayCard(now, dt);
-    requestAnimationFrame(tick);
+    if (sel < 0 || !seen || level !== 1 || mediaBlocked()) return;
+    if (now - last < 1000 / 30 - 1) { motionFrame = requestAnimationFrame(tick); return; }
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    updateWind(dt);
+    if (swayCard(now, dt)) motionFrame = requestAnimationFrame(tick);
   }
 
   /* ── Start: restore the requested section without blocking input. ── */
@@ -1052,7 +1253,8 @@
   const startIdx = Math.max(0, B.findIndex(b => b.id === hash[0]));
   measure();
   go(startIdx, true);
-  requestAnimationFrame(tick);
+  wakeMotion();
+  scheduleProjectFocus();
   if (hash[0] === 'cv') openPage('cv', false);
   else if (hash[1] && B[startIdx].projects.includes(hash[1])) openPage(hash[1], false);
 })();

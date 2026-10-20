@@ -22,7 +22,6 @@
   display: block;
   aspect-ratio: 3 / 2;
   height: auto;
-  will-change: transform;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -84,7 +83,6 @@
   height: auto;
   shape-rendering: crispEdges;
   pointer-events: none;
-  will-change: transform;
   filter: drop-shadow(0 calc(var(--f) * 6) calc(var(--f) * 8) rgba(0, 0, 0, 0.25));
 }
 

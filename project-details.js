@@ -37,7 +37,7 @@ window.G_PROJECTS = [
         more: ['Declared, AI-assessed and banker-confirmed income sit side by side. Checks needing attention surface; routine ones collapse. Decision reasons and a receipt make each review traceable.'],
         film: 'nab-film-10.html' },
       { label: 'Open question', title: 'Show the effect on affordability before confirming.',
-        more: ['Bankers wanted to see whether changing an income would affect the applicant’s ability to afford the loan. That remains a product opportunity.', 'The click comparison is an estimate. Production time savings and AI accuracy are unmeasured.'] }
+        more: ['Bankers wanted to see whether changing an income would affect the applicant’s ability to afford the loan. That remains a product opportunity.', 'The film illustrates 31 manual clicks becoming one confirmation in a proposed workflow. The banker still reviews the evidence. Production time savings and AI accuracy are unmeasured.'] }
     ]
   },
   {
@@ -160,8 +160,8 @@ window.G_PROJECTS = [
       { label: 'Design', title: 'One shift, two journeys.', img: 'f:work-create', pos: '50% 0%',
         more: ['Managers create shifts and track progress. Staff set location and availability, then accept offers. Notifications keep both sides informed.'],
         media: ['f:work-create', 'f:work-candidates', 'f:work-offer', 'f:work-accepted'] },
-      { label: 'Insight', title: 'Every state: needs attention, or waiting.', img: 'f:work-states', pos: '50% 0%',
-        more: ['Early iterations treated each shift state on its own, and the architecture drifted. Seen from the user’s side, they reduced to two distinctions. That model set the visual treatment and actions across the app.'],
+      { label: 'Insight', title: 'A consistent language for action and waiting.', img: 'f:work-states', pos: '50% 0%',
+        more: ['Early iterations treated each shift state on its own, and the architecture drifted. The design distinguished work needing attention from work waiting on someone else, with accepted shifts represented separately. That model set the visual treatment and actions across the app.'],
         media: ['f:work-states'] }
     ]
   },

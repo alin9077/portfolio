@@ -69,6 +69,7 @@
       img.src = base + 'media/cards/' + data.cards[(i * 7) % data.cards.length];
       img.alt = '';
       img.decoding = 'async';
+      img.loading = 'lazy';
       img.style.filter = 'brightness(' + lerp(1, 0.5, d).toFixed(3) + ')';
       cards.push({ img, d, w: lerp(0.36, 0.14, d), speed: lerp(0.026, 0.009, d),
                    x0: (i % 2) * 0.5 + lane * 0.17 + (rnd() - 0.5) * 0.1,     // the pair sits half a lap apart
@@ -94,7 +95,7 @@
     const hand = screen.lastElementChild;
 
     let S = 0, scale = 0;
-    let running = false, raf = 0, t0 = performance.now(), wall = 0;
+    let running = false, raf = 0, lastDraw = 0, t0 = performance.now(), wall = 0;
     let visible = false, active = true, userPaused = false, userStarted = false, pending = false, destroyed = false;
     function layout() {
       S = root.clientWidth;
@@ -121,15 +122,17 @@
       hand.style.transform = 'translate3d(' + (cx * f - HOT[0] * u).toFixed(2) + 'px,' + (cy * f - HOT[1] * u).toFixed(2) + 'px,0)';
     }
     function frame(now) {
-      draw(now);
+      // The video keeps its native cadence; decorative pages/cursor need at most 30fps.
+      if (now - lastDraw >= 1000 / 30 - 1) { lastDraw = now; draw(now); }
       if (running) raf = requestAnimationFrame(frame);
     }
-    function start() { if (!running) { running = true; t0 = performance.now() - wall * 1000; raf = requestAnimationFrame(frame); } }
+    function start() { if (!running) { running = true; lastDraw = 0; t0 = performance.now() - wall * 1000; raf = requestAnimationFrame(frame); } }
     function stop() { running = false; cancelAnimationFrame(raf); }
     function wantsPlayback() {
       return !destroyed && active && visible && !document.hidden && !userPaused && (!reduced || userStarted);
     }
     function announce() {
+      if (root.getAttribute('aria-pressed') === String(!video.paused)) return;
       root.setAttribute('aria-pressed', String(!video.paused));
       root.setAttribute('aria-label', (video.paused ? 'Play ' : 'Pause ') + label);
     }
@@ -140,7 +143,8 @@
           video.play().catch(() => { stop(); }).finally(() => { pending = false; if (!destroyed) announce(); });
         }
       } else {
-        video.pause(); stop(); draw(performance.now());
+        if (!video.paused) video.pause();
+        if (running) { stop(); draw(performance.now()); }
       }
       announce();
     }
@@ -172,7 +176,7 @@
     io.observe(root);
     announce();
     return {
-      setActive(value) { active = value; sync(); },
+      setActive(value) { if (active === value) return; active = value; sync(); },
       destroy() {
         destroyed = true;
         io.disconnect(); resize.disconnect(); events.abort();

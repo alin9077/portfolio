@@ -3,7 +3,7 @@ window.IncomeFilm = { mount(host) {
   if (host.film) return host.film;
   const nativeDocument=window.document;
   const root=host.attachShadow({mode:'open'});
-  root.innerHTML="<style>\n*{box-sizing:border-box}\nhtml,body{height:100%}\nbody{margin:0;background:#101114;color:#f4f1e8;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif;display:grid;grid-template-rows:1fr auto;place-items:center;-webkit-font-smoothing:antialiased}\n.frame{position:relative;width:min(100vw - 32px,(100vh - 96px));aspect-ratio:1;overflow:hidden;background:#f2f1ec;cursor:pointer;box-shadow:0 30px 80px -30px #000}\n.frame svg{display:block;width:100%;height:100%}\nsvg text{font-weight:700;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}\nsvg .disp{font-weight:700;letter-spacing:-.012em}\nsvg .cap{font-weight:700;letter-spacing:.2em;font-size:12px}\nsvg .ln{fill:none;stroke:#1b1b20;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}\nsvg .dw{stroke-dasharray:1 2;stroke-dashoffset:1}\n.ctl{width:min(100vw - 32px,(100vh - 96px));display:flex;align-items:center;gap:14px;padding:12px 4px 16px;font-size:13px;color:#9a9aa2;font-variant-numeric:tabular-nums}\n.ctl button{font:inherit;color:#f4f1e8;background:none;border:1px solid #f4f1e8;border-radius:999px;padding:6px 14px;cursor:pointer;min-width:68px}\n.ctl input{flex:1;accent-color:#e4dc64}\n:focus-visible{outline:2px solid #e4dc64;outline-offset:3px}\nbody.render{display:block;background:#f2f1ec}\nbody.render .frame{width:100vw;height:100vh;box-shadow:none}\nbody.render .ctl{display:none}\n\n:host{display:block;width:100%;height:100%}.film-root{width:100%;height:100%;background:#f2f1ec}.film-root .frame{width:100%;height:100%;aspect-ratio:1;box-shadow:none;cursor:inherit}.film-root .ctl{display:none}</style><div class=\"film-root\">\n<div class=\"frame\" id=\"frame\" title=\"Click to play or pause\">\n  <svg id=\"stage\" viewBox=\"0 0 1600 1600\" role=\"img\" aria-label=\"A line-drawn film on paper. A customer applies for a credit card and sends in income documents. Today a banker opens each document, blacks out tax file numbers by hand and copies each figure into a calculator: about 31 clicks. In the future state, tax file numbers are redacted automatically and every number is pulled out for an AI agent, which checks the numbers and the customer's identity, then calculates a monthly average income of $8,109.57. The banker compares the evidence and confirms with one click. Fewer steps for every banker, and customers get what they applied for sooner. Payslips first, then tax returns and bank statements.\"></svg>\n</div>\n<div class=\"ctl\"><button id=\"play\" type=\"button\">Pause</button><input id=\"seek\" type=\"range\" min=\"0\" max=\"59.2\" step=\"0.01\" value=\"0\" aria-label=\"Timeline\"><span id=\"time\">0:00 / 0:59</span></div>\n</div>";
+  root.innerHTML="<style>\n*{box-sizing:border-box}\nhtml,body{height:100%}\nbody{margin:0;background:#101114;color:#f4f1e8;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif;display:grid;grid-template-rows:1fr auto;place-items:center;-webkit-font-smoothing:antialiased}\n.frame{position:relative;width:min(100vw - 32px,(100vh - 96px));aspect-ratio:1;overflow:hidden;background:#f2f1ec;cursor:pointer;box-shadow:0 30px 80px -30px #000}\n.frame svg{display:block;width:100%;height:100%}\nsvg text{font-weight:700;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}\nsvg .disp{font-weight:700;letter-spacing:-.012em}\nsvg .cap{font-weight:700;letter-spacing:.2em;font-size:12px}\nsvg .ln{fill:none;stroke:#1b1b20;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}\nsvg .dw{stroke-dasharray:1 2;stroke-dashoffset:1}\n.ctl{width:min(100vw - 32px,(100vh - 96px));display:flex;align-items:center;gap:14px;padding:12px 4px 16px;font-size:13px;color:#9a9aa2;font-variant-numeric:tabular-nums}\n.ctl button{font:inherit;color:#f4f1e8;background:none;border:1px solid #f4f1e8;border-radius:999px;padding:6px 14px;cursor:pointer;min-width:68px}\n.ctl input{flex:1;accent-color:#e4dc64}\n:focus-visible{outline:2px solid #e4dc64;outline-offset:3px}\nbody.render{display:block;background:#f2f1ec}\nbody.render .frame{width:100vw;height:100vh;box-shadow:none}\nbody.render .ctl{display:none}\n\n:host{display:block;width:100%;height:100%}.film-root{width:100%;height:100%;background:#f2f1ec}.film-root .frame{width:100%;height:100%;aspect-ratio:1;box-shadow:none;cursor:inherit}.film-root .ctl{display:none}</style><div class=\"film-root\">\n<div class=\"frame\" id=\"frame\" title=\"Click to play or pause\">\n  <svg id=\"stage\" viewBox=\"0 0 1600 1600\" role=\"img\" aria-label=\"A line-drawn film on paper. A customer applies for a credit card and sends in income documents. Today a banker opens each document, blacks out tax file numbers by hand and copies each figure into a calculator: 31 manual clicks in the illustrated scenario. In the future state, tax file numbers are redacted automatically and every number is pulled out for an AI agent, which checks the numbers and the customer's identity, then calculates a monthly average income of $8,109.57. The banker compares the evidence and confirms with one click. The proposed workflow reduces 31 manual clicks to one confirmation while the banker still reviews the evidence. Production time savings and AI accuracy have not been measured. Payslips first, then tax returns and bank statements.\"></svg>\n</div>\n<div class=\"ctl\"><button id=\"play\" type=\"button\">Pause</button><input id=\"seek\" type=\"range\" min=\"0\" max=\"59.2\" step=\"0.01\" value=\"0\" aria-label=\"Timeline\"><span id=\"time\">0:00 / 0:59</span></div>\n</div>";
   const document={getElementById:id=>root.getElementById(id),createElementNS:(...args)=>nativeDocument.createElementNS(...args),body:root.querySelector('.film-root')};
   const location={search:'?embed'};
   let api;
@@ -329,7 +329,7 @@ const rows7=R7.map(([s,y,ly],i)=>{const band=el('rect',{x:730,y:y-16,width:672,h
   const c=check(inner,1382,y-4,8,C.peri);const ln=pen(`M${ly===628?660:662} ${ly-4}C700 ${ly-4} 698 ${y-4} 730 ${y-4}`,inner,{'stroke-width':1.2,stroke:C.ink});return {c,ln,y,band};});
 const btn=el('rect',{x:1180,y:626,width:200,height:40,rx:6,fill:C.ink},inner);const btnT=tx('Confirm income',1280,651,{'font-size':13,'font-weight':500,fill:'#fff','text-anchor':'middle'},inner);
 const fold=el('g',{},inner);line('M-28 -14h18l6 6h32v30h-56z',fold,{'stroke-width':1.6});check(fold,26,14,8,C.peri);
-const c7a=capT('The banker compares, then confirms.',s7,{y:130}),c7b=capT('Up to 30 fewer clicks.',s7,{y:130});
+const c7a=capT('The banker compares, then confirms.',s7,{y:130}),c7b=capT('31 clicks become one confirmation.',s7,{y:130});
 const CLK7=3.9;
 function sc7(u){
   mp.forEach(p=>dr(p,eio(lin(u,0,.6))));op(inner,lin(u,.4,.9)*(1-lin(u,5.1,5.4)));
@@ -351,7 +351,7 @@ const tl8=tx('Today',96,430,{class:'disp','font-size':28,fill:C.ink},s8),fl8=tx(
 const rowT=segRow(s8,404,SEG),rowF=segRow(s8,544,SEGF);
 const tck=check(s8,0,0,10,C.ink),fck=check(s8,0,0,10,C.ver);
 const dot8=el('path',{d:'M694 564H1300',stroke:C.ver,'stroke-width':1.5,'stroke-dasharray':'2 6','stroke-linecap':'round'},s8);
-const ts8=tx('TIME SAVED',1000,548,{class:'cap','font-size':9,'text-anchor':'middle',fill:C.ver},s8);
+const ts8=tx('FEWER MANUAL STEPS',1000,548,{class:'cap','font-size':9,'text-anchor':'middle',fill:C.ver},s8);
 const guide8=el('path',{d:'M1300 380V610',stroke:C.pale,'stroke-width':1,'stroke-dasharray':'3 5'},s8);
 const c8=capT('Fewer steps for every banker who verifies income.',s8);
 function grow(row,W){row.forEach(s=>{const w=Math.max(0,Math.min(s.w,W-(s.x-300)));at(s.r,'width',f(w));op(s.t,w>=s.w*.9?1:0);});}
@@ -664,7 +664,16 @@ let t=0,playing=false,last=0,raf=0;
 const play=document.getElementById('play'),seek=document.getElementById('seek'),time=document.getElementById('time');
 const mmss=v=>Math.floor(v/60)+':'+String(Math.floor(v%60)).padStart(2,'0');
 function ui(){play.textContent=playing?'Pause':(t>=D?'Replay':'Play');seek.value=t;time.textContent=mmss(t)+' / '+mmss(D);}
-function frame(now){raf=0;const dt=Math.min(.1,(now-last)/1000);last=now;if(playing){t+=dt;if(t>=D){if(embedded)t=0;else{t=D;playing=false;}}render(t);squarePaint(t);ui();if(playing)raf=requestAnimationFrame(frame);}}
+function frame(now){
+  raf=0;
+  if(!playing)return;
+  if(now-last<1000/30-1){raf=requestAnimationFrame(frame);return;}
+  const dt=Math.min(.1,(now-last)/1000);last=now;
+  t+=dt;if(t>=D){if(embedded)t=0;else{t=D;playing=false;}}
+  render(t);squarePaint(t);
+  if(!embedded)ui();
+  if(playing)raf=requestAnimationFrame(frame);
+}
 function setPlaying(on){playing=on;if(on&&t>=D)t=0;cancelAnimationFrame(raf);raf=0;last=performance.now();if(on)raf=requestAnimationFrame(frame);ui();}
 const toggle=()=>setPlaying(!playing);
 play.onclick=toggle;seek.oninput=()=>{t=+seek.value;render(t);squarePaint(t);ui();};

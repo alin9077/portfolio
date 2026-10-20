@@ -1,0 +1,52 @@
+{
+  "retrieved": "2026-10-21",
+  "logos": [
+    {
+      "brand": "Kogan Money",
+      "file": "kogan-money.svg",
+      "sourcePage": "https://www.koganmoney.com.au/",
+      "asset": "https://s47273.pcdn.co/wp-content/uploads/2020/02/kogan-money.svg",
+      "iconFile": "kogan-money-icon.svg",
+      "iconAsset": "https://s47273.pcdn.co/wp-content/uploads/2020/02/kogan-money.svg",
+      "iconNote": "Power symbol extracted from the original vector paths; no raster content."
+    },
+    {
+      "brand": "Bank of Queensland",
+      "file": "boq-mark.svg",
+      "sourcePage": "https://www.boq.com.au/nav.plain.html",
+      "asset": "https://www.boq.com.au/media_1d1e2b624aed4905ccaf41152ce6e5f94d60e6d86.svg",
+      "iconFile": "boq-icon.svg",
+      "iconAsset": "https://www.boq.com.au/media_1d1e2b624aed4905ccaf41152ce6e5f94d60e6d86.svg",
+      "iconNote": "Symbol cropped with an SVG viewBox from the official wordmark."
+    },
+    {
+      "brand": "Virgin Money",
+      "file": "virgin-money.png",
+      "sourcePage": "https://www.virginmoney.com.au/nav.plain.html",
+      "asset": "https://www.virginmoney.com.au/media_1fca17cc56660fb78cf22b813b65f3774299654a7.png",
+      "iconFile": "virgin-money-icon.svg",
+      "iconAsset": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Virgin_Money_logo.svg",
+      "iconSourcePage": "https://commons.wikimedia.org/wiki/File:Virgin_Money_logo.svg",
+      "iconNote": "Circular Virgin signature extracted from the source SVG paths."
+    },
+    {
+      "brand": "Suncorp",
+      "file": "suncorp-bank.png",
+      "sourcePage": "https://www.suncorpbank.com.au/",
+      "asset": "https://www.suncorpbank.com.au/content/dam/suncorp/corporate/images/logos/updated-suncorp-bank-198x40-2x.png",
+      "iconFile": "suncorp-icon.svg",
+      "iconAsset": "https://www.suncorpbank.com.au/etc.clientlibs/suncorp-clientlibs/styles/sunbank/sg_sunbank/resources/styleguide/npm_component/resources/suncorp-styleguide-component-page/src/sun2020/img/Logo-header.svg",
+      "iconNote": "Sun symbol and its original gradient extracted from the official SVG header logo."
+    },
+    {
+      "brand": "Citibank",
+      "file": "citibank.svg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Citibank.svg",
+      "asset": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Citibank.svg",
+      "note": "Wikimedia copy extracted from an official Citibank Australia document; original wordmark retained.",
+      "iconFile": "citi-icon.svg",
+      "iconAsset": "https://www.citigroup.com/",
+      "iconNote": "Original embedded SVG logo from the official Citi header."
+    }
+  ]
+}
