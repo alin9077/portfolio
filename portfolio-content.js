@@ -317,28 +317,28 @@ window.H_CV = {
   ],
   experience: [
     { company: 'National Australia Bank (NAB)', role: 'Senior Product Designer', team: 'Personal Everyday Banking, Digital and Enterprise', type: 'Contract', dates: 'Jun 2023 — Present', start: [2023, 6], points: [
-      'Led design for Financial Details and nabONE, covering banker application review, management and verification.',
-      'Helped simplify credit card and personal loan applications, reducing required expense inputs from 16 to two.',
+      'Led design for nabONE banker platforms, helping bankers review, manage and verify applications.',
+      'Helped simplify credit card and personal loan applications, cutting required expense fields from 16 to two.',
       'Designed Open Banking consent flows for income verification and Consumer Data Right (CDR) compliance.',
       'Built an interactive AI income verification prototype, targeting 2,000 hours of weekly savings.'
     ] },
     { company: 'HSBC', role: 'Senior UX/UI Designer', type: 'Contract', dates: 'Oct 2022 — Jun 2023', points: [
       'Led NPP integration design across HSBC’s payment rails, with fallback routes for customers unable to use NPP.',
-      'Contributed to global origination customer journeys.'
+      'Contributed to global customer journeys for banking product applications.'
     ] },
     { company: 'Qantas', role: 'Senior Product Designer', team: 'Insurance, Wellbeing, Design System', type: 'Contract', dates: 'Sep 2021 — Sep 2022', points: [
       'Led Qantas Wellbeing and Insurance design, using customer research to clarify travel cover and multi-policy rewards.'
     ] },
     { company: 'Insurance Australia Group (IAG)', role: 'Interaction Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2019 — Sep 2021', points: [
-      'Defined design architecture and shared patterns for NRMA quotes, MyAccount and renewals, supporting migration to Guidewire PolicyCenter and ClaimCenter.'
+      'Defined shared patterns for NRMA quotes, MyAccount and renewals to support the transition to Guidewire PolicyCenter and ClaimCenter.'
     ] },
     { company: 'Massive Interactive', role: 'UX Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2018 — Mar 2019', points: [
       'Contributed UX design to Mediacorp’s on-demand TV platform in Singapore.'
     ] },
     { company: 'Commonwealth Bank of Australia (CBA)', role: 'UX/UI Designer', team: 'Enterprise Services & Digital', type: 'Contract', dates: 'Aug 2016 — Dec 2018', points: [
       'Led home-lending appointment booking design, replacing a 24-hour callback wait with direct bookings in around five minutes.',
-      'Designed CanWork’s staff and manager journeys to match available staff with branch shifts.',
-      'Contributed to CommSee’s regulatory servicing and home-loan credit decisioning workflows.'
+      'Designed CanWork so branch managers could fill shifts and staff could find available work.',
+      'Contributed to CommSee workflows for regulatory compliance and home-loan credit decisions.'
     ] },
     { company: 'The University of Sydney', role: 'UX Designer and Development', team: 'Faculty of Architecture', type: 'Contract', dates: 'Jan 2014 — Mar 2016', points: [
       'Redesigned and built the Faculty of Architecture website in HTML, JavaScript and CSS, applying the University’s new design guidelines.'
