@@ -145,7 +145,7 @@
 
   /* ── Header ──────────────────────────────── */
   const contacts = ME.contact || [];
-  top.innerHTML = `<div class="me"><img src="${ME.photo}" alt=""><p><span class="me__name">${ME.name}</span><span class="me__role">${ME.role}<img class="me__flag" src="assets/brands/australian-flag.svg" width="16" height="16" alt="Australia"></span></p></div>`;
+  top.innerHTML = `<div class="me"><p><span class="me__name">${ME.name}</span><span class="me__role">${ME.role}<img class="me__flag" src="assets/brands/australian-flag.svg" width="16" height="16" alt="Australia"></span></p></div>`;
   top.insertAdjacentHTML('beforeend', `<div class="top__right">${themeControls()}</div>`);
   $('#themeFooter').innerHTML = themeControls();
   document.querySelectorAll('[data-theme]').forEach(button => button.addEventListener('click', () => {
@@ -478,10 +478,11 @@
 
   function cvSidebarHTML() {
     const cv = window.H_CV;
+    const contactIcon = kind => `<svg class="cv-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${kind === 'email' ? '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>' : '<path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 5.2 2 2 0 0 1 5.1 3h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L9 11a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0 1 22 16.9z"/>'}</svg>`;
     return `<aside class="cv-sidebar">
-      <section><h3>About</h3><p>${cv.summary}</p><a href="${location.pathname}${location.search}#ai" data-cv-portfolio>Design portfolio ↗</a></section>
-      <section><h3>Contact</h3><p>Sydney, Australia</p><p><a href="mailto:alin9077@gmail.com">alin9077@gmail.com</a></p><p><a href="tel:+61477773225">0477 773 225</a></p><p><a href="https://au.linkedin.com/in/austin-lin-2a179643" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p></section>
-      <section><h3>Education</h3>${cv.education.map(e => `<div class="cv-education"><h4>${e.school}</h4><p>${e.course}</p><p class="cv-date">${e.year}</p></div>`).join('')}</section>
+      <img class="cv-portrait" src="assets/cv-profile-original.png" alt="Austin Lin seated against a stone wall" width="200" height="200">
+      <section><h3>Contact</h3><p>Sydney, Australia</p><p class="cv-contact-row">${contactIcon('email')}<a href="mailto:alin9077@gmail.com">alin9077@gmail.com</a></p><p class="cv-contact-row">${contactIcon('phone')}<a href="tel:+61477773225">0477 773 225</a></p><p class="cv-contact-row cv-contact-row--linkedin"><svg class="cv-contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.4 7.9H2V22h3.4V7.9ZM3.7 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM22 13.9c0-4.2-2.2-6.2-5.1-6.2-2.4 0-3.4 1.3-4 2.2v-2h-3.4V22h3.4v-7.8c0-2.1.4-4.1 2.9-4.1 2.5 0 2.5 2.3 2.5 4.2V22H22v-8.1Z"/></svg><a href="https://au.linkedin.com/in/austin-lin-2a179643" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p></section>
+      <section><h3>Education</h3>${cv.education.map(e => `<div class="cv-education"><h4 class="cv-school"><img class="cv-school__logo" src="assets/brands/${e.school === 'The University of Sydney' ? 'usyd-mark.png' : 'muirfield-mark.png'}" width="18" height="18" alt=""><span>${e.school}</span></h4><p>${e.course}${e.minor ? `<br>(${e.minor})` : ''}</p><p class="cv-date">${e.year}</p></div>`).join('')}</section>
     </aside>`;
   }
   function cvHTML() {
@@ -489,7 +490,22 @@
     const experience = cv.experience.map(job => {
       const months = job.start ? (cv.asOf[0] - job.start[0]) * 12 + cv.asOf[1] - job.start[1] : null;
       const tenure = months == null ? '' : ` · ${months} months (${Math.floor(months / 12)} years, ${months % 12} months)`;
-      return `<li class="cv-job"><div class="cv-job__heading"><h4>${job.company}</h4>${job.start ? '<span class="cv-current">Current</span>' : ''}</div>
+      const brandIcons = {
+        'National Australia Bank (NAB)': 'nab-mark.svg',
+        'Commonwealth Bank of Australia (CBA)': 'commbank-mark.svg',
+        'Qantas': 'qantas-mark.svg',
+        'HSBC': 'hsbc-mark.svg',
+        'Massive Interactive': 'massive-mark.png',
+        'Insurance Australia Group (IAG)': 'iag-mark.png',
+        'The University of Sydney': 'usyd-mark.png',
+        'Wunderman Bienalto': 'wpp-mark.png',
+        'Retail and hospitality': 'telstra-mark.png'
+      };
+      const initials = { 'HSBC': 'H', 'Massive Interactive': 'M', 'The University of Sydney': 'US', 'Wunderman Bienalto': 'WB', 'Retail and hospitality': 'R' };
+      const icon = brandIcons[job.company]
+        ? `<img class="cv-job__logo${job.company === 'Wunderman Bienalto' ? ' cv-job__logo--wpp' : ''}" src="assets/brands/${brandIcons[job.company]}" width="20" height="20" alt="">`
+        : `<span class="cv-job__monogram" aria-hidden="true">${initials[job.company] || job.company[0]}</span>`;
+      return `<li class="cv-job"><div class="cv-job__heading"><h4>${icon}<span>${job.company}</span></h4>${job.start ? '<span class="cv-current">Current</span>' : ''}</div>
         <p class="cv-role">${job.role}${job.type ? `<span> · ${job.type}</span>` : ''}</p>
         ${job.team ? `<p class="cv-team">${job.team}</p>` : ''}<p class="cv-date">${job.dates}${tenure}</p>
         ${job.points ? `<ul class="cv-points">${job.points.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}</li>`;

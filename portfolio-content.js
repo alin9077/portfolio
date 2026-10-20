@@ -312,7 +312,7 @@ window.H_CV = {
   summary: 'I design and prototype complex banking, insurance and AI products.',
   asOf: [2026, 10],
   education: [
-    { school: 'The University of Sydney', course: 'Bachelor of Design Computing, minor in IT', year: 'Graduated 2013' },
+    { school: 'The University of Sydney', course: 'Bachelor of Design Computing', minor: 'minor in IT', year: 'Graduated 2013' },
     { school: 'Muirfield High School', course: 'HSC · North Rocks, Sydney', year: 'Graduated 2008' }
   ],
   experience: [
