@@ -196,15 +196,15 @@ window.H_PROJECTS = {
           "brand": "NAB AI",
           "number": "03",
           "title": "Evidence beside the decision.",
-          "caption": "The concept film places the source payslip beside the assessed figures, with confirmation in the banker’s hands. Explanatory film still with sample values.",
+          "caption": "The updated concept illustration places the source payslip beside the assessed monthly income and confirmed figures. Explanatory film still with sample values.",
           "images": [
             {
               "id": "ai-income-control",
-              "image": "assets/f/income-control-1440.webp",
+              "image": "assets/ai-income-story/confirmed-review.webp",
               "position": "main",
               "frame": "board",
-              "label": "Compare, then confirm · film still",
-              "alt": "Explanatory concept film still showing a sample payslip beside assessed income and supporting figures, with a Confirm income button for the banker."
+              "label": "Evidence reviewed and confirmed · film still",
+              "alt": "Concept illustration showing a sample payslip beside an assessed monthly income of $8,109.57, checked supporting figures and a purple Confirmed button, with one confirmation click."
             }
           ]
         }

@@ -83,10 +83,11 @@
   // Supplied cards already contain their frame, logo and lettering: display the whole print.
   function imageCardHTML(b, mini, lazy) {
     const d = b.deck.image, base = `public/cards/${d.file}`;
-    return `<div class="card__tilt"><div class="card__face is-image">
+    const tag = mini ? 'span' : 'div';
+    return `<${tag} class="card__tilt"><${tag} class="card__face is-image">
       <img class="card__image" src="${base}${mini ? '-thumb' : ''}.webp" ${mini ? "" : `srcset="${base}-240.webp 240w, ${base}-600.webp 600w, ${base}.webp ${d.width}w" sizes="(max-width: 760px) min(20.8vw, 117px), min(20.15vw, 292.5px, 36.3svh)"`} width="${d.width}" height="${d.height}" alt="" decoding="async"${lazy ? ' loading="lazy"' : ''} draggable="false">
       ${mini ? '' : '<i class="card__sheen" aria-hidden="true"></i>'}
-    </div></div>`;
+    </${tag}></${tag}>`;
   }
   function cardHTML(b, i, mini = false, lazy = false) {
     if (b.deck.image) return imageCardHTML(b, mini, lazy);
@@ -121,17 +122,16 @@
   }
   const cardLabel = (b) => b.deck.image?.alt || `${b.deck.name}: ${b.deck.moves.map((m) => (m.value ? `${m.name} ${m.value}` : m.name)).join(', ')}`;
 
-  picker.innerHTML = B.map((b, i) => `<div class="slot" data-i="${i}"><span aria-hidden="true">${i + 1}</span></div>`).join('')
+  picker.innerHTML = B.map((b, i) => `<button class="slot" type="button" data-i="${i}" aria-label="${b.name}" title="${b.name}"><span class="slot__name" aria-hidden="true">${b.id === 'ai' ? 'AI' : b.name}</span></button>`).join('')
     + '<span class="picker__label hud" id="pickLabel" aria-hidden="true"></span>';
   const slots = [...picker.querySelectorAll('.slot')];
   const pickLabel = $('#pickLabel');
 
   const cards = B.map((b, i) => {
-    const el = document.createElement('div');
+    const el = document.createElement('span');
     el.className = 'card in-slot';
-    el.dataset.i = i; el.tabIndex = 0;
-    el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', `${b.name}: ${b.projects.map((id) => PR[id].name).join(', ')}`);
+    el.dataset.i = i;
+    el.setAttribute('aria-hidden', 'true');
     el.dataset.etch = b.deck.etch; el.dataset.foil = b.deck.foil || 'silver';
     el.style.cssText = `--p1:${b.card.bg};--cink:${b.card.ink};--cacc:${b.card.acc};--glowc:${b.card.bg}`;
     el.innerHTML = cardHTML(b, i, true);
@@ -191,7 +191,7 @@
   }
   function mediaHTML(p, id, linked, b) {
     if (p.media?.showcase) {
-      const display = showcaseHTML(p.media.showcase, { decorative: true, caption: false });
+      const display = showcaseHTML(p.media.showcase, { decorative: linked, caption: false });
       return linked
         ? `<a class="row__media is-showcase" href="#${b.id}/${id}" data-open="${id}" aria-label="Explore ${p.name}">${display}</a>`
         : `<div class="row__media is-showcase">${display}</div>`;
@@ -382,7 +382,7 @@
   }
   function measure() {
     // Read all dimensions before writing, avoiding a layout flush for every card.
-    const sizes = heroSlots.map((slot, i) => ({ w: slot.offsetWidth, h: slot.offsetHeight, thumb: slots[i].offsetHeight }));
+    const sizes = heroSlots.map((slot, i) => ({ w: slot.offsetWidth, h: slot.offsetHeight, thumb: parseFloat(getComputedStyle(slots[i]).getPropertyValue('--slot-h')) }));
     cards.forEach((c, i) => {
       const { w, h, thumb } = sizes[i];
       c.style.width = w + 'px'; c.style.height = h + 'px';
@@ -431,6 +431,7 @@
     sections.forEach((s, k) => s.dataset.active = String(k === i));
     cards.forEach((c, k) => {
       if (k === i) c.setAttribute('aria-current', 'true'); else c.removeAttribute('aria-current');
+      if (k === i) slots[k].setAttribute('aria-current', 'true'); else slots[k].removeAttribute('aria-current');
     });
     root.dataset.brand = B[i].id;
     applyTheme(i); showLabel(); syncHeroBox();
@@ -458,11 +459,11 @@
   }
 
   /* ── Project page: the row's picture grows into the page ── */
-  function comparisonShowcaseHTML(showcase, caption) {
+  function comparisonShowcaseHTML(showcase, caption, decorative = false) {
     const copy = showcase.transition;
     const imageHTML = item => {
       const preview = window.H_SHOWCASE_ASSETS?.[item.image];
-      return `<img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="(max-width: 760px) calc(33vw - 15px), (max-width: 1000px) 215px, (min-width: 1500px) 231px, 16vw" width="${preview.width}" height="${preview.height}"` : ''} alt="${item.alt}" loading="lazy" decoding="async">`;
+      return `<img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="(max-width: 760px) calc(33vw - 15px), (max-width: 1000px) 215px, (min-width: 1500px) 231px, 16vw" width="${preview.width}" height="${preview.height}"` : ''} data-full="${item.full || item.image}" alt="${item.alt}" loading="lazy" decoding="async">`;
     };
     return `<figure class="story-showcase story-showcase--browser story-showcase--comparison rewards-comparison" data-showcase-comparison data-phase="before" aria-label="Original and redesigned multi-policy rewards">
       <div class="story-showcase__stage">
@@ -472,19 +473,20 @@
         <div class="rewards-comparison__cards">
           ${[1, 2].map(pair => `<div class="rewards-comparison__card rewards-comparison__card--${pair}"><div class="rewards-comparison__rotor">${['before', 'after'].map(phase => {
             const item = showcase.images.find(image => image.phase === phase && image.pair === pair);
-            return `<div class="rewards-comparison__face rewards-comparison__face--${phase}" data-comparison-face="${phase}" aria-hidden="${phase !== 'before'}">${imageHTML(item)}</div>`;
+            const inactive = phase !== 'before';
+            return `<${decorative ? 'div' : `button type="button" data-view id="${item.id}" aria-label="Enlarge: ${item.label || item.alt}" tabindex="${inactive ? -1 : 0}"`} class="${decorative ? '' : 'case-media__image '}rewards-comparison__face rewards-comparison__face--${phase}" data-comparison-face="${phase}" aria-hidden="${inactive}"${inactive ? ' inert' : ''}>${imageHTML(item)}</${decorative ? 'div' : 'button'}>`;
           }).join('')}</div></div>`).join('')}
         </div>
-        <div class="rewards-comparison__controls">
+        ${decorative ? '' : `<div class="rewards-comparison__controls">
           <div class="rewards-comparison__switch" role="group" aria-label="Choose a rewards design"><button type="button" data-comparison-phase="before" aria-pressed="true">Original</button><button type="button" data-comparison-phase="after" aria-pressed="false">Redesign</button></div>
           <button type="button" class="rewards-comparison__pause" data-comparison-pause aria-label="Pause comparison animation"><i aria-hidden="true"></i><span>Pause</span></button>
-        </div>
+        </div>`}
       </div>
       ${caption ? `<figcaption>${showcase.caption}</figcaption>` : ''}
     </figure>`;
   }
   function showcaseHTML(showcase, { decorative = false, caption = true, illustrative = false } = {}) {
-    if (showcase.transition) return comparisonShowcaseHTML(showcase, caption);
+    if (showcase.transition) return comparisonShowcaseHTML(showcase, caption, decorative);
     const phones = showcase.images.every(item => item.position === 'phone');
     return `<figure class="story-showcase story-showcase--${showcase.theme}${showcase.layout === 'separated-boards' ? ' story-showcase--separated-boards' : ''}${showcase.browserTitle ? ' story-showcase--browser' : ''}${phones ? ` story-showcase--phones story-showcase--phones-${showcase.images.length}` : ''}${phones && showcase.images.length === 1 ? ' story-showcase--single-phone' : ''}">
       <div class="story-showcase__stage">
@@ -495,14 +497,14 @@
           const fraction = showcase.layout === 'separated-boards' ? (item.position === 'detail' ? .57 : .84) : showcase.theme === 'cards' ? .35 : showcase.theme === 'workspace' ? (item.position === 'phone' ? .25 : .72) : item.position === 'phone' ? (phones ? (showcase.images.length === 1 ? .44 : showcase.images.length === 3 ? (showcase.theme === 'flow' ? .25 : .31) : .39) : .27) : ({ main: .93, detail: .67, index: .88, left: .68, right: .64 }[item.position] || 1);
           const sizes = `(max-width: 760px) calc(${(fraction * 100).toFixed(2)}vw - ${(fraction * 44).toFixed(2)}px), (max-width: 1000px) ${Math.round(650 * fraction)}px, (min-width: 1500px) ${Math.round(700 * fraction)}px, ${(fraction * 48).toFixed(2)}vw`;
           const mobileHeader = item.position === 'phone' && showcase.mobileHeader;
-          return `<span ${decorative ? 'aria-hidden="true"' : `id="${item.id}"`} class="case-media__image story-showcase__screen story-showcase__screen--${item.position} story-showcase__screen--slot-${index + 1}${mobileHeader ? ' story-showcase__screen--mobile-header' : ''}${item.contentInset ? ' story-showcase__screen--spaced-content' : ''}${item.squareTop ? ' story-showcase__screen--flat-content' : ''}${item.scrollContent ? ' story-showcase__screen--scroll-content' : ''}${item.frame === 'board' ? ' story-showcase__screen--board' : ''}${item.frame === 'device' ? ' story-showcase__screen--device' : ''}${item.frame === 'handset' ? ' story-showcase__screen--handset' : ''}">
+          return `<${decorative ? 'span aria-hidden="true"' : `button type="button" data-view id="${item.id}" aria-label="Enlarge: ${item.label || item.alt}"`} class="case-media__image story-showcase__screen story-showcase__screen--${item.position} story-showcase__screen--slot-${index + 1}${mobileHeader ? ' story-showcase__screen--mobile-header' : ''}${item.contentInset ? ' story-showcase__screen--spaced-content' : ''}${item.squareTop ? ' story-showcase__screen--flat-content' : ''}${item.scrollContent ? ' story-showcase__screen--scroll-content' : ''}${item.frame === 'board' ? ' story-showcase__screen--board' : ''}${item.frame === 'device' ? ' story-showcase__screen--device' : ''}${item.frame === 'handset' ? ' story-showcase__screen--handset' : ''}">
           ${item.frame === 'board' || item.frame === 'device' ? '' : `<span class="story-showcase__chrome" aria-hidden="true"><i></i><i></i><i></i><span>${item.label}</span></span>`}
           ${mobileHeader ? `<span class="story-showcase__mobile-header" aria-hidden="true"><span class="story-showcase__mobile-status"><b>9:41</b><svg viewBox="0 0 38 12"><path d="M1 10V8h2v2zm4 0V6h2v4zm4 0V4h2v6zm4 0V2h2v8z"/><path d="M19 4q4-4 8 0m-6 2q2-2 4 0" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="23" cy="8" r="1"/><rect x="30" y="3" width="6" height="6" rx="1" fill="none" stroke="currentColor"/><path d="M31 4h4v4h-4zm6 1h1v2h-1z"/></svg></span><span class="story-showcase__mobile-toolbar"><span>aA</span><span class="story-showcase__mobile-address"><i style="background-image:url(${showcase.brandLogo || 'assets/brands/nab-mark.svg'})"></i>${showcase.mobileHeader}<svg viewBox="0 0 12 12"><path d="M9 4a4 4 0 1 0 .7 4M9 1v3H6"/></svg></span><span>⋯</span></span></span>` : ''}
           ${mobileHeader ? '<span class="story-showcase__mobile-content">' : ''}
-          <img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="${sizes}" width="${preview.width}" height="${preview.height}"` : ''} alt="${item.alt}${!decorative && illustrative ? ' — illustrative only.' : ''}" loading="lazy" decoding="async">
+          <img src="${preview?.src || item.image}" ${preview ? `srcset="${preview.srcset}" sizes="${sizes}" width="${preview.width}" height="${preview.height}"` : ''} data-full="${item.full || item.image}"${!decorative && illustrative ? ' data-illustrative="true"' : ''} alt="${item.alt}${!decorative && illustrative ? ' — illustrative only.' : ''}" loading="lazy" decoding="async">
           ${mobileHeader ? '</span>' : ''}
           ${!decorative && illustrative ? '<span class="illustrative-label story-showcase__illustrative" aria-hidden="true">"ILLUSTRATIVE ONLY"</span>' : ''}
-        </span>
+        </${decorative ? 'span' : 'button'}>
         ${showcase.theme === 'flow' ? `<span class="story-showcase__step story-showcase__step--${index + 1}" aria-hidden="true"><b>0${index + 1}</b>${item.step || item.label}</span>` : ''}`;
         }).join('')}
       </div>
@@ -512,9 +514,9 @@
 
   function caseMediaHTML(s) {
     const figures = s.media.map((item) => `<figure class="case-media__item">
-      <div class="case-media__image${item.frame ? ` case-media__image--${item.frame}` : ''}">
+      <button class="case-media__image${item.frame ? ` case-media__image--${item.frame}` : ''}" type="button" data-view aria-label="Enlarge: ${item.label || item.alt || 'project image'}">
         <img src="${item.image || src(item.key, 'm')}" ${item.image ? '' : `srcset="${src(item.key, 's')} 480w, ${src(item.key, 'm')} 960w, ${src(item.key, 'l')} 1440w"`} sizes="(max-width: 760px) 85vw, 40vw" ${item.key ? `data-media-key="${item.key}"` : ''} data-full="${item.image || src(item.key, 'l')}" alt="${item.alt || alt(item.key)}" loading="lazy" decoding="async">
-      </div>
+      </button>
       ${item.label ? `<figcaption>${item.label}</figcaption>` : ''}
     </figure>`).join('');
     return `<div class="sc__media case-media case-media--${s.mediaLayout}"><div class="case-media__figures">${figures}</div></div>`;
@@ -532,9 +534,9 @@
         ${s.moments.map(m => `<li><h3>${m.label}</h3><p>${m.text}</p></li>`).join('')}
       </ul>
       <figure class="ev-story__proof">
-        <div class="case-media__image">
+        <button class="case-media__image" type="button" data-view aria-label="Enlarge project evidence">
           <img src="${s.proof}" data-full="${s.proof}" alt="${s.proofAlt}" decoding="async">
-        </div>
+        </button>
         <figcaption>${s.caption}</figcaption>
       </figure>
       <details class="ev-story__details">
@@ -548,7 +550,7 @@
       const responsive = m.image ? '' : k.startsWith('f:')
         ? ` srcset="${src(k, 's')} 480w, ${src(k, 'm')} 960w, ${src(k, 'l')} 1440w"`
         : ` srcset="${src(k, 'm')} 720w, ${src(k, 'l')} 1600w"`;
-      return `<figure class="${m.caption ? 'is-captioned' : ''}"><img src="${image}"${responsive} sizes="${m.caption ? '(max-width: 760px) 90vw, 55vw' : '300px'}"${k ? ` data-media-key="${k}"` : ''} data-full="${full}" alt="${m.alt || (k ? alt(k) : '')}" loading="lazy" decoding="async">${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}</figure>`;
+      return `<figure class="${m.caption ? 'is-captioned' : ''}"><button class="case-media__open" type="button" data-view aria-label="Enlarge: ${m.alt || m.caption || (k ? alt(k) : '') || 'project image'}"><img src="${image}"${responsive} sizes="${m.caption ? '(max-width: 760px) 90vw, 55vw' : '300px'}"${k ? ` data-media-key="${k}"` : ''} data-full="${full}" alt="${m.alt || (k ? alt(k) : '')}" loading="lazy" decoding="async"></button>${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}</figure>`;
     };
     const secs = subsOf(p).filter((s) => s.more).map((s) => {
       const media = s.mediaLayout ? caseMediaHTML(s) : s.media ? `<div class="sc__media">${s.media.map((k) => p.subs ? shot(k) : '<figure class="is-placeholder" aria-hidden="true"></figure>').join('')}</div>` : '';
@@ -563,7 +565,7 @@
     if (p.media?.showcase) return `<div class="row__media is-showcase">${showcaseHTML(p.media.showcase, { caption: false, illustrative: p.illustrativeImages === true })}</div>`;
     if (p.media && p.media.embed) return filmHTML(p);
     if (p.media && p.media.demo) return demoHTML(p);
-    if (p.media && p.media.image) return `<div class="row__media is-artwork case-media__image" style="background:${p.media.ground || '#e6e6e6'}">${artworkImageHTML(p)}</div>`;
+    if (p.media && p.media.image) return `<button class="row__media is-artwork case-media__image" type="button" data-view aria-label="Enlarge project overview" style="background:${p.media.ground || '#e6e6e6'}">${artworkImageHTML(p)}</button>`;
     return '<div class="row__media is-placeholder" aria-hidden="true"></div>';
   }
 
@@ -789,8 +791,18 @@
   const viewer = (() => {
     const v = $('#viewer'), frame = v.querySelector('.viewer__frame'), img = frame.querySelector('img'), pct = v.querySelector('.viewer__pct');
     let s = 1, tx = 0, ty = 0, thumb = null, isOpen = false, bw = 0, bh = 0, pinch = null, panFrom = null, moved = false, downOn = null;
-    let closing = false, returnFocus = null, backgroundStates = [], savedOverflow = '', zoomFromThumb = true;
+    let closing = false, returnFocus = null, backgroundStates = [], savedOverflow = '', zoomFromThumb = true, multiPointer = false;
     const pts = new Map();
+    function clearGesture() {
+      for (const id of pts.keys()) if (v.hasPointerCapture(id)) v.releasePointerCapture(id);
+      pts.clear(); pinch = panFrom = downOn = null; moved = multiPointer = false;
+      v.classList.remove('is-panning');
+    }
+    function beginPinch() {
+      const [a, b] = [...pts.values()];
+      pinch = { d: Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), s, tx, ty, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      panFrom = null;
+    }
     function apply(smooth) {
       img.style.transition = smooth && !reduce.matches ? 'transform .5s cubic-bezier(.16,1,.3,1)' : 'none';
       img.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
@@ -810,7 +822,9 @@
     }
     function fit() {
       const nw = img.naturalWidth || 1600, nh = img.naturalHeight || 1000;
-      const k = Math.min(innerWidth * .92 / nw, innerHeight * .82 / nh, 2);
+      const padding = getComputedStyle(v);
+      const availableHeight = innerHeight - parseFloat(padding.paddingTop) - parseFloat(padding.paddingBottom);
+      const k = Math.min(innerWidth * .92 / nw, Math.min(innerHeight * .82, availableHeight) / nh, 2);
       bw = nw * k; bh = nh * k; frame.style.width = bw + 'px'; frame.style.height = bh + 'px';
     }
     function flipFrom(el) {
@@ -819,6 +833,7 @@
     }
     async function openV(el, trigger) {
       if (isOpen || closing) return;
+      clearGesture();
       isOpen = true; thumb = el;
       returnFocus = trigger || el.closest('button, a') || document.activeElement;
       zoomFromThumb = !trigger;
@@ -839,6 +854,7 @@
     }
     async function closeV() {
       if (!isOpen) return;
+      clearGesture();
       isOpen = false; closing = true;
       if (s > 1.01) { s = 1; tx = ty = 0; apply(true); }
       v.classList.remove('is-open'); v.setAttribute('aria-hidden', 'true');
@@ -861,28 +877,44 @@
     });
     v.addEventListener('wheel', (e) => { e.preventDefault(); e.stopPropagation(); zoomAt(s * Math.exp(-e.deltaY * (e.ctrlKey ? .01 : .0022)), e.clientX, e.clientY, false); }, { passive: false });
     v.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.viewer__bar')) return;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pts.size === 1) downOn = e.target;
-      v.setPointerCapture(e.pointerId); moved = false;
-      if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), s }; }
+      if (!isOpen || closing || e.target.closest('.viewer__bar')) return;
+      if (!pts.size) { downOn = e.target; moved = multiPointer = false; }
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY, startX: e.clientX, startY: e.clientY });
+      v.setPointerCapture(e.pointerId);
+      if (pts.size >= 2) { multiPointer = true; moved = true; beginPinch(); }
       else panFrom = { x: e.clientX - tx, y: e.clientY - ty };
     });
     v.addEventListener('pointermove', (e) => {
       if (!pts.has(e.pointerId)) return;
       const p0 = pts.get(e.pointerId);
-      if (Math.hypot(e.clientX - p0.x, e.clientY - p0.y) > 4) moved = true;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; zoomAt(pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2, (a.y + b.y) / 2, false); }
+      if (Math.hypot(e.clientX - p0.startX, e.clientY - p0.startY) > 4) moved = true;
+      p0.x = e.clientX; p0.y = e.clientY;
+      if (pinch && pts.size === 2) {
+        const [a, b] = [...pts.values()], r = frame.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        s = clamp(pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, 1, 6);
+        tx = (a.x + b.x) / 2 - cx - (pinch.x - cx - pinch.tx) * s / pinch.s;
+        ty = (a.y + b.y) / 2 - cy - (pinch.y - cy - pinch.ty) * s / pinch.s;
+        if (s === 1) tx = ty = 0;
+        bound(); apply(false);
+      }
       else if (panFrom && s > 1.01 && moved) { v.classList.add('is-panning'); tx = e.clientX - panFrom.x; ty = e.clientY - panFrom.y; bound(); apply(false); }
     });
     const up = (e) => {
       if (!pts.has(e.pointerId)) return;
+      const pointer = pts.get(e.pointerId);
+      if (Math.hypot(e.clientX - pointer.startX, e.clientY - pointer.startY) > 4 || e.type !== 'pointerup') moved = true;
       pts.delete(e.pointerId); v.classList.remove('is-panning');
-      if (pts.size < 2) pinch = null;
+      if (v.hasPointerCapture(e.pointerId)) v.releasePointerCapture(e.pointerId);
+      if (pts.size >= 2) beginPinch();
+      else if (pts.size === 1) {
+        pinch = null;
+        const remaining = [...pts.values()][0];
+        panFrom = { x: remaining.x - tx, y: remaining.y - ty };
+      }
       if (pts.size === 0) {
-        panFrom = null;
-        if (!moved && e.type === 'pointerup') { if (downOn === img) zoomAt(s > 1.01 ? 1 : 2.5, e.clientX, e.clientY, true); else closeV(); }
+        const tapped = !moved && !multiPointer && e.type === 'pointerup', target = downOn;
+        clearGesture();
+        if (tapped) { if (target === img) zoomAt(s > 1.01 ? 1 : 2.5, e.clientX, e.clientY, true); else closeV(); }
       }
     };
     v.addEventListener('pointerup', up); v.addEventListener('pointercancel', up);
@@ -1005,13 +1037,21 @@
 
   // the deck: pointing at a card names it; choosing it lifts it out
   const point = (i, on) => { if (cards[i].classList.contains('in-slot')) cards[i].classList.toggle('is-pointed', on); showLabel(on ? i : null); };
-  cards.forEach((c, i) => {
-    c.addEventListener('pointerenter', () => { if (c.classList.contains('in-slot')) point(i, true); });
+  slots.forEach((c, i) => {
+    c.addEventListener('pointerenter', () => point(i, true));
     c.addEventListener('pointerleave', () => point(i, false));
-    c.addEventListener('click', () => { if (!c.classList.contains('is-hero')) go(i); });
+    c.addEventListener('focus', () => point(i, true));
+    c.addEventListener('blur', () => point(i, false));
+    c.addEventListener('click', () => go(i));
   });
 
   document.addEventListener('click', (e) => {
+    const imageControl = e.target.closest('[data-view]');
+    if (imageControl && (subEl.contains(imageControl) || pageEl.contains(imageControl))) {
+      const image = imageControl.querySelector('img:not(.story-showcase__brand-logo)');
+      if (image) { e.preventDefault(); viewer.open(image, imageControl); }
+      return;
+    }
     if (e.target.closest('[data-cv-portfolio]') && !e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); closePage(); go(0); return; }
     const o = e.target.closest('[data-open]');
     if (o && !e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); openPage(o.dataset.open); return; }

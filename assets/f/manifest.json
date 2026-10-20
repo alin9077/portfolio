@@ -1664,5 +1664,20 @@
     "kind": "explanatory film still",
     "provenance": "Imported explanatory concept film still; the original film source is retained in the adjacent portfolio studio.",
     "current_film": "income-film-square.js"
+  },
+  "income-confirmed-review": {
+    "alt": "Updated concept illustration: payslip, assessed monthly income, checked figures and confirmation; sample values.",
+    "source": "income-film-square.js",
+    "time": 45.3,
+    "kind": "explanatory film still",
+    "image": "assets/ai-income-story/confirmed-review.webp",
+    "vector": "assets/ai-income-story/confirmed-review.svg",
+    "viewBox": [
+      64,
+      396,
+      1472,
+      1116
+    ],
+    "provenance": "Exported the existing square film’s review, income-total and click-count layers. No player controls or duplicate headline."
   }
 }

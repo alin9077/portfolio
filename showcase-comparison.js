@@ -16,14 +16,16 @@
       if (states.has(el)) return;
       const pause = el.querySelector('[data-comparison-pause]');
       const cards = el.querySelector('.rewards-comparison__cards');
-      const state = { el, phase: 'before', active: false, visible: false, ready: false, paused: false, reading: false, revealPending: true, timer: 0 };
+      const state = { el, phase: 'before', active: false, visible: false, ready: false, paused: false, reading: false, focused: false, revealPending: true, timer: 0 };
       state.sync = () => {
         clearTimeout(state.timer); state.timer = 0;
-        pause.hidden = reduce.matches;
-        pause.setAttribute('aria-label', state.paused ? 'Play comparison animation' : 'Pause comparison animation');
-        pause.querySelector('span').textContent = state.paused ? 'Play' : 'Pause';
-        pause.dataset.paused = String(state.paused);
-        el.dataset.playing = String(state.active && state.visible && state.ready && !state.paused && (!state.reading || state.revealPending) && !reduce.matches && !document.hidden);
+        if (pause) {
+          pause.hidden = reduce.matches;
+          pause.setAttribute('aria-label', state.paused ? 'Play comparison animation' : 'Pause comparison animation');
+          pause.querySelector('span').textContent = state.paused ? 'Play' : 'Pause';
+          pause.dataset.paused = String(state.paused);
+        }
+        el.dataset.playing = String(state.active && state.visible && state.ready && !state.paused && !state.focused && (!state.reading || state.revealPending) && !reduce.matches && !document.hidden);
         if (el.dataset.playing === 'true') state.timer = setTimeout(() => {
           state.revealPending = false;
           state.show(state.phase === 'before' ? 'after' : 'before');
@@ -35,7 +37,12 @@
         el.dataset.phase = phase;
         el.querySelectorAll('[data-comparison-phase]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.comparisonPhase === phase)));
         el.querySelectorAll('[data-comparison-copy]').forEach(copy => { copy.hidden = copy.dataset.comparisonCopy !== phase; });
-        el.querySelectorAll('[data-comparison-face]').forEach(face => face.setAttribute('aria-hidden', String(face.dataset.comparisonFace !== phase)));
+        el.querySelectorAll('[data-comparison-face]').forEach(face => {
+          const inactive = face.dataset.comparisonFace !== phase;
+          face.setAttribute('aria-hidden', String(inactive));
+          face.inert = inactive;
+          if (face.matches('[data-view]')) face.tabIndex = inactive ? -1 : 0;
+        });
       };
       const select = event => {
         const button = event.target.closest('[data-comparison-phase], [data-comparison-pause]');
@@ -55,15 +62,21 @@
       };
       const enter = () => { state.reading = true; if (!state.revealPending) state.sync(); };
       const leave = () => { state.reading = false; if (!state.revealPending) state.sync(); };
+      const focus = () => { state.focused = true; state.sync(); };
+      const blur = event => { if (!cards.contains(event.relatedTarget)) { state.focused = false; state.sync(); } };
       el.addEventListener('click', select);
       cards.addEventListener('pointerenter', enter);
       cards.addEventListener('pointerleave', leave);
+      cards.addEventListener('focusin', focus);
+      cards.addEventListener('focusout', blur);
       state.destroy = () => {
         clearTimeout(state.timer);
         observer.unobserve(el);
         el.removeEventListener('click', select);
         cards.removeEventListener('pointerenter', enter);
         cards.removeEventListener('pointerleave', leave);
+        cards.removeEventListener('focusin', focus);
+        cards.removeEventListener('focusout', blur);
       };
       states.set(el, state);
       state.show('before');
