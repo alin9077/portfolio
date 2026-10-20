@@ -488,8 +488,22 @@
   function cvHTML() {
     const cv = window.H_CV;
     const experience = cv.experience.map(job => {
-      const months = job.start ? (cv.asOf[0] - job.start[0]) * 12 + cv.asOf[1] - job.start[1] : null;
-      const tenure = months == null ? '' : ` · ${months} months (${Math.floor(months / 12)} years, ${months % 12} months)`;
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const dateRange = job.dates.match(/^(?:(\w{3}) )?(\d{4}) — (?:(\w{3}) )?(\d{4}|Present)$/);
+      let tenure = '';
+      if (dateRange) {
+        const [, startMonth, startYear, endMonth, endYear] = dateRange;
+        const approximate = !startMonth || (endYear !== 'Present' && !endMonth);
+        const end = endYear === 'Present' ? cv.asOf : [Number(endYear), endMonth ? monthNames.indexOf(endMonth) + 1 : 1];
+        const start = [Number(startYear), startMonth ? monthNames.indexOf(startMonth) + 1 : 1];
+        const months = (end[0] - start[0]) * 12 + end[1] - start[1];
+        const years = Math.floor(months / 12);
+        const remainingMonths = months % 12;
+        const duration = months > 12
+          ? `${years} ${years === 1 ? 'year' : 'years'}${remainingMonths ? ` ${remainingMonths} ${remainingMonths === 1 ? 'month' : 'months'}` : ''}`
+          : `${months} ${months === 1 ? 'month' : 'months'}`;
+        tenure = ` · ${approximate ? 'Approx. ' : ''}${duration}`;
+      }
       const brandIcons = {
         'National Australia Bank (NAB)': 'nab-mark.svg',
         'Commonwealth Bank of Australia (CBA)': 'commbank-mark.svg',
@@ -505,10 +519,10 @@
       const icon = brandIcons[job.company]
         ? `<img class="cv-job__logo${job.company === 'Wunderman Bienalto' ? ' cv-job__logo--wpp' : ''}" src="assets/brands/${brandIcons[job.company]}" width="20" height="20" alt="">`
         : `<span class="cv-job__monogram" aria-hidden="true">${initials[job.company] || job.company[0]}</span>`;
-      return `<li class="cv-job"><div class="cv-job__heading"><h4>${icon}<span>${job.company}</span></h4>${job.start ? '<span class="cv-current">Current</span>' : ''}</div>
+      return `<li class="cv-job">${job.start ? '<span class="cv-current">Current</span>' : ''}<div class="cv-job__heading"><h4>${icon}<span>${job.company}</span></h4></div>
         <p class="cv-role">${job.role}${job.type ? `<span> · ${job.type}</span>` : ''}</p>
         ${job.team ? `<p class="cv-team">${job.team}</p>` : ''}<p class="cv-date">${job.dates}${tenure}</p>
-        ${job.points ? `<ul class="cv-points">${job.points.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}</li>`;
+        ${job.points ? `<ul class="cv-points" role="list">${job.points.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}</li>`;
     }).join('');
     return `<header class="cv-header"><p class="sc__eyebrow">Curriculum vitae</p><h2 class="sc__title" id="cv-title">Austin Lin</h2><p class="sc__lede">${cv.title}</p></header>
       <section class="cv-experience"><h3>Experience</h3><ol>${experience}</ol></section>`;

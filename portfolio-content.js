@@ -306,7 +306,7 @@ window.H_PROJECTS = {
 };
 
 // Work history and education transcribed from Austin's ALIN-CV-2025.pdf.
-// Workplace bullet points and skills sections omitted at Austin’s request.
+// Role highlights supplied by Austin and refined against the portfolio, 20 October 2026.
 window.H_CV = {
   title: 'Product and Interaction Designer',
   summary: 'I design and prototype complex banking, insurance and AI products.',
@@ -316,14 +316,36 @@ window.H_CV = {
     { school: 'Muirfield High School', course: 'HSC · North Rocks, Sydney', year: 'Graduated 2008' }
   ],
   experience: [
-    { company: 'National Australia Bank (NAB)', role: 'Senior Product Designer', team: 'Personal Everyday Banking, Digital and Enterprise', type: 'Contract', dates: 'Jun 2023 — Present', start: [2023, 6] },
-    { company: 'HSBC', role: 'Senior UX/UI Designer', type: 'Contract', dates: 'Oct 2022 — Jun 2023' },
-    { company: 'Qantas', role: 'Senior Product Designer', team: 'Insurance, Wellbeing, Design System', type: 'Contract', dates: 'Sep 2021 — Sep 2022' },
-    { company: 'Insurance Australia Group (IAG)', role: 'Interaction Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2019 — Sep 2021' },
-    { company: 'Massive Interactive', role: 'UX Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2018 — Mar 2019' },
-    { company: 'Commonwealth Bank of Australia (CBA)', role: 'UX/UI Designer', team: 'Enterprise Services & Digital', type: 'Contract', dates: 'Aug 2016 — Dec 2018' },
-    { company: 'The University of Sydney', role: 'UX Designer and Development', team: 'Faculty of Architecture', type: 'Contract', dates: 'Jan 2014 — Mar 2016' },
-    { company: 'Wunderman Bienalto', role: 'UX/UI Designer', type: 'Permanent full-time', dates: 'Jan 2013 — Nov 2014' },
+    { company: 'National Australia Bank (NAB)', role: 'Senior Product Designer', team: 'Personal Everyday Banking, Digital and Enterprise', type: 'Contract', dates: 'Jun 2023 — Present', start: [2023, 6], points: [
+      'Led design for Financial Details and nabONE, covering banker application review, management and verification.',
+      'Helped simplify credit card and personal loan applications, reducing required expense inputs from 16 to two.',
+      'Designed Open Banking consent flows for income verification and Consumer Data Right (CDR) compliance.',
+      'Built an interactive AI income verification prototype, targeting 2,000 hours of weekly savings.'
+    ] },
+    { company: 'HSBC', role: 'Senior UX/UI Designer', type: 'Contract', dates: 'Oct 2022 — Jun 2023', points: [
+      'Led NPP integration design across HSBC’s payment rails, with fallback routes for customers unable to use NPP.',
+      'Contributed to global origination customer journeys.'
+    ] },
+    { company: 'Qantas', role: 'Senior Product Designer', team: 'Insurance, Wellbeing, Design System', type: 'Contract', dates: 'Sep 2021 — Sep 2022', points: [
+      'Led Qantas Wellbeing and Insurance design, using customer research to clarify travel cover and multi-policy rewards.'
+    ] },
+    { company: 'Insurance Australia Group (IAG)', role: 'Interaction Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2019 — Sep 2021', points: [
+      'Defined design architecture and shared patterns for NRMA quotes, MyAccount and renewals, supporting migration to Guidewire PolicyCenter and ClaimCenter.'
+    ] },
+    { company: 'Massive Interactive', role: 'UX Designer', team: 'Strategy and Innovation, Design Centre', type: 'Contract', dates: 'Dec 2018 — Mar 2019', points: [
+      'Contributed UX design to Mediacorp’s on-demand TV platform in Singapore.'
+    ] },
+    { company: 'Commonwealth Bank of Australia (CBA)', role: 'UX/UI Designer', team: 'Enterprise Services & Digital', type: 'Contract', dates: 'Aug 2016 — Dec 2018', points: [
+      'Led home-lending appointment booking design, replacing a 24-hour callback wait with direct bookings in around five minutes.',
+      'Designed CanWork’s staff and manager journeys to match available staff with branch shifts.',
+      'Contributed to CommSee’s regulatory servicing and home-loan credit decisioning workflows.'
+    ] },
+    { company: 'The University of Sydney', role: 'UX Designer and Development', team: 'Faculty of Architecture', type: 'Contract', dates: 'Jan 2014 — Mar 2016', points: [
+      'Redesigned and built the Faculty of Architecture website in HTML, JavaScript and CSS, applying the University’s new design guidelines.'
+    ] },
+    { company: 'Wunderman Bienalto', role: 'UX/UI Designer', type: 'Permanent full-time', dates: 'Jan 2013 — Nov 2014', points: [
+      'Designed digital experiences for Woolworths, Dan Murphy’s and NSW Planning, supporting pitches and client design reviews.'
+    ] },
     { company: 'Retail and hospitality', role: 'Part-time roles throughout high school and university', team: 'Telstra, Kmart and hospitality', dates: '2005 — 2013' }
   ]
 };
