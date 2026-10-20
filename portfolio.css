@@ -1071,4 +1071,8 @@ body[data-level="3"] .sub.is-leaving { background: transparent; opacity: 1; visi
 
 /* Keep the name and card deck separated by a consistent 40px. */
 .me__name { line-height: 20px; }
-.picker { top: calc(var(--top-y) + 20px + 40px); }
+/* Keep 40px below the complete selector before the first full-size card. */
+:root { --picker-y: calc(var(--top-y) + 20px + 40px); }
+.picker { top: var(--picker-y); }
+.picker__label { bottom: 0; }
+.page { padding-top: calc(var(--picker-y) + var(--slot-h) + 40px); }
