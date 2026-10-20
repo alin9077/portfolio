@@ -1076,3 +1076,13 @@ body[data-level="3"] .sub.is-leaving { background: transparent; opacity: 1; visi
 .picker { top: var(--picker-y); }
 .picker__label { bottom: 0; }
 .page { padding-top: calc(var(--picker-y) + var(--slot-h) + 40px); }
+
+/* Every project preview uses the booking tile's square frame and corner curve. */
+:root { --project-media-radius: 9.2%; }
+.row .row__media,
+.sub__hero .row__media {
+  aspect-ratio: 1;
+  border-radius: var(--project-media-radius);
+  overflow: hidden;
+}
+.row__media > :is(.cba-demo, .ev-demo, .film__canvas) { border-radius: inherit; }
