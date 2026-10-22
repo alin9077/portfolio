@@ -125,24 +125,44 @@ window.H_PROJECTS = {
       "Targeting around 2,000 hours of repetitive work saved each week.",
       "Consolidate three systems into a single intuitive workflow."
     ],
-    "text": "Bankers moved between documents, calculators and lending systems to verify income. An AI-generated total would only help if they could check its evidence without doing the work again.<br><br><strong>Start with the decision:</strong> compare declared and assessed income, inspect the supporting evidence, then confirm or exclude each source in one place.",
+    "text": "Bankers copied figures between documents, calculators and lending systems to verify income. I designed a way to check an AI-prepared figure against its evidence, then confirm it in one place.",
     "media": {
       "film": "income-film-square.html",
       "embed": true
     },
     "subs": [
       {
-        "label": "What I learnt",
-        "title": "Built an interactive prototype in Cursor to move income verification from copying figures across systems to reviewing evidence around each income source.",
-        "more": [
-          "Shadowing a lending consultant and two prototype feedback sessions changed the structure of the experience. A document-by-document timeline was understandable, but too slow for experienced bankers. I moved to one card per income source, grouping supporting documents around recognisable employers and properties.",
+        "label": "The problem",
+        "title": "Verifying income meant redoing the maths by hand",
+        "more": ["Before approving credit, bankers read each payslip, black out tax file numbers, copy figures into a calculator and move between three systems. Variable pay and multiple employers make it slower and easier to get wrong."],
+        "bullets": [
+          "<strong>Repetitive:</strong> 31 clicks to verify one payslip, as the film shows",
+          "<strong>Retyped by hand:</strong> figures and dates copied between documents and systems",
+          "<strong>At scale:</strong> the target is around 2,000 hours of this work saved each week"
         ],
+        "film": 2
+      },
+      {
+        "label": "Why build it",
+        "title": "AI can prepare the figure; bankers need to trust it",
+        "more": ["Models can now read payslips and calculate income. The design question was how a banker could check that figure without doing the work again."],
+        "bullets": [
+          "<strong>Redacts</strong> the tax file number automatically",
+          "<strong>Reads</strong> every figure off the payslip",
+          "<strong>Checks</strong> eight things, from the name matching to net pay adding up"
+        ],
+        "film": 3
+      },
+      {
+        "label": "What I learnt",
+        "title": "One card per income source, not one per document",
+        "more": ["Shadowing a lending consultant and two feedback sessions showed a document-by-document timeline was too slow for experienced bankers. I grouped the evidence around each employer or property instead."],
         "showcase": {
           "theme": "baseline",
           "brand": "NAB AI",
           "number": "01",
           "title": "Less copying. More judgement.",
-          "caption": "The explanatory film shows the starting problem: separate documents, copied figures and a calculator. This is a concept illustration, rather than a screenshot of the production system.",
+          "caption": "Concept film: separate documents, copied figures and a calculator. Not the production system.",
           "images": [
             {
               "id": "ai-income-workflow",
@@ -157,21 +177,20 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "AI only helps if bankers can check its work without repeating it. A genuine document is not always enough evidence for the income being claimed.",
-        "more": [
-          "Variable income and multiple employers made a single assessed total difficult to trust. Bankers needed to understand how the figure was reached and whether the evidence supported it. One authentic payslip, for example, might not be sufficient for overtime or commission."
-        ],
+        "title": "AI only helps if bankers can check it without redoing it",
+        "more": ["Variable pay and multiple employers made a single total hard to trust. One genuine payslip may still not prove overtime or commission."],
         "bullets": [
-          "<strong>See the difference:</strong> keep customer-declared, AI-assessed and banker-confirmed income distinct, so the banker can compare rather than mentally reconcile figures across systems.",
-          "<strong>Understand the calculation:</strong> put the method and supporting documents beside the assessed figure.",
-          "<strong>Know what needs attention:</strong> describe the checks explicitly, surface exceptions and collapse routine checks. A broad label such as “Pass” did not explain what had been verified."
+          "<strong>See the difference:</strong> declared, AI-assessed and confirmed income side by side",
+          "<strong>Understand the calculation:</strong> $3,742.88 × 26 ÷ 12 = $8,109.57 a month, beside its documents",
+          "<strong>Know what needs attention:</strong> name each check, surface exceptions, collapse the rest"
         ],
+        "film": 4,
         "showcase": {
           "theme": "range",
           "brand": "NAB AI",
           "number": "02",
           "title": "The figure, and how it was reached.",
-          "caption": "An explanatory film frame makes the assessed monthly income, calculation and supporting income pattern visible. All amounts are sample values.",
+          "caption": "The assessed monthly income with its calculation. Sample values.",
           "images": [
             {
               "id": "ai-income-evidence",
@@ -186,17 +205,20 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "Automate the preparation. Keep the banker’s judgement visible, traceable and supported when AI cannot complete the assessment.",
-        "more": [
-          "The banker confirms or excludes each income, with reasons and a receipt that make the decision traceable. A manual calculator provides a fallback when AI cannot assess a case. I extended the prototype to multiple jobs, rental income and small businesses, so the interaction model could handle more than a simple payslip.",
-          "The film illustrates 31 manual clicks becoming one confirmation in the proposed workflow. Bankers still review the evidence. Around 2,000 hours saved each week is a target; production time savings and AI accuracy have not been measured.",
+        "title": "Automate the preparation, keep the judgement with the banker",
+        "more": ["Bankers confirm or exclude each income with a reason and a receipt. A manual calculator covers cases AI can’t assess."],
+        "bullets": [
+          "<strong>31 clicks to one confirmation</strong> in the proposed workflow, with the evidence still reviewed",
+          "<strong>Target of around 2,000 hours a week:</strong> time savings and AI accuracy not yet measured",
+          "<strong>Beyond payslips:</strong> multiple jobs, rental income and small businesses"
         ],
+        "film": 6,
         "showcase": {
           "theme": "software",
           "brand": "NAB AI",
           "number": "03",
           "title": "Evidence beside the decision.",
-          "caption": "The updated concept illustration places the source payslip beside the assessed monthly income and confirmed figures. Explanatory film still with sample values.",
+          "caption": "The payslip beside the assessed and confirmed figures. Sample values.",
           "images": [
             {
               "id": "ai-income-control",
@@ -211,10 +233,8 @@ window.H_PROJECTS = {
       },
       {
         "label": "Next step",
-        "title": "Show what changing an income means for the loan before the banker confirms it.",
-        "more": [
-          "Bankers wanted to understand whether reducing or excluding an income would change the customer’s ability to afford the loan. That feedback identified the next product opportunity: connect the income decision to its consequence for the application."
-        ]
+        "title": "Show what changing an income does to the loan",
+        "more": ["Bankers asked whether reducing or excluding an income would change affordability. The next step connects each income decision to its effect on the application."]
       }
     ],
     "visualStory": true
@@ -231,24 +251,40 @@ window.H_PROJECTS = {
       "Built menu-collecting agents and fine-tuned models to turn menus into searchable data.",
       "82,000+ menu documents collected from websites and photos."
     ],
-    "text": "Finding dinner means searching restaurants, opening menu PDFs and zooming in on your phone.<br><br><strong>Start with the food:</strong> browse dishes, compare similar meals at nearby restaurants, then explore the restaurant.",
+    "text": "Finding dinner meant opening menu PDFs and zooming in on a phone. Menu Finder starts with the food: search dishes, compare nearby options, then choose the restaurant.",
     "media": {
       "film": "menu-film-square.html",
       "embed": true
     },
     "subs": [
       {
-        "label": "What I learnt",
-        "title": "Built OpenClaw agents to collect menus anywhere we could find them, then fine-tuned open and closed models to turn whole menus into a structured database.",
-        "more": [
-          "I created an entire backend operation that ran headlessly and autonomously. I tried many different approaches to extracting menus with local models running on local hardware. Computing bottlenecks forced me to distribute much of the workload through OpenRouter and orchestrate multiple models for validation and error correction.",
+        "label": "The problem",
+        "title": "Restaurant apps answer “where”, not “what can I eat”",
+        "more": ["Directories list venues, but the food lives in menu PDFs, photos and websites that are hard to read on a phone and impossible to search. You can’t ask for ramen under $20 nearby and compare the dishes."],
+        "bullets": [
+          "<strong>Hidden:</strong> menus sit in PDFs, photos and web pages, not searchable data",
+          "<strong>Hard to read:</strong> a menu photo means pinching, zooming and squinting",
+          "<strong>Hard to compare:</strong> no way to line up the same dish, price or diet across places"
         ],
+        "film": 0
+      },
+      {
+        "label": "Why build it",
+        "title": "Models can finally read messy menus",
+        "more": ["In September 2026, extraction became good and cheap enough to run at scale. With every dish and price structured, people could start with the food and choose the restaurant second."],
+        "film": 1
+      },
+      {
+        "label": "What I learnt",
+        "title": "Agents collect the menus; models turn them into data",
+        "more": ["OpenClaw agents collect menus headlessly, and fine-tuned open and closed models extract them. When local hardware hit its limits, I spread the work across models on OpenRouter that check each other’s results."],
+        "film": 2,
         "showcase": {
           "theme": "baseline",
           "brand": "MENU FINDER",
           "number": "01",
           "title": "From a menu to a searchable meal.",
-          "caption": "Frames from the Menu Finder film: agents collect menus from photos and websites, then models tie each dish to its price. Source observations still need verification.",
+          "caption": "Film frames: menus collected from photos and websites, each dish tied to its price. Sources still need verification.",
           "images": [
             {
               "id": "menu-agents-collect",
@@ -269,17 +305,20 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "Menus come in every shape, layout and size. Understanding them takes more than reading the words.",
-        "more": [
-          "Many menus rely on human reasoning to infer intent and relationships. Dishes and prices can sit in separate columns, with shared headings for small and large portions. A model might read the right price but attach it to the wrong dish.",
-          "A workable approach emerged as models improved and costs fell this year, specifically in late September 2026. Search brought another trap: a cheap side could make an expensive meal look within budget, so the food and price constraints need to apply to the same offering.",
+        "title": "Reading a menu takes more than reading the words",
+        "more": ["Extraction became workable as models improved and costs fell in September 2026."],
+        "bullets": [
+          "<strong>Prices in their own column</strong> can be attached to the wrong dish",
+          "<strong>Shared size headings</strong> have to be inferred, not just read",
+          "<strong>A cheap side</strong> mustn’t make an expensive meal look under budget"
         ],
+        "film": 3,
         "showcase": {
           "theme": "software",
           "brand": "MENU FINDER",
           "number": "02",
           "title": "The right dish. The right price.",
-          "caption": "A frame from the film showing the prototype's real ramen-under-$20 search, with the budget applied to the matching dish. Reading a menu correctly and verifying current prices remain separate source-quality challenges.",
+          "caption": "The prototype’s real ramen-under-$20 search: the budget applies to the matching dish.",
           "images": [
             {
               "id": "menu-ramen-under-20",
@@ -294,16 +333,14 @@ window.H_PROJECTS = {
       {
         "label": "Scale",
         "title": "82,000+ menu documents, 800,000 menu items and 35,000 restaurants across Australia.",
-        "more": [
-          "I realised early on that you can build an app, but without data, it offers very little value. So I immediately pivoted to creating a large database of menu items and restaurants, with coverage across Australia’s states and cities.",
-          "The collection includes repeated menus and older versions. Those source records are different from verified current dishes or unique restaurant locations; the prototype screens show a local Newtown search within that broader collection.",
-        ],
+        "more": ["An app without data offers little, so I built the database first, across every state. The counts include repeated and older menus, not verified current dishes."],
+        "film": 4,
         "showcase": {
           "theme": "range",
           "brand": "MENU FINDER",
           "number": "03",
           "title": "A national collection. A local decision.",
-          "caption": "Film frames plot real restaurant locations from the collection, then the prototype's Newtown clusters. The 823 places are a local query result, not a count of verified unique restaurants.",
+          "caption": "Real restaurant locations from the collection, then Newtown’s 823 places (a local query result).",
           "images": [
             {
               "id": "menu-restaurants-australia",
@@ -324,17 +361,15 @@ window.H_PROJECTS = {
       },
       {
         "label": "Today",
-        "title": "The next step is to scale the product, with staged extraction and carefully allocated budgets.",
-        "more": [
-          "We are still carefully building out what I want to become Australia’s largest database of menu items. In the next few weeks, I will be building out the product to scale.",
-          "The working prototype already connects dish search, nearby alternatives and restaurant menus. Source quality, current prices and usefulness with diners still need validation.",
-        ],
+        "title": "Next: scale up with staged extraction and careful budgets",
+        "more": ["The working prototype connects dish search, nearby alternatives and menus. I’m scaling it towards Australia’s largest menu database; source quality, current prices and usefulness still need testing."],
+        "film": 7,
         "showcase": {
           "theme": "chapters",
           "brand": "MENU FINDER",
           "number": "04",
           "title": "Start with what you want to eat.",
-          "caption": "The film ends on the prototype's real match. Prices shown are extracted observations with unconfirmed source dates, rather than a promise of current availability.",
+          "caption": "The prototype’s real match. Prices are extracted observations, not confirmed current prices.",
           "images": [
             {
               "id": "menu-your-match",
@@ -360,39 +395,53 @@ window.H_PROJECTS = {
       'Seven visual chapters connect specifications to everyday ownership.',
       'Exact trims, one fixed baseline and sources beside each claim.'
     ],
-    text: 'Price is only the start. Charging at home, range on longer trips and features tied to a specific trim all change the decision.<br><br><strong>Start with everyday ownership:</strong> compare exact versions side by side, with the evidence beside each claim.',
+    text: "Price is only the start: home charging, trip range and trim-specific features change the decision. Roadmark compares exact versions side by side, with the evidence beside each claim.",
     media: { demo: 'ev', img: 'b:ev-price-first', ground: '#24303a' },
     // Scope and behaviour: ../ev/README.md and ../ev/src/lib/chapters.ts.
     // Evidence handling: ../ev/src/lib/launch-evidence.ts. No buyer testing recorded.
     subs: [
-      { label: 'What I learnt', title: 'Built Roadmark to turn scattered EV specifications into one comparison of everyday ownership. Exact trims, a fixed baseline and seven visual chapters keep the differences in view.',
-        more: ['I kept one Model Y visible as a reference while people explore other cars and change trims. The selection carries through each chapter, so there is no need to rebuild the comparison when moving from price to charging, space or software.'],
-        showcase: { theme: 'baseline', number: '01', title: 'One baseline. Every comparison.', caption: 'Exact trims stay aligned, with the assumptions and evidence close to the decision.', images: [
+      {
+        label: "The problem",
+        title: "Spec sheets don’t tell you whether an EV fits your life",
+        more: ["Buyers face claimed range, battery sizes, charging speeds and features that change by trim, spread across many sources. The numbers rarely say what owning the car will be like day to day."],
+        bullets: [
+          "<strong>Hard to compare:</strong> figures use different methods and conditions, and features vary by trim",
+          "<strong>Hard to picture:</strong> range and charging speeds don’t translate into a weekly routine or a long trip",
+          "<strong>Hard to trust:</strong> sources and dates are rarely shown beside the number"
+        ]
+      },
+      {
+        label: "Why build it",
+        title: "One place to compare by everyday ownership",
+        more: ["It’s an expensive decision, and EVs are new to many buyers. I wanted exact versions side by side, explained in everyday terms, with the evidence beside each claim."]
+      },
+      { label: 'What I learnt', title: "One baseline car keeps every comparison grounded",
+        more: ["A Model Y stays visible as a reference while people explore other cars and trims. The selection carries through all seven chapters, so nobody has to rebuild the comparison."],
+        showcase: { theme: 'baseline', number: '01', title: 'One baseline. Every comparison.', caption: "Exact trims stay aligned, with assumptions and evidence beside the decision.", images: [
           { id: 'ev-baseline', image: 'assets/ev-story/01-baseline.webp', position: 'main', label: 'Exact trims, side by side', alt: 'Roadmark’s comparison with a fixed blue Model Y baseline and trim selectors for alternative vehicles.' },
           { id: 'ev-charging-evidence', image: 'assets/ev-story/04-home-charging.webp', position: 'detail', label: 'The assumptions behind the numbers', alt: 'Home-charging estimates with the charging setup, calculation method and dated sources shown beside each figure.' }
         ] } },
-      { label: 'Challenge', title: 'The hard part was making specifications comparable across exact trims, different measurements and conditional features.',
-        more: ['Claimed range needs context, home-charging estimates depend on the setup, and cargo figures can use different measurement methods. I put sources, dates and assumptions beside the relevant values, made conditions explicit and withheld figures where supporting evidence could not be verified.',
-          'The comparison also needs to support people with different starting points:'],
+      { label: 'Challenge', title: "Make specifications comparable, and show where they come from",
+        more: ["Range, home charging and cargo figures depend on conditions and measurement methods. I put sources, dates and assumptions beside each value, and withheld figures I couldn’t verify."],
         bullets: [
-          '<strong>People new to EVs:</strong> need plain-language explanations of charging, range and everyday ownership, without assuming they already understand the terminology.',
-          '<strong>People who already know EVs:</strong> want to compare exact trims, understand the differences and check the evidence behind each claim.',
-          '<strong>Petrol drivers with range anxiety:</strong> need to understand how charging fits into their routine, what a longer trip involves and how claimed range relates to real-world use.'
+          "<strong>New to EVs:</strong> plain-language charging, range and ownership",
+          "<strong>Already know EVs:</strong> exact trims, the differences and the evidence",
+          "<strong>Petrol drivers with range anxiety:</strong> how charging and long trips fit a routine"
         ],
-        showcase: { theme: 'range', number: '02', title: 'Make the unfamiliar feel familiar.', caption: 'A route, charging stops and a destination make range easier to picture. The same guide adapts to a phone.', images: [
+        showcase: { theme: 'range', number: '02', title: 'Make the unfamiliar feel familiar.', caption: "A route, charging stops and a destination make range easy to picture, on desktop or phone.", images: [
           { id: 'ev-range', image: 'assets/ev-story/03-range-charging.webp', position: 'main', label: 'Range, made visual', alt: 'The range and charging chapter showing a conceptual route from home through charging stops to a destination, with comparison facts beside it.' },
           { id: 'ev-range-mobile', image: 'assets/ev-story/10-mobile-charging.webp', position: 'phone', label: 'The guide on a phone', alt: 'The same charging guide on a narrow phone screen, with the route, chapter explanation and comparison facts stacked vertically.' }
         ] } },
-      { label: 'Scale', title: '34 variants across ten vehicle families, with 91 comparison details organised into seven visual chapters.',
-        more: ['The chapters cover price and ownership, automated driving, range and charging, space and safety, daily convenience, comfort and driving, and software. Price and automated driving stay first; people can reorder the remaining chapters around their priorities.'],
-        showcase: { theme: 'chapters', number: '03', title: 'Seven ways into the decision.', caption: 'A colour-coded chapter system connects the overview to visual explanations of driving, space and everyday use.', images: [
+      { label: 'Scale', title: "34 variants, ten vehicle families, 91 details in seven chapters",
+        more: ["Price and automated driving come first. People can reorder the rest (range and charging, space and safety, convenience, comfort and driving, software) around their priorities."],
+        showcase: { theme: 'chapters', number: '03', title: 'Seven ways into the decision.', caption: "Colour-coded chapters link the overview to visual explanations.", images: [
           { id: 'ev-chapters', image: 'assets/ev-story/02-buyer-priorities.webp', position: 'index', label: 'The seven-chapter overview', alt: 'Roadmark’s seven colour-coded chapters and buyer-priority controls, from price and ownership to software and technology.' },
           { id: 'ev-driving', image: 'assets/ev-story/05-assisted-driving.webp', position: 'left', label: 'Assistance, explained in context', alt: 'The automated-driving chapter with an illustrated street scene, a supervised-driving explanation and conditional feature comparisons.' },
           { id: 'ev-space', image: 'assets/ev-story/06-space-safety.webp', position: 'right', label: 'Space for everyday life', alt: 'The space and safety chapter with an illustrated vehicle and comparisons of front storage and cargo capacity.' }
         ] } },
-      { label: 'Today', title: 'Roadmark is a working comparison tool. The next step is to test whether it helps people understand the trade-offs and make a clearer buying decision.',
-        more: ['The current build uses dated October 2026 desk research. Prices and specifications need to be checked against current manufacturer information, and the effect on buying decisions still needs to be tested.'],
-        showcase: { theme: 'software', number: '04', title: 'The full picture, down to the detail.', caption: 'Illustrated chapters lead into the supporting detail. Screens shown are from the October 2026 build.', images: [
+      { label: 'Today', title: "A working tool; next, test whether it improves decisions",
+        more: ["The data comes from dated October 2026 desk research. Prices and specifications need checking against manufacturers, and the effect on buying decisions still needs testing."],
+        showcase: { theme: 'software', number: '04', title: 'The full picture, down to the detail.', caption: "Illustrated chapters lead into the detail. October 2026 build.", images: [
           { id: 'ev-software', image: 'assets/ev-story/09-software.webp', position: 'main', label: 'Software and life after delivery', alt: 'The software and technology chapter, with its conceptual illustration and comparison of update availability.' },
           { id: 'ev-energy', image: 'assets/ev-story/07-energy-evidence.webp', position: 'detail', label: 'Evidence behind everyday costs', alt: 'Energy-use comparisons showing label figures, measured consumption, cost assumptions and dated supporting evidence.' }
         ] } }
@@ -408,7 +457,7 @@ window.H_PROJECTS = {
       "One shared pattern supports phone, branch and mobile-lender appointments.",
       "Released nationally in 2018, with bookings arranged in around five minutes."
     ],
-    "text": "Customers could ask for an appointment, but they still had to wait for someone to call and arrange it. I designed a way to choose how to meet, see lender availability and book a time directly.",
+    "text": "Customers could request an appointment, then waited for someone to call and arrange it. I designed direct booking: choose how to meet, see lender availability and pick a time.",
     "media": {
       "demo": "booking",
       "img": "a:booking-2-hero-screens",
@@ -417,16 +466,14 @@ window.H_PROJECTS = {
     "subs": [
       {
         "label": "What I learnt",
-        "title": "I turned a callback request into a booking customers could complete themselves. Two clear questions made the first step easier.",
-        "more": [
-          "The first filter combined channel, time and language. Infrequent users struggled to work through it. I split the decision into how they wanted to meet, then when, using a familiar question pattern. Choosing the channel first also meant phone customers could skip location.",
-        ],
+        "title": "Ask how to meet, then when",
+        "more": ["One combined filter for channel, time and language overwhelmed infrequent users. Splitting it into two familiar questions also let phone customers skip choosing a location."],
         "showcase": {
           "theme": "baseline",
           "brand": "COMMBANK / APPOINTMENT BOOKING",
           "number": "01",
           "title": "How to meet. Then when.",
-          "caption": "Two focused questions replace one crowded filter. These are original booking designs.",
+          "caption": "Two focused questions replace one crowded filter. Original booking designs.",
           "images": [
             {
               "id": "booking-channel",
@@ -449,22 +496,19 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "A useful appointment has to fit someone’s day. The design needed to work across different ways of meeting, without making every customer answer every question.",
-        "more": [
-          "Customers had previously waited at least 24 hours for a callback to arrange an appointment. I needed to bring the practical choices into the booking journey, while keeping the path clear for people who rarely use it.",
-          "Testing also exposed a trade-off: lender photos felt personal, but participants sometimes chose by appearance rather than suitable availability. The right time and place needed to remain easy to compare."
-        ],
+        "title": "Fit the appointment to someone’s day, without asking everyone everything",
+        "more": ["Customers had waited at least 24 hours for a callback. Testing showed lender photos felt personal but led people to choose by appearance rather than availability."],
         "bullets": [
-          "<strong>Customers who prefer a phone call:</strong> need a suitable time without being asked to choose a branch.",
-          "<strong>Customers visiting a branch:</strong> need to see local availability and alternatives when their preferred branch has no times.",
-          "<strong>Customers meeting a mobile lender:</strong> need to arrange a time and meeting location that work for them."
+          "<strong>By phone:</strong> a suitable time, with no branch to choose",
+          "<strong>At a branch:</strong> local availability, and alternatives when it’s full",
+          "<strong>With a mobile lender:</strong> a time and a place that suit them"
         ],
         "showcase": {
           "theme": "range",
           "brand": "COMMBANK / APPOINTMENT BOOKING",
           "number": "02",
           "title": "A personal choice. A practical time.",
-          "caption": "Early lender-profile designs revealed how photographs could influence selection. The combined filter shows the earlier approach.",
+          "caption": "Early lender profiles showed how photos swayed choices; the combined filter was the earlier approach.",
           "images": [
             {
               "id": "booking-profiles",
@@ -486,16 +530,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "One daily calendar worked across three appointment types. Show the first nine times, then reveal more when needed.",
-        "more": [
-          "I designed a shared availability pattern for branch, mobile-lender and phone appointments. An initial limit of nine times kept each day manageable, with “+ n more” opening the remaining options. The same structure could handle a quiet branch or a much longer list of available appointments.",
-        ],
+        "title": "One calendar for three appointment types",
+        "more": ["Branch, mobile-lender and phone bookings share one daily calendar. Showing the first nine times, with “+ n more”, keeps quiet and busy days equally manageable."],
         "showcase": {
           "theme": "chapters",
           "brand": "COMMBANK / APPOINTMENT BOOKING",
           "number": "03",
           "title": "One pattern. Three ways to meet.",
-          "caption": "The availability study connects all three appointment channels to one calendar, with additional times available on demand.",
+          "caption": "One calendar across all three channels, with more times on demand.",
           "images": [
             {
               "id": "booking-availability",
@@ -517,17 +559,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Outcome",
-        "title": "Released nationally in 2018. Customers could arrange a booking in around five minutes, with the appointment confirmed at the end.",
-        "more": [
-          "I worked with developers and analysts on limited availability and alternative branches, then refined the content and responsive interfaces across screen sizes.",
-          "The change replaced a wait of at least 24 hours for a callback with a direct booking task taking around five minutes. Those figures describe the wait to arrange an appointment and the new booking task; they are different measures.",
-        ],
+        "title": "Released nationally in 2018: booked in about five minutes",
+        "more": ["A wait of at least 24 hours for a callback became a booking of around five minutes, confirmed on the spot. These are different measures: waiting to arrange versus doing the task."],
         "showcase": {
           "theme": "software",
           "brand": "COMMBANK / APPOINTMENT BOOKING",
           "number": "04",
           "title": "From availability to confirmed.",
-          "caption": "Alternative locations, a booking review and confirmation make the next step visible throughout the journey.",
+          "caption": "Alternative locations, a review and confirmation keep the next step visible.",
           "images": [
             {
               "id": "booking-alternatives",
@@ -569,7 +608,7 @@ window.H_PROJECTS = {
       "Organised shift states around attention, waiting and acceptance.",
       "Made shift activity and manager exclusions visible across branches."
     ],
-    "text": "Staff wanted more work. Branch managers needed people to cover gaps. I designed CanWork to connect those needs through availability, shift offers and acceptance, with a clear next step for both sides.",
+    "text": "Staff wanted more shifts; branch managers needed gaps covered. I designed CanWork to connect them through availability, shift offers and acceptance.",
     "media": {
       "img": "a:work-2-hero-screen",
       "image": "assets/work-2-hero-screen-1600.webp",
@@ -578,16 +617,14 @@ window.H_PROJECTS = {
     "subs": [
       {
         "label": "What I learnt",
-        "title": "I designed both sides of the same shift. A manager’s invitation and an employee’s response had to make sense together.",
-        "more": [
-          "Managers create shifts and track responses. Staff set their location and availability, then review and accept offers. I designed these journeys together so notifications and status changes told each person what had happened and what they could do next.",
-        ],
+        "title": "Design both sides of the same shift",
+        "more": ["Managers create shifts and track responses; staff set their availability and accept offers. Designing both together meant every notification said what had happened and what to do next."],
         "showcase": {
           "theme": "baseline",
           "brand": "COMMBANK / CANWORK",
           "number": "01",
           "title": "One shift. Two perspectives.",
-          "caption": "The manager creates an opportunity. The employee sees the offer and decides whether to accept.",
+          "caption": "The manager creates the opportunity; the employee sees the offer and decides.",
           "images": [
             {
               "id": "canwork-create",
@@ -608,21 +645,19 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "Calls, messages and informal networks were connecting people to work. A shared workflow needed to make opportunities visible beyond an individual branch.",
-        "more": [
-          "Interviews with branch staff and managers showed a mismatch: people wanted additional shifts, while managers were trying to cover gaps within staffing budgets. Existing connections often determined who heard about the work.",
-        ],
+        "title": "Shifts were being shared through calls and favours",
+        "more": ["Interviews showed staff wanting work while managers juggled gaps and budgets, and existing connections decided who heard about a shift."],
         "bullets": [
-          "<strong>Casual and part-time staff:</strong> want additional work at other branches, with offers that fit their location and availability.",
-          "<strong>Branch managers:</strong> need to cover staffing gaps, find suitable people and keep track of responses within their budget.",
-          "<strong>Regional managers:</strong> need visibility of shift activity, acceptance and exclusions across branches."
+          "<strong>Casual and part-time staff:</strong> more work that fits their location and availability",
+          "<strong>Branch managers:</strong> gaps covered within budget, with responses tracked",
+          "<strong>Regional managers:</strong> shift activity visible across branches"
         ],
         "showcase": {
           "theme": "range",
           "brand": "COMMBANK / CANWORK",
           "number": "02",
           "title": "Make the hidden network visible.",
-          "caption": "Original interview synthesis describes staff seeking more work, managers balancing budgets and shifts shared through unofficial channels.",
+          "caption": "Interview synthesis: staff seeking work, managers balancing budgets, shifts on unofficial channels.",
           "images": [
             {
               "id": "canwork-research",
@@ -637,17 +672,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "I stepped back from individual screens and gave every shift a consistent language: needs attention, waiting or accepted.",
-        "more": [
-          "Designing each shift state separately had made the architecture drift. I reorganised the model around whether someone needed to act, was waiting on another person, or had an accepted shift.",
-          "That model connected the visual treatment to the action available in each state. A pending response, an approval and a filled shift could share a structure while keeping their different meanings clear."
-        ],
+        "title": "Every shift is either needs you, waiting or accepted",
+        "more": ["Designing each state separately had made the model drift. Organising around who needs to act gave pending, approved and filled shifts one clear structure."],
         "showcase": {
           "theme": "chapters",
           "brand": "COMMBANK / CANWORK",
           "number": "03",
           "title": "Know what needs you next.",
-          "caption": "A shared state model gives managers and staff a consistent way to read progress and find the next action.",
+          "caption": "A shared state model shows progress and the next action.",
           "images": [
             {
               "id": "canwork-states",
@@ -662,17 +694,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Outcome",
-        "title": "The design brought shift creation, responses and acceptance into a shared workflow, with reporting beyond the branch.",
-        "more": [
-          "I connected the staff and manager experiences, from creating a shift and reviewing candidates to accepting the offer. Regional reporting made shift creation, acceptance and manager exclusions visible across branches.",
-          "This provided a way to inspect how opportunities were distributed. The available evidence does not establish a measured change in fairness or shift-fill rates.",
-        ],
+        "title": "One workflow from shift to acceptance, with regional reporting",
+        "more": ["Reporting made shift creation, acceptance and exclusions visible across branches, so distribution could be inspected. No measured change in fairness or fill rates is claimed."],
         "showcase": {
           "theme": "software",
           "brand": "COMMBANK / CANWORK",
           "number": "04",
           "title": "Follow the shift through.",
-          "caption": "Candidate review and employee confirmation are two points in the same shared workflow. These screens show the design, rather than a measured staffing result.",
+          "caption": "Candidate review and employee confirmation in one workflow. Designs, not a measured result.",
           "images": [
             {
               "id": "canwork-candidates",
@@ -725,7 +754,7 @@ window.H_PROJECTS = {
       "Used card sorting to make expense categories easier to understand.",
       "Kept explanations beside the fields, informed by eye-tracking observations."
     ],
-    "text": "Some customers knew how much they spent. Others needed help working it out.<br><br><strong>Start with their confidence:</strong> enter a known total, or build one with guidance through everyday expenses.",
+    "text": "Some customers knew what they spent; others needed help working it out. I designed two routes: enter a known total, or build one with guidance.",
     "media": {
       "img": "f:expense-entry",
       "showcase": {
@@ -770,17 +799,15 @@ window.H_PROJECTS = {
     "subs": [
       {
         "label": "What I learnt",
-        "title": "Some people knew their monthly total. Others needed help working it out. I designed a path for each.",
-        "more": [
-          "I made direct entry the starting point for customers who already knew their expenses, with a guided calculation route for those who needed support. The same task could accommodate both levels of confidence.",
-        ],
+        "title": "A route for each level of confidence",
+        "more": ["Direct entry is the default for people who know their total, with a guided calculation for anyone who needs it. One task, two paths."],
         "showcase": {
           "theme": "baseline",
           "brand": "NAB",
           "number": "01",
           "mobileHeader": "NAB",
           "title": "A total, or help finding one.",
-          "caption": "Direct entry and guided calculation provide two ways to complete the same task.",
+          "caption": "Direct entry and guided calculation: two ways through one task.",
           "images": [
             {
               "id": "expense-direct",
@@ -804,17 +831,15 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "The bank’s categories did not always match the way people thought about their spending.",
-        "more": [
-          "Card sorting exposed uncertainty about where car insurance belonged. I presented insurance first and kept housing and investment-property expenses close together to reduce revisiting. The wording needed the same care: some participants read “Netflix” literally, rather than as a prompt to recall other subscriptions.",
-        ],
+        "title": "The bank’s categories weren’t how people thought about spending",
+        "more": ["Card sorting showed confusion over car insurance, so insurance moved first and housing sat beside investment property. Wording mattered too: some people read “Netflix” literally, not as a prompt for other subscriptions."],
         "showcase": {
           "theme": "range",
           "brand": "NAB",
           "number": "02",
           "layout": "separated-boards",
           "title": "Categories that make sense to people.",
-          "caption": "Research changed the order, grouping and wording of expense categories.",
+          "caption": "Research changed the order, grouping and wording of the categories.",
           "images": [
             {
               "id": "expense-categories",
@@ -837,16 +862,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "Kept explanations beside the fields, where eye tracking showed people looking for help.",
-        "more": [
-          "Customers referred to the explanatory column as they completed adjacent fields. I kept that relationship in the layout. Separate pages reduced visual noise, while a single page made comparison and correction easier; the design had to accommodate both needs.",
-        ],
+        "title": "Keep the help beside the field",
+        "more": ["Eye tracking showed people reading the explanation column as they filled each field, so the layout keeps them together. Separate pages reduced noise; one page made checking easier."],
         "showcase": {
           "theme": "chapters",
           "brand": "NAB",
           "number": "03",
           "title": "Help, close to the decision.",
-          "caption": "The field, its explanation and the completed summary remain connected.",
+          "caption": "Field, explanation and summary stay connected.",
           "images": [
             {
               "id": "expense-help",
@@ -869,10 +892,8 @@ window.H_PROJECTS = {
       },
       {
         "label": "Outcome",
-        "title": "16 mandatory expense inputs became two, with guided calculation available when needed.",
-        "more": [
-          "The direct route reduced required inputs by 87.5%. Customers could provide an amount and frequency, or use the guided route to build their estimate. That figure describes the number of required fields; completion time and conversion were not quantified.",
-        ],
+        "title": "From 16 required fields to two, with help on hand",
+        "more": ["Customers give an amount and frequency, or build it with guidance: 87.5% fewer required fields. Completion time and conversion weren’t measured."],
         "showcase": {
           "theme": "flow",
           "brand": "NAB",
@@ -881,7 +902,7 @@ window.H_PROJECTS = {
           "mobileHeader": "NAB",
           "number": "04",
           "title": "Less entry. Guidance still within reach.",
-          "caption": "Original NAB screens: enter a known total, choose categories when help is needed, then add individual expenses.",
+          "caption": "Original NAB screens: a known total, categories for help, then individual expenses.",
           "images": [
             {
               "id": "expense-outcome-total",
@@ -946,7 +967,7 @@ window.H_PROJECTS = {
       "Proposed earlier trip questions, visible cover details and clearer optional steps.",
       "Testing identified the coverage examples and language that still needed work."
     ],
-    "text": "Travellers needed to understand what they were buying, from medical cover to cancellation and delay.<br><br><strong>Make the cover clear before commitment:</strong> explain what is included, what costs extra and which steps are optional.",
+    "text": "Travellers needed to understand what they were buying, from medical cover to cancellations. I made the cover clear before commitment: what’s included, what costs extra and what’s optional.",
     "media": {
       "showcase": {
         "theme": "flow",
@@ -987,16 +1008,14 @@ window.H_PROJECTS = {
     "subs": [
       {
         "label": "What I learnt",
-        "title": "I used interviews, journey analysis and concept testing to understand where confidence in travel cover broke down.",
-        "more": [
-          "People wanted precise coverage language and concrete examples. I connected those concerns to the purchase journey, from finding cover information to deciding whether an extra was needed. The research shaped a new set of concepts in 2022.",
-        ],
+        "title": "Confidence breaks down where cover language is vague",
+        "more": ["Interviews, journey analysis and concept testing showed people wanted precise wording and concrete examples. That shaped a new set of concepts in 2022."],
         "showcase": {
           "theme": "baseline",
           "brand": "QANTAS",
           "number": "01",
           "title": "Understand the uncertainty first.",
-          "caption": "The 2022 research board records customers’ questions about travel cover and the detail they looked for.",
+          "caption": "The 2022 research board: customers’ questions about cover and the detail they wanted.",
           "images": [
             {
               "id": "qantas-research-board",
@@ -1011,21 +1030,19 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "Login looked required, cover details were hidden, and optional extras could look like protection already included.",
-        "more": [
-          "Journey analysis showed how interface decisions created uncertainty at several points in the purchase. The design needed to answer specific questions before asking people to move on."
-        ],
+        "title": "Login looked required, cover was hidden, extras looked included",
+        "more": ["Interface choices created doubt at several steps, so the design had to answer three questions first."],
         "bullets": [
-          "<strong>Can I continue without signing in?</strong> The optional login step needed to be clear.",
-          "<strong>What is covered at this price?</strong> Travellers needed visible cover details and examples they could understand.",
-          "<strong>Do I need this extra?</strong> Additional luggage cover could be mistaken for included protection, while the option to skip extras was easy to miss."
+          "<strong>Can I continue without signing in?</strong>",
+          "<strong>What’s covered at this price?</strong>",
+          "<strong>Do I need this extra, and can I skip it?</strong>"
         ],
         "showcase": {
           "theme": "range",
           "brand": "QANTAS",
           "number": "02",
           "title": "Find the moments that create doubt.",
-          "caption": "Journey analysis links unclear steps and hidden information to specific comprehension problems.",
+          "caption": "Journey analysis links unclear steps to specific misunderstandings.",
           "images": [
             {
               "id": "qantas-journey",
@@ -1040,16 +1057,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "Moved trip questions earlier and proposed showing cover details by default.",
-        "more": [
-          "I proposed moving trip questions onto the landing page, explaining optional login and bringing product and extras selection together. The aim was to give people the context they needed to understand their cover before committing.",
-        ],
+        "title": "Trip questions first, cover details in view",
+        "more": ["I proposed asking trip questions on the landing page, explaining that login was optional, and bringing product and extras selection together."],
         "showcase": {
           "theme": "chapters",
           "brand": "QANTAS",
           "number": "03",
           "title": "The trip first. The cover in view.",
-          "caption": "The post-research proposal brings trip details forward and clarifies choices across the journey.",
+          "caption": "The post-research proposal brings trip details forward.",
           "images": [
             {
               "id": "qantas-proposed-flow",
@@ -1064,16 +1079,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Outcome",
-        "title": "The quick quote helped people think about their trip. Testing showed the coverage language still raised questions.",
-        "more": [
-          "In March 2022 concept testing, the quick-quote widget helped people think about where and when they were travelling. Medical-expense wording still prompted questions about hospital stays and PCR tests, and participants struggled to distinguish cancellation from trip delay. The next improvement was more concrete coverage examples. This work remained research and concepts, with no measured sales or conversion uplift.",
-        ],
+        "title": "The quick quote worked; cover wording still needed examples",
+        "more": ["In March 2022 testing, the quick quote helped people frame their trip, but hospital stays, PCR tests and cancellation versus delay still confused them. Research and concepts only; no measured sales uplift."],
         "showcase": {
           "theme": "software",
           "brand": "QANTAS",
           "number": "04",
           "title": "Let the testing sharpen the language.",
-          "caption": "March 2022 concept feedback records what worked and where coverage examples still needed to improve.",
+          "caption": "March 2022 feedback: what worked, and where examples were still needed.",
           "images": [
             {
               "id": "qantas-concept-feedback",
@@ -1171,7 +1184,7 @@ window.H_PROJECTS = {
       "Matched validation errors, restrictions and referrals to appropriate next steps.",
       "Brought claims, saved quotes and policies together and designed changes within renewal."
     ],
-    "text": "Customers needed a clear way to get a quote, manage a policy and deal with the moments that needed extra help.<br><br><strong>Make the experience consistent:</strong> shared patterns connected quote and MyAccount work across NRMA’s platform transformation from 2019 to 2021.",
+    "text": "Customers needed one clear way to get a quote, manage a policy and get help when something went wrong. I defined shared patterns across NRMA’s 2019–2021 platform transformation.",
     "media": {
       "showcase": {
         "theme": "workspace",
@@ -1202,16 +1215,14 @@ window.H_PROJECTS = {
     "subs": [
       {
         "label": "What I learnt",
-        "title": "I brought quote and MyAccount teams around shared patterns for everyday tasks and the moments when something goes wrong.",
-        "more": [
-          "I worked across product, underwriting, content and platform teams to define a shared reference for the experience. In MyAccount, that meant organising around the things customers needed to manage: claims, saved quotes and policies, with consistent desktop and mobile patterns.",
-        ],
+        "title": "Organise the account around what customers manage",
+        "more": ["Working across product, underwriting, content and platform teams, I organised MyAccount around claims, saved quotes and policies, with matching desktop and mobile patterns."],
         "showcase": {
           "theme": "baseline",
           "brand": "NRMA",
           "number": "01",
           "title": "The things that matter, in one view.",
-          "caption": "Claims, saved quotes and policies form the account model on desktop and mobile.",
+          "caption": "Claims, saved quotes and policies on desktop and mobile.",
           "images": [
             {
               "id": "nrma-account-overview",
@@ -1233,21 +1244,19 @@ window.H_PROJECTS = {
       },
       {
         "label": "Challenge",
-        "title": "A mistyped answer, a system problem and an underwriting restriction all need a different next step.",
-        "more": [
-          "I helped define a pattern framework that distinguished validation, system errors, underwriting restrictions, referrals and special conditions. Each response needed to explain the situation and guide the customer towards the appropriate action."
-        ],
+        "title": "Every kind of problem needs a different next step",
+        "more": ["A pattern framework separates validation, system errors, underwriting restrictions, referrals and special conditions, each explaining what happened and what to do."],
         "bullets": [
-          "<strong>Correct an entry:</strong> show what needs to change when the customer can fix the problem.",
-          "<strong>Understand a restriction:</strong> explain when an underwriting rule affects what can happen next.",
-          "<strong>Get the right help:</strong> provide an assisted-service route when a case needs referral."
+          "<strong>Fix an entry:</strong> show what needs to change",
+          "<strong>Understand a restriction:</strong> explain the underwriting rule",
+          "<strong>Get the right help:</strong> route referrals to assisted service"
         ],
         "showcase": {
           "theme": "range",
           "brand": "NRMA",
           "number": "02",
           "title": "A useful response to each situation.",
-          "caption": "A shared framework distinguishes the different scenarios quote and account teams need to handle.",
+          "caption": "One framework for every scenario quote and account teams handle.",
           "images": [
             {
               "id": "nrma-exceptions",
@@ -1262,16 +1271,14 @@ window.H_PROJECTS = {
       },
       {
         "label": "Pattern",
-        "title": "Connected renewal reminders to policy review, with cover details available to adjust within the journey.",
-        "more": [
-          "I worked on the renewal experience so customers could review their policy and adjust cover-related details, including insured amount and excess, within the flow. The reminder, account and renewal screens needed to lead naturally into the same task.",
-        ],
+        "title": "Renewal leads straight into policy review",
+        "more": ["Reminders lead into reviewing the policy and adjusting the insured amount and excess without leaving the renewal."],
         "showcase": {
           "theme": "chapters",
           "brand": "NRMA",
           "number": "03",
           "title": "Review. Adjust. Continue.",
-          "caption": "Policy details, cover changes and the renewal summary stay together in the journey.",
+          "caption": "Policy details, cover changes and the renewal summary stay together.",
           "images": [
             {
               "id": "nrma-renewal-review",
@@ -1285,10 +1292,8 @@ window.H_PROJECTS = {
       },
       {
         "label": "Outcome",
-        "title": "Created design foundations that multiple teams could build on across the wider transformation.",
-        "more": [
-          "My contribution was the shared patterns and experience design within a programme delivered by several teams. The programme timeline records home insurance in September 2020 and account and renewal milestones during 2021. Later iterations built on those foundations; the work shown reflects that wider delivery effort.",
-        ]
+        "title": "Shared foundations that several teams built on",
+        "more": ["I contributed the shared patterns and experience design to a multi-team programme: home insurance in September 2020, then account and renewal milestones in 2021, with later iterations building on them."]
       }
     ],
     "visualStory": true

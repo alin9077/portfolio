@@ -1,0 +1,414 @@
+{
+  "_about": "Skimmable sub-page copy, 22 October 2026. Each section: a takeaway heading, one short paragraph, optional bullets with bold lead-ins, a one-line caption. Apply with scripts/copy/apply-copy.py.",
+  "ai-income": {
+    "text": "Bankers copied figures between documents, calculators and lending systems to verify income. I designed a way to check an AI-prepared figure against its evidence, then confirm it in one place.",
+    "sections": [
+      {
+        "label": "The problem",
+        "insert": true,
+        "title": "Verifying income meant redoing the maths by hand",
+        "more": [
+          "Before approving credit, bankers read each payslip, black out tax file numbers, copy figures into a calculator and move between three systems. Variable pay and multiple employers make it slower and easier to get wrong."
+        ],
+        "bullets": [
+          "<strong>Repetitive:</strong> 31 clicks to verify one payslip, as the film shows",
+          "<strong>Retyped by hand:</strong> figures and dates copied between documents and systems",
+          "<strong>At scale:</strong> the target is around 2,000 hours of this work saved each week"
+        ],
+        "film": 2
+      },
+      {
+        "label": "Why build it",
+        "insert": true,
+        "title": "AI can prepare the figure; bankers need to trust it",
+        "more": [
+          "Models can now read payslips and calculate income. The design question was how a banker could check that figure without doing the work again."
+        ],
+        "film": 3,
+        "bullets": [
+          "<strong>Redacts</strong> the tax file number automatically",
+          "<strong>Reads</strong> every figure off the payslip",
+          "<strong>Checks</strong> eight things, from the name matching to net pay adding up"
+        ]
+      },
+      {
+        "label": "What I learnt",
+        "title": "One card per income source, not one per document",
+        "more": [
+          "Shadowing a lending consultant and two feedback sessions showed a document-by-document timeline was too slow for experienced bankers. I grouped the evidence around each employer or property instead."
+        ],
+        "caption": "Concept film: separate documents, copied figures and a calculator. Not the production system."
+      },
+      {
+        "label": "Challenge",
+        "title": "AI only helps if bankers can check it without redoing it",
+        "more": [
+          "Variable pay and multiple employers made a single total hard to trust. One genuine payslip may still not prove overtime or commission."
+        ],
+        "bullets": [
+          "<strong>See the difference:</strong> declared, AI-assessed and confirmed income side by side",
+          "<strong>Understand the calculation:</strong> $3,742.88 × 26 ÷ 12 = $8,109.57 a month, beside its documents",
+          "<strong>Know what needs attention:</strong> name each check, surface exceptions, collapse the rest"
+        ],
+        "caption": "The assessed monthly income with its calculation. Sample values.",
+        "film": 4
+      },
+      {
+        "label": "Pattern",
+        "title": "Automate the preparation, keep the judgement with the banker",
+        "more": [
+          "Bankers confirm or exclude each income with a reason and a receipt. A manual calculator covers cases AI can’t assess."
+        ],
+        "bullets": [
+          "<strong>31 clicks to one confirmation</strong> in the proposed workflow, with the evidence still reviewed",
+          "<strong>Target of around 2,000 hours a week:</strong> time savings and AI accuracy not yet measured",
+          "<strong>Beyond payslips:</strong> multiple jobs, rental income and small businesses"
+        ],
+        "caption": "The payslip beside the assessed and confirmed figures. Sample values.",
+        "film": 6
+      },
+      {
+        "label": "Next step",
+        "title": "Show what changing an income does to the loan",
+        "more": [
+          "Bankers asked whether reducing or excluding an income would change affordability. The next step connects each income decision to its effect on the application."
+        ]
+      }
+    ]
+  },
+  "menu-finder": {
+    "text": "Finding dinner meant opening menu PDFs and zooming in on a phone. Menu Finder starts with the food: search dishes, compare nearby options, then choose the restaurant.",
+    "sections": [
+      {
+        "label": "The problem",
+        "insert": true,
+        "title": "Restaurant apps answer “where”, not “what can I eat”",
+        "more": [
+          "Directories list venues, but the food lives in menu PDFs, photos and websites that are hard to read on a phone and impossible to search. You can’t ask for ramen under $20 nearby and compare the dishes."
+        ],
+        "bullets": [
+          "<strong>Hidden:</strong> menus sit in PDFs, photos and web pages, not searchable data",
+          "<strong>Hard to read:</strong> a menu photo means pinching, zooming and squinting",
+          "<strong>Hard to compare:</strong> no way to line up the same dish, price or diet across places"
+        ],
+        "film": 0
+      },
+      {
+        "label": "Why build it",
+        "insert": true,
+        "title": "Models can finally read messy menus",
+        "more": [
+          "In September 2026, extraction became good and cheap enough to run at scale. With every dish and price structured, people could start with the food and choose the restaurant second."
+        ],
+        "film": 1
+      },
+      {
+        "label": "What I learnt",
+        "title": "Agents collect the menus; models turn them into data",
+        "more": [
+          "OpenClaw agents collect menus headlessly, and fine-tuned open and closed models extract them. When local hardware hit its limits, I spread the work across models on OpenRouter that check each other’s results."
+        ],
+        "caption": "Film frames: menus collected from photos and websites, each dish tied to its price. Sources still need verification.",
+        "film": 2
+      },
+      {
+        "label": "Challenge",
+        "title": "Reading a menu takes more than reading the words",
+        "more": [
+          "Extraction became workable as models improved and costs fell in September 2026."
+        ],
+        "bullets": [
+          "<strong>Prices in their own column</strong> can be attached to the wrong dish",
+          "<strong>Shared size headings</strong> have to be inferred, not just read",
+          "<strong>A cheap side</strong> mustn’t make an expensive meal look under budget"
+        ],
+        "caption": "The prototype’s real ramen-under-$20 search: the budget applies to the matching dish.",
+        "film": 3
+      },
+      {
+        "label": "Scale",
+        "more": [
+          "An app without data offers little, so I built the database first, across every state. The counts include repeated and older menus, not verified current dishes."
+        ],
+        "caption": "Real restaurant locations from the collection, then Newtown’s 823 places (a local query result).",
+        "film": 4
+      },
+      {
+        "label": "Today",
+        "title": "Next: scale up with staged extraction and careful budgets",
+        "more": [
+          "The working prototype connects dish search, nearby alternatives and menus. I’m scaling it towards Australia’s largest menu database; source quality, current prices and usefulness still need testing."
+        ],
+        "caption": "The prototype’s real match. Prices are extracted observations, not confirmed current prices.",
+        "film": 7
+      }
+    ]
+  },
+  "ev": {
+    "text": "Price is only the start: home charging, trip range and trim-specific features change the decision. Roadmark compares exact versions side by side, with the evidence beside each claim.",
+    "sections": [
+      {
+        "label": "The problem",
+        "insert": true,
+        "title": "Spec sheets don’t tell you whether an EV fits your life",
+        "more": [
+          "Buyers face claimed range, battery sizes, charging speeds and features that change by trim, spread across many sources. The numbers rarely say what owning the car will be like day to day."
+        ],
+        "bullets": [
+          "<strong>Hard to compare:</strong> figures use different methods and conditions, and features vary by trim",
+          "<strong>Hard to picture:</strong> range and charging speeds don’t translate into a weekly routine or a long trip",
+          "<strong>Hard to trust:</strong> sources and dates are rarely shown beside the number"
+        ]
+      },
+      {
+        "label": "Why build it",
+        "insert": true,
+        "title": "One place to compare by everyday ownership",
+        "more": [
+          "It’s an expensive decision, and EVs are new to many buyers. I wanted exact versions side by side, explained in everyday terms, with the evidence beside each claim."
+        ]
+      },
+      {
+        "label": "What I learnt",
+        "title": "One baseline car keeps every comparison grounded",
+        "more": [
+          "A Model Y stays visible as a reference while people explore other cars and trims. The selection carries through all seven chapters, so nobody has to rebuild the comparison."
+        ],
+        "caption": "Exact trims stay aligned, with assumptions and evidence beside the decision."
+      },
+      {
+        "label": "Challenge",
+        "title": "Make specifications comparable, and show where they come from",
+        "more": [
+          "Range, home charging and cargo figures depend on conditions and measurement methods. I put sources, dates and assumptions beside each value, and withheld figures I couldn’t verify."
+        ],
+        "bullets": [
+          "<strong>New to EVs:</strong> plain-language charging, range and ownership",
+          "<strong>Already know EVs:</strong> exact trims, the differences and the evidence",
+          "<strong>Petrol drivers with range anxiety:</strong> how charging and long trips fit a routine"
+        ],
+        "caption": "A route, charging stops and a destination make range easy to picture, on desktop or phone."
+      },
+      {
+        "label": "Scale",
+        "title": "34 variants, ten vehicle families, 91 details in seven chapters",
+        "more": [
+          "Price and automated driving come first. People can reorder the rest (range and charging, space and safety, convenience, comfort and driving, software) around their priorities."
+        ],
+        "caption": "Colour-coded chapters link the overview to visual explanations."
+      },
+      {
+        "label": "Today",
+        "title": "A working tool; next, test whether it improves decisions",
+        "more": [
+          "The data comes from dated October 2026 desk research. Prices and specifications need checking against manufacturers, and the effect on buying decisions still needs testing."
+        ],
+        "caption": "Illustrated chapters lead into the detail. October 2026 build."
+      }
+    ]
+  },
+  "appointment-booking": {
+    "text": "Customers could request an appointment, then waited for someone to call and arrange it. I designed direct booking: choose how to meet, see lender availability and pick a time.",
+    "sections": [
+      {
+        "label": "What I learnt",
+        "title": "Ask how to meet, then when",
+        "more": [
+          "One combined filter for channel, time and language overwhelmed infrequent users. Splitting it into two familiar questions also let phone customers skip choosing a location."
+        ],
+        "caption": "Two focused questions replace one crowded filter. Original booking designs."
+      },
+      {
+        "label": "Challenge",
+        "title": "Fit the appointment to someone’s day, without asking everyone everything",
+        "more": [
+          "Customers had waited at least 24 hours for a callback. Testing showed lender photos felt personal but led people to choose by appearance rather than availability."
+        ],
+        "bullets": [
+          "<strong>By phone:</strong> a suitable time, with no branch to choose",
+          "<strong>At a branch:</strong> local availability, and alternatives when it’s full",
+          "<strong>With a mobile lender:</strong> a time and a place that suit them"
+        ],
+        "caption": "Early lender profiles showed how photos swayed choices; the combined filter was the earlier approach."
+      },
+      {
+        "label": "Pattern",
+        "title": "One calendar for three appointment types",
+        "more": [
+          "Branch, mobile-lender and phone bookings share one daily calendar. Showing the first nine times, with “+ n more”, keeps quiet and busy days equally manageable."
+        ],
+        "caption": "One calendar across all three channels, with more times on demand."
+      },
+      {
+        "label": "Outcome",
+        "title": "Released nationally in 2018: booked in about five minutes",
+        "more": [
+          "A wait of at least 24 hours for a callback became a booking of around five minutes, confirmed on the spot. These are different measures: waiting to arrange versus doing the task."
+        ],
+        "caption": "Alternative locations, a review and confirmation keep the next step visible."
+      }
+    ]
+  },
+  "canwork": {
+    "text": "Staff wanted more shifts; branch managers needed gaps covered. I designed CanWork to connect them through availability, shift offers and acceptance.",
+    "sections": [
+      {
+        "label": "What I learnt",
+        "title": "Design both sides of the same shift",
+        "more": [
+          "Managers create shifts and track responses; staff set their availability and accept offers. Designing both together meant every notification said what had happened and what to do next."
+        ],
+        "caption": "The manager creates the opportunity; the employee sees the offer and decides."
+      },
+      {
+        "label": "Challenge",
+        "title": "Shifts were being shared through calls and favours",
+        "more": [
+          "Interviews showed staff wanting work while managers juggled gaps and budgets, and existing connections decided who heard about a shift."
+        ],
+        "bullets": [
+          "<strong>Casual and part-time staff:</strong> more work that fits their location and availability",
+          "<strong>Branch managers:</strong> gaps covered within budget, with responses tracked",
+          "<strong>Regional managers:</strong> shift activity visible across branches"
+        ],
+        "caption": "Interview synthesis: staff seeking work, managers balancing budgets, shifts on unofficial channels."
+      },
+      {
+        "label": "Pattern",
+        "title": "Every shift is either needs you, waiting or accepted",
+        "more": [
+          "Designing each state separately had made the model drift. Organising around who needs to act gave pending, approved and filled shifts one clear structure."
+        ],
+        "caption": "A shared state model shows progress and the next action."
+      },
+      {
+        "label": "Outcome",
+        "title": "One workflow from shift to acceptance, with regional reporting",
+        "more": [
+          "Reporting made shift creation, acceptance and exclusions visible across branches, so distribution could be inspected. No measured change in fairness or fill rates is claimed."
+        ],
+        "caption": "Candidate review and employee confirmation in one workflow. Designs, not a measured result."
+      }
+    ]
+  },
+  "expense-capture": {
+    "text": "Some customers knew what they spent; others needed help working it out. I designed two routes: enter a known total, or build one with guidance.",
+    "sections": [
+      {
+        "label": "What I learnt",
+        "title": "A route for each level of confidence",
+        "more": [
+          "Direct entry is the default for people who know their total, with a guided calculation for anyone who needs it. One task, two paths."
+        ],
+        "caption": "Direct entry and guided calculation: two ways through one task."
+      },
+      {
+        "label": "Challenge",
+        "title": "The bank’s categories weren’t how people thought about spending",
+        "more": [
+          "Card sorting showed confusion over car insurance, so insurance moved first and housing sat beside investment property. Wording mattered too: some people read “Netflix” literally, not as a prompt for other subscriptions."
+        ],
+        "caption": "Research changed the order, grouping and wording of the categories."
+      },
+      {
+        "label": "Pattern",
+        "title": "Keep the help beside the field",
+        "more": [
+          "Eye tracking showed people reading the explanation column as they filled each field, so the layout keeps them together. Separate pages reduced noise; one page made checking easier."
+        ],
+        "caption": "Field, explanation and summary stay connected."
+      },
+      {
+        "label": "Outcome",
+        "title": "From 16 required fields to two, with help on hand",
+        "more": [
+          "Customers give an amount and frequency, or build it with guidance: 87.5% fewer required fields. Completion time and conversion weren’t measured."
+        ],
+        "caption": "Original NAB screens: a known total, categories for help, then individual expenses."
+      }
+    ]
+  },
+  "qantas": {
+    "text": "Travellers needed to understand what they were buying, from medical cover to cancellations. I made the cover clear before commitment: what’s included, what costs extra and what’s optional.",
+    "sections": [
+      {
+        "label": "What I learnt",
+        "title": "Confidence breaks down where cover language is vague",
+        "more": [
+          "Interviews, journey analysis and concept testing showed people wanted precise wording and concrete examples. That shaped a new set of concepts in 2022."
+        ],
+        "caption": "The 2022 research board: customers’ questions about cover and the detail they wanted."
+      },
+      {
+        "label": "Challenge",
+        "title": "Login looked required, cover was hidden, extras looked included",
+        "more": [
+          "Interface choices created doubt at several steps, so the design had to answer three questions first."
+        ],
+        "bullets": [
+          "<strong>Can I continue without signing in?</strong>",
+          "<strong>What’s covered at this price?</strong>",
+          "<strong>Do I need this extra, and can I skip it?</strong>"
+        ],
+        "caption": "Journey analysis links unclear steps to specific misunderstandings."
+      },
+      {
+        "label": "Pattern",
+        "title": "Trip questions first, cover details in view",
+        "more": [
+          "I proposed asking trip questions on the landing page, explaining that login was optional, and bringing product and extras selection together."
+        ],
+        "caption": "The post-research proposal brings trip details forward."
+      },
+      {
+        "label": "Outcome",
+        "title": "The quick quote worked; cover wording still needed examples",
+        "more": [
+          "In March 2022 testing, the quick quote helped people frame their trip, but hospital stays, PCR tests and cancellation versus delay still confused them. Research and concepts only; no measured sales uplift."
+        ],
+        "caption": "March 2022 feedback: what worked, and where examples were still needed."
+      }
+    ]
+  },
+  "nrma": {
+    "text": "Customers needed one clear way to get a quote, manage a policy and get help when something went wrong. I defined shared patterns across NRMA’s 2019–2021 platform transformation.",
+    "sections": [
+      {
+        "label": "What I learnt",
+        "title": "Organise the account around what customers manage",
+        "more": [
+          "Working across product, underwriting, content and platform teams, I organised MyAccount around claims, saved quotes and policies, with matching desktop and mobile patterns."
+        ],
+        "caption": "Claims, saved quotes and policies on desktop and mobile."
+      },
+      {
+        "label": "Challenge",
+        "title": "Every kind of problem needs a different next step",
+        "more": [
+          "A pattern framework separates validation, system errors, underwriting restrictions, referrals and special conditions, each explaining what happened and what to do."
+        ],
+        "bullets": [
+          "<strong>Fix an entry:</strong> show what needs to change",
+          "<strong>Understand a restriction:</strong> explain the underwriting rule",
+          "<strong>Get the right help:</strong> route referrals to assisted service"
+        ],
+        "caption": "One framework for every scenario quote and account teams handle."
+      },
+      {
+        "label": "Pattern",
+        "title": "Renewal leads straight into policy review",
+        "more": [
+          "Reminders lead into reviewing the policy and adjusting the insured amount and excess without leaving the renewal."
+        ],
+        "caption": "Policy details, cover changes and the renewal summary stay together."
+      },
+      {
+        "label": "Outcome",
+        "title": "Shared foundations that several teams built on",
+        "more": [
+          "I contributed the shared patterns and experience design to a multi-team programme: home insurance in September 2020, then account and renewal milestones in 2021, with later iterations building on them."
+        ]
+      }
+    ]
+  }
+}

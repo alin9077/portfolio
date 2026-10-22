@@ -271,9 +271,10 @@
     if (filmReduced !== reduce.matches) { filmReduced = reduce.matches; films.forEach(f => { f.manualPlay = false; }); }
     films.forEach(syncFilm);
   }
+  const filmFor = (source) => (source === 'menu-film-square.html' ? window.MenuFilm : window.IncomeFilm);
   function loadFilm(f) {
     if (f.ready) return;
-    f.api = (f.source === 'menu-film-square.html' ? window.MenuFilm : window.IncomeFilm).mount(f.host);
+    f.api = filmFor(f.source).mount(f.host);
     // Show a useful still for readers who prefer reduced motion.
     if (reduce.matches) f.api.set(f.source === 'menu-film-square.html' ? 38.96 : 35.36);
     f.ready = true;
@@ -557,7 +558,9 @@
       const media = s.mediaLayout ? caseMediaHTML(s) : s.media ? `<div class="sc__media">${s.media.map((k) => p.subs ? shot(k) : '<figure class="is-placeholder" aria-hidden="true"></figure>').join('')}</div>` : '';
       const pictogram = s.pictogram ? `<img class="sc__pictogram" src="assets/menu-story/${s.pictogram}-192.webp" srcset="assets/menu-story/${s.pictogram}-192.webp 192w, assets/menu-story/${s.pictogram}-384.webp 384w" sizes="(max-width: 760px) 72px, 88px" width="88" height="88" alt="" loading="lazy" decoding="async">` : '';
       const bullets = s.bullets ? `<ul class="sc__p sc__bullets">${s.bullets.map((t) => `<li>${t}</li>`).join('')}</ul>` : '';
-      return `<li class="sc__sec${s.mediaLayout ? ' sc__sec--composed' : ''}${s.showcase ? ' sc__sec--showcase' : ''}"><span class="sc__lab${s.pictogram ? ' sc__lab--illustrated' : ''}">${pictogram}${s.label}</span><div class="sc__body"><h3 class="sc__h">${s.title}</h3>${s.more.map((t) => `<p class="sc__p">${t}</p>`).join('')}${bullets}${s.mediaLayout ? '' : media}</div>${s.showcase ? showcaseHTML(s.showcase, { illustrative: p.illustrativeImages === true }) : ''}${s.mediaLayout ? media : ''}</li>`;
+      const chapter = s.film != null && p.media?.embed ? filmFor(p.media.film)?.chapters?.[s.film] : null;
+      const watch = chapter ? `<button class="sc__watch" type="button" data-film-chapter="${s.film}"><span class="sc__watch-play" aria-hidden="true"></span>Watch in the film <span class="sc__watch-chapter">${String(s.film + 1).padStart(2, '0')} · ${chapter.label}</span></button>` : '';
+      return `<li class="sc__sec${s.mediaLayout ? ' sc__sec--composed' : ''}${s.showcase ? ' sc__sec--showcase' : ''}"><span class="sc__lab${s.pictogram ? ' sc__lab--illustrated' : ''}">${pictogram}${s.label}</span><div class="sc__body"><h3 class="sc__h">${s.title}</h3>${s.more.map((t) => `<p class="sc__p">${t}</p>`).join('')}${bullets}${watch}${s.mediaLayout ? '' : media}</div>${s.showcase ? showcaseHTML(s.showcase, { illustrative: p.illustrativeImages === true }) : ''}${s.mediaLayout ? media : ''}</li>`;
     }).join('');
     const intro = `${p.brandMark ? `<img class="project-brand-mark project-brand-mark--case" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}<p class="sc__eyebrow">${p.eyebrow}</p><h2 class="sc__title">${p.headline || p.name}</h2>${p.subtitle ? `<p class="sc__lede">${p.subtitle}</p>` : ''}<p class="sc__lede">${p.text}</p>`;
     return `${p.visualStory ? `<header class="visual-story__intro">${intro}</header>` : intro}<ol class="sc__sections">${secs}</ol>`;
@@ -1031,6 +1034,21 @@
   new ResizeObserver(scheduleProjectFocus).observe(pageEl);
   const refreshProjectMedia = () => { scheduleProjectFocus(); syncProjectMedia(); wakeMotion(); };
   subEl.addEventListener('project-media-relocated', () => { demos('setActive', subEl, false); syncProjectMedia(); });
+  subCopy.addEventListener('click', (e) => {
+    const link = e.target.closest('[data-film-chapter]'), f = open?.source && films.get(open.source);
+    if (!link || !f) return;
+    loadFilm(f);
+    const chapter = f.api.chapters?.[+link.dataset.filmChapter];
+    if (!chapter) return;
+    f.started = true; f.userPaused = false; f.manualPlay = true;
+    f.api.set(chapter.t);
+    // Out of view: open the collapsed floating player (phones) so the reader keeps their place; otherwise go to the film.
+    if (!f.visible) {
+      const expand = subEl.querySelector('.project-media-dock.is-collapsed:not([hidden]) [data-preview]');
+      if (expand) expand.click(); else subEl.scrollTo({ top: 0, behavior: reduce.matches ? 'instant' : 'smooth' });
+    }
+    syncFilm(f);
+  });
   document.addEventListener('visibilitychange', refreshProjectMedia);
   new MutationObserver(refreshProjectMedia).observe($('#viewer'), { attributes: true, attributeFilter: ['inert'] });
 

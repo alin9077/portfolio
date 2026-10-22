@@ -103,6 +103,7 @@ window.FilmPlayer = { mount(host, { sources, poster, duration, label, chapters =
   chapterUI();
   const api = {
     D: duration,
+    chapters,
     set(v) { api.pause(); wanted = Math.max(0, Math.min(duration - 0.05, v)); try { video.currentTime = wanted; } catch (e) { /* applied once loaded */ } },
     play() { playing = true; buffering(); video.play().catch((e) => { if (e.name === 'NotAllowedError') { playing = false; buffering(); } }); },
     pause() { playing = false; video.pause(); buffering(); },
