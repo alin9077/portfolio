@@ -8,17 +8,26 @@ window.MenuFilm = { mount(host) {
     'Then one neighbourhood: 823 places near Newtown. Ramen under $20 finds 6 places within 2 km, and the match is hokkaido miso ramen, $14.70, at Take Sushi and Ramen Bar, 174 m away.');
   const root = host.attachShadow({ mode: 'open' });
   root.innerHTML = `<style>:host{display:block;width:100%;height:100%}video{display:block;width:100%;height:100%;object-fit:cover;background:#f2f1ec}</style>
-    <video muted playsinline loop preload="auto" disablepictureinpicture aria-hidden="true" poster="assets/menu-story/menu-film-poster.webp">
-      <source src="assets/menu-story/menu-film-1x1.mp4" type="video/mp4">
-    </video>`;
-  const video = root.querySelector('video');
+    <video muted playsinline loop preload="auto" disablepictureinpicture aria-hidden="true" poster="assets/menu-story/menu-film-poster.webp"></video>`;
+  const video = root.querySelector('video'), SRC = 'assets/menu-story/menu-film-1x1.mp4';
   video.muted = true;
+  // Play from memory: Safari can't stream video from servers without byte ranges (local previews), so fetch it whole.
+  // Fall back to streaming if the fetch or a blob: source is refused.
+  const stream = () => { if (video.getAttribute('src') !== SRC) { video.src = SRC; restore(); } };
+  let wanted = 0;
+  const restore = () => { if (wanted) video.currentTime = wanted; if (playing) video.play().catch(() => {}); };
+  fetch(SRC).then((r) => (r.ok ? r.blob() : Promise.reject())).then((blob) => {
+    if (destroyed) return;
+    video.addEventListener('error', stream, { once: true });
+    video.src = URL.createObjectURL(blob);
+    video.addEventListener('loadedmetadata', restore, { once: true });
+  }).catch(stream);
   let playing = false, destroyed = false;
   // Moving the player (the floating dock) can pause it; resume while the portfolio still wants it playing.
   video.addEventListener('pause', () => queueMicrotask(() => { if (playing && !destroyed && video.paused) video.play().catch(() => {}); }));
   const api = {
     D,
-    set(v) { api.pause(); try { video.currentTime = Math.max(0, Math.min(D - 0.05, v)); } catch (e) { /* not seekable yet */ } },
+    set(v) { api.pause(); wanted = Math.max(0, Math.min(D - 0.05, v)); try { video.currentTime = wanted; } catch (e) { /* applied once loaded */ } },
     play() { playing = true; video.play().catch((e) => { if (e.name === 'NotAllowedError') playing = false; }); },
     pause() { playing = false; video.pause(); },
     get playing() { return playing; },
