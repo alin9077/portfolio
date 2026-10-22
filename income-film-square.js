@@ -8,7 +8,7 @@
     chapters: [
       { t: 0.0, label: 'Apply' },
       { t: 5.6, label: 'Verify' },
-      { t: 8.8, label: 'By hand' },
+      { t: 8.0, label: 'By hand' },
       { t: 19.6, label: 'With AI' },
       { t: 26.0, label: 'The figure' },
       { t: 30.8, label: 'Confirm' },

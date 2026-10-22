@@ -79,7 +79,7 @@ const PAY = { w: 360, h: 460, rows: { tfn: 138, ord: 180, allow: 204, gross: 232
 const META = [['Employee', 'Jane Citizen', 78], ['Pay period', '21 Jun – 4 Jul 2026', 98], ['Paid', '4 Jul 2026 · Fortnightly', 118], ['Tax file number', '123 456 789', 138]];
 const EARN = [['Ordinary hours', '76.00 × $46.88', '$3,562.88', 'ord'], ['Allowances', '$120.00 + $60.00', '$180.00', 'allow'], ['Gross pay', '', '$3,742.88', 'gross'],
   ['Pre-tax deduction', '', '$220.00', 'pre'], ['Tax withheld', '', '$687.78', 'tax'], ['Post-tax deduction', '', '$45.00', 'post']];
-const CALC = [['Ordinary hours', '3,562.88'], ['Allowances', '180.00'], ['Gross pay', '3,742.88'], ['× pay periods', '26'], ['÷ months', '12']];
+const CALC = ['Ordinary hours', 'Allowances', 'Gross pay', 'Pre-tax deduction', 'Tax withheld', 'Post-tax deduction', 'Net pay', 'Pay period', 'Paid on', '× pay periods'];
 const CHIPS = [['76.00 hrs', 'ord'], ['$46.88 / hr', 'ord'], ['$3,562.88', 'ord'], ['$180.00', 'allow'], ['$3,742.88', 'gross'], ['$220.00', 'pre'], ['$687.78', 'tax'], ['$45.00', 'post'], ['$2,790.10', 'net']];
 const CHECKS = ['Payslip read', 'Name matches', 'Pay period', 'Hours × rate', 'Gross adds up', 'Deductions', 'Net pay matches', 'Fortnightly → monthly'];
 const REVIEW = [['Ordinary hours', '$3,562.88'], ['Allowances', '$180.00'], ['Gross pay', '$3,742.88'], ['Deductions', '$952.78'], ['Net pay', '$2,790.10']];
@@ -143,7 +143,7 @@ const S = {
   payoff:  { cx: 500, cy: 610, w: 640, h: 500, r: 40, col: C.ink, nw: 640, nh: 500 }
 };
 const cardKey = (s) => [s.cx, s.cy, s.w, s.h, s.r, ...hex(s.col)];
-const CARD = [[0, cardKey(S.phone)], [7, cardKey(S.payslip)], [11, cardKey(S.desk)], [24.5, cardKey(S.agent)], [32.5, cardKey(S.figure)],
+const CARD = [[0, cardKey(S.phone)], [7, cardKey(S.payslip)], [10, cardKey(S.desk)], [24.5, cardKey(S.agent)], [32.5, cardKey(S.figure)],
   [38.5, cardKey(S.review)], [46.5, cardKey(S.payoff)], [50.5, cardKey(S.phone)]];
 const at = (s, x, y) => [s.cx - s.w / 2 + x * s.w / s.nw, s.cy - s.h / 2 + y * s.w / s.nw];
 const zoom = (s) => s.w / s.nw;
@@ -183,12 +183,23 @@ function drawCity(t) {
 const BANK = [1931 * CITY_K + CITY_X, 650 * CITY_K + CITY_Y];
 
 /* ── Captions ───────────────────────────────────────────────────────────────── */
-const DESK_CLICKS = [12.5, 13.5, 15.5, 16, 17.5, 18, ...Array.from({ length: 24 }, (_, k) => 19.5 + k * 0.125), 23];
+// Nine values copied by hand, speeding up as the work drags on: double-click to select, then click the field to paste.
+const COPIES = [
+  ['ord', 306, '3,562.88'], ['allow', 306, '180.00'], ['gross', 306, '3,742.88'], ['pre', 306, '220.00'], ['tax', 306, '687.78'],
+  ['post', 306, '45.00'], ['net', 300, '2,790.10'], ['period', 196, '21/06–04/07/26'], ['paid', 170, '04/07/2026']
+].map(([key, x, value], i) => {
+  const lengths = [1.25, 1, 1, 0.875, 0.875, 0.75, 0.75, 0.75, 0.75];
+  const start = 13.25 + lengths.slice(0, i).reduce((a, b) => a + b, 0), len = lengths[i];
+  return { key, x, value, row: i, start, pick: start + 0.15, drop: start + 0.55 * len };
+});
+const PERIODS_AT = 21.5, CALCULATE_AT = 22.75;
+const COPY_CLICKS = COPIES.flatMap((c) => [c.start, c.start + 0.125, c.drop]);
+const DESK_CLICKS = [11, 11.75, ...COPY_CLICKS, PERIODS_AT, CALCULATE_AT];
 const clicksBy = (t) => DESK_CLICKS.filter((b) => t >= sec(b)).length;
 const CAPTIONS = [
   { lines: ['A customer applies', 'for a credit card.'], ins: [1, 1.5], out: 6, color: '#fff' },
-  { lines: ['First, the bank has to', 'verify their income.'], ins: [7.5, 8], out: 10.5 },
-  { lines: ['Today, bankers do it by hand:', (t) => { const n = Math.max(1, clicksBy(t)); return `${n} click${n === 1 ? '' : 's'}.`; }], ins: [11.5, 12.5], out: 24 },
+  { lines: ['First, the bank has to', 'verify their income.'], ins: [7.5, 8], out: 9.5 },
+  { lines: ['Today, bankers do it by hand:', (t) => { const n = Math.max(1, clicksBy(t)); return `${n} click${n === 1 ? '' : 's'}.`; }], ins: [10.5, 11], out: 24 },
   { lines: ['Now an AI agent redacts,', 'reads and checks it all.'], ins: [25, 25.5], out: 32 },
   { lines: ['It shows the figure', 'and how it got there.'], ins: [33, 33.5], out: 38 },
   { lines: ['The banker checks the evidence,', 'then confirms in one click.'], ins: [39, 39.5], out: 46 },
@@ -281,16 +292,18 @@ function drawPayslip(t, o = {}) {
 
 /* ── The desk: today (by hand) and with AI ──────────────────────────────────── */
 const CALC_AT = { x: 440, y: 112, w: 388, h: 486 };
-const calcRowY = (i) => CALC_AT.y + 92 + i * 56;
-const TYPE = [[16.25, '3,562.88'], [18.25, '180.00']];
-const typed = (t, i) => { const [b, s] = TYPE[i]; return s.slice(0, clamp(Math.floor((t - sec(b)) / sec(0.125)) + 1, 0, s.length)); };
-const RAPID_FILL = [20.5, 21.25, 22];
+const calcRowY = (i) => CALC_AT.y + 70 + i * 34;
+const TOTAL_Y = CALC_AT.y + 416, CALCULATE = { x: CALC_AT.x + 20, y: CALC_AT.y + 434, w: 348, h: 40 };
+const META_ROWS = { period: 98, paid: 118 };
+const rowOf = (key) => PAY.rows[key] ?? META_ROWS[key];
+// Where a payslip value sits in the desk's coordinates.
+const deskPay = (x, y) => [DESK_PAY.x + x * DESK_PAY.k, DESK_PAY.y + y * DESK_PAY.k];
 function deskHeader() {
   text('Jane Citizen', 32, 52, 20, 600, C.ink, 'left', -0.02);
   text('Credit card application · income', 32, 78, 13, 400, C.muted, 'left', 0);
 }
 function drawDesk(t, v) {
-  const opened = spring(t - sec(12.5), 14, 0.8);
+  const opened = spring(t - sec(11), 14, 0.8);
   layer(v, () => {
     deskHeader();
     // Left: the payslip, opened from its file.
@@ -308,29 +321,51 @@ function drawDesk(t, v) {
       drawPayslip(t, { frame: true, redact: manualRedact });
       ctx.restore();
     }
-    // Right: the calculator, filled one figure at a time.
+    // The value being copied is selected on the payslip.
+    for (const c of COPIES) {
+      const a = clamp((t - sec(c.start + 0.12)) / 0.08) * (1 - clamp((t - sec(c.drop + 0.1)) / 0.12));
+      if (a <= 0) continue;
+      const [x, y] = deskPay(c.key === 'period' || c.key === 'paid' ? 137 : c.x - 40, rowOf(c.key) - 13);
+      ctx.save(); ctx.globalAlpha *= a * 0.32; rrect(x, y, (c.key === 'period' ? 118 : c.key === 'paid' ? 76 : 74) * DESK_PAY.k, 18 * DESK_PAY.k, 3); ctx.fillStyle = C.peri; ctx.fill(); ctx.restore();
+    }
+    // Right: the calculator, filled one copied value at a time.
     rrect(CALC_AT.x, CALC_AT.y, CALC_AT.w, CALC_AT.h, 10); ctx.fillStyle = C.sheet; ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 1.2; ctx.stroke();
     text('Calculator', CALC_AT.x + 20, CALC_AT.y + 40, 16, 600, C.ink, 'left', -0.01);
-    CALC.forEach(([label, value], i) => {
-      const y = calcRowY(i), active = (i === 0 && t > sec(16) && t < sec(17.5)) || (i === 1 && t > sec(18) && t < sec(19.5));
-      text(label, CALC_AT.x + 20, y + 4, 13, 400, C.muted, 'left', 0);
-      rrect(CALC_AT.x + 170, y - 20, 198, 36, 8); ctx.fillStyle = '#fff'; ctx.fill();
-      ctx.strokeStyle = active ? C.ink : C.line; ctx.lineWidth = active ? 1.6 : 1.2; ctx.stroke();
-      const shown = i < 2 ? (t > sec(TYPE[i][0]) ? typed(t, i) : '') : (t > sec(RAPID_FILL[i - 2]) ? value : '');
-      if (shown) tabular(shown, CALC_AT.x + 356, y + 5, 17, 500, C.ink, 'right', 0);
+    CALC.forEach((label, i) => {
+      const y = calcRowY(i), c = COPIES[i];
+      const landed = c ? t >= sec(c.drop) : t >= sec(PERIODS_AT + 0.25);
+      const flash = c ? 1 - clamp((t - sec(c.drop)) / sec(0.4)) : 0, waiting = c ? t > sec(c.pick) && !landed : t > sec(PERIODS_AT) && t < sec(PERIODS_AT + 0.6);
+      text(label, CALC_AT.x + 20, y + 4, 12.5, 400, C.muted, 'left', 0);
+      rrect(CALC_AT.x + 170, y - 14, 198, 26, 6); ctx.fillStyle = '#fff'; ctx.fill();
+      const ring = waiting || (landed && flash > 0);
+      ctx.strokeStyle = ring ? C.ink : C.line; ctx.lineWidth = ring ? 1.6 : 1.1; ctx.stroke();
+      if (c && landed) tabular(c.value, CALC_AT.x + 358, y + 4, 14, 500, C.ink, 'right', 0);
+      if (!c && t >= sec(PERIODS_AT + 0.25)) tabular('26'.slice(0, t >= sec(PERIODS_AT + 0.375) ? 2 : 1), CALC_AT.x + 358, y + 4, 14, 500, C.ink, 'right', 0);
     });
-    const ty = calcRowY(5) + 6;
-    ctx.fillStyle = C.ink; ctx.fillRect(CALC_AT.x + 20, ty - 30, 348, 1.4);
-    text('Monthly income', CALC_AT.x + 20, ty, 14, 600, C.ink, 'left', 0);
-    if (t > sec(23)) tabular('8,109.57', CALC_AT.x + 356, ty, 20, 700, C.ink, 'right', -0.01);
-    rrect(CALC_AT.x + 20, CALC_AT.y + CALC_AT.h - 62, 348, 42, 21); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.stroke();
-    text('Calculate', CALC_AT.x + 194, CALC_AT.y + CALC_AT.h - 35, 14, 600, C.ink, 'center', 0);
+    ctx.fillStyle = C.ink; ctx.fillRect(CALC_AT.x + 20, TOTAL_Y - 24, 348, 1.4);
+    text('Monthly income', CALC_AT.x + 20, TOTAL_Y, 14, 600, C.ink, 'left', 0);
+    text('÷ 12', CALC_AT.x + 170, TOTAL_Y, 12.5, 400, C.muted, 'left', 0);
+    if (t > sec(CALCULATE_AT)) tabular('8,109.57', CALC_AT.x + 358, TOTAL_Y, 18, 700, C.ink, 'right', -0.01);
+    rrect(CALCULATE.x, CALCULATE.y, CALCULATE.w, CALCULATE.h, 20); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.stroke();
+    text('Calculate', CALCULATE.x + CALCULATE.w / 2, CALCULATE.y + 26, 14, 600, C.ink, 'center', 0);
+    // The copied value rides with the cursor from the payslip to its field.
+    const s0 = S.desk, k0 = zoom(s0), [cx, cy] = cursorAt(t), nx = (cx - (s0.cx - s0.w / 2)) / k0, ny = (cy - (s0.cy - s0.h / 2)) / k0;
+    for (const c of COPIES) {
+      const a = clamp((t - sec(c.pick)) / 0.06) * (1 - clamp((t - sec(c.drop)) / 0.08));
+      if (a <= 0) continue;
+      font(12.5, 600); const w = ctx.measureText(c.value).width + 18;
+      ctx.save(); ctx.globalAlpha *= a;
+      ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 8 * PX; ctx.shadowOffsetY = 3 * PX;
+      rrect(nx + 16, ny + 20, w, 24, 12); ctx.fillStyle = C.ink; ctx.fill(); ctx.shadowColor = 'transparent';
+      tabular(c.value, nx + 16 + w / 2, ny + 36.5, 12.5, 600, '#fff', 'center', 0);
+      ctx.restore();
+    }
   });
 }
 // The banker's drag: the bar follows the cursor from the start of the number until release.
 function manualRedact(t) {
-  if (t < sec(13.5)) return 0;
-  const c = cursorAt(Math.min(t, sec(15))), o = payAt(S.desk, 136, 0), k = payScale(S.desk);
+  if (t < sec(11.75)) return 0;
+  const c = cursorAt(Math.min(t, sec(13))), o = payAt(S.desk, 136, 0), k = payScale(S.desk);
   return clamp((c[0] - o[0]) / k, 0, 92);
 }
 const chipBox = (i) => [CALC_AT.x + 20 + (i % 3) * 118, CALC_AT.y + 66 + Math.floor(i / 3) * 42, 110, 32];
@@ -441,8 +476,8 @@ function drawPayoff(t, v) {
 /* ── States ─────────────────────────────────────────────────────────────────── */
 const STATES = [
   { s: S.phone, at: -99, out: 6, draw: drawPhone },
-  { s: S.payslip, at: 7, out: 10.5, draw: (t, v) => layer(v, () => drawPayslip(t, { reveal: 7.4 })) },
-  { s: S.desk, at: 11, out: 24, draw: drawDesk },
+  { s: S.payslip, at: 7, out: 9.5, draw: (t, v) => layer(v, () => drawPayslip(t, { reveal: 7.4 })) },
+  { s: S.desk, at: 10, out: 24, draw: drawDesk },
   { s: S.agent, at: 24.5, out: 32, draw: drawAgent },
   { s: S.figure, at: 32.5, out: 38, draw: drawFigure },
   { s: S.review, at: 38.5, out: 46, draw: drawReview },
@@ -455,14 +490,10 @@ const SUN = [800, 300, 96, 96, 48];
 const ACCENT = () => [
   [0, SUN],
   [6.6, payBand(S.payslip, PAY.rows.gross)],
-  [11, rect(S.desk, DESK_PAY.x + 130, DESK_PAY.y + 250, 120, 26, 8)],
-  [12.7, payBand(S.desk, PAY.rows.tfn, 132, 236, 22)],
-  [15.1, payBand(S.desk, PAY.rows.ord)],
-  [15.7, rect(S.desk, CALC_AT.x + 166, calcRowY(0) - 24, 206, 44, 10)],
-  [17.1, payBand(S.desk, PAY.rows.allow)],
-  [17.7, rect(S.desk, CALC_AT.x + 166, calcRowY(1) - 24, 206, 44, 10)],
-  [19.5, payBand(S.desk, PAY.rows.gross)],
-  [22.6, rect(S.desk, CALC_AT.x + 10, calcRowY(5) - 22, 368, 40, 10)],
+  [10, rect(S.desk, DESK_PAY.x + 130, DESK_PAY.y + 250, 120, 26, 8)],
+  [11.2, payBand(S.desk, PAY.rows.tfn, 132, 236, 22)],
+  ...COPIES.map((c) => [c.start - 0.25, c.key === 'period' || c.key === 'paid' ? payBand(S.desk, rowOf(c.key) + 1, 132, 300, 22) : payBand(S.desk, rowOf(c.key))]),
+  [CALCULATE_AT - 0.35, rect(S.desk, CALC_AT.x + 10, TOTAL_Y - 20, 368, 30, 8)],
   [24.6, (() => { const [x, y] = payAt(S.agent, 180, 60), k = payScale(S.agent); return [x, y, 340 * k, 10 * k, 5 * k]; })()],
   [25.1, (() => { const [x, y] = payAt(S.agent, 180, 400), k = payScale(S.agent); return [x, y, 340 * k, 10 * k, 5 * k]; })(), 9],
   [25.5, payBand(S.agent, PAY.rows.tfn, 132, 236, 22)],
@@ -478,7 +509,7 @@ const ACCENT = () => [
 const ease = (a, b, t) => { const p = clamp((t - sec(a)) / (sec(b) - sec(a))); return p * p * (3 - 2 * p); };
 function drawAccent(t) {
   const [x, y, w, h, r] = springs(ACCENT_KEYS, t, 12);
-  const g = 1 + 0.1 * pulse(t, 3) + 0.18 * pulse(t, 8.5) + 0.12 * pulse(t, 23.1) + 0.1 * pulse(t, 36.3) + 0.08 * pulse(t, 52);
+  const g = 1 + 0.1 * pulse(t, 3) + 0.18 * pulse(t, 8.5) + 0.12 * pulse(t, CALCULATE_AT + 0.1) + 0.1 * pulse(t, 36.3) + 0.08 * pulse(t, 52);
   // The sun is paint; on paper it becomes a highlighter, so the figures under it stay readable.
   const marker = ease(6.9, 7.4, t) - ease(46.3, 46.7, t);
   rrect(x - w * g / 2, y - h * g / 2, w * g, h * g, r * g);
@@ -491,7 +522,7 @@ function drawAccent(t) {
 /* ── Today / With AI: each edge of the indicator rides its own spring ───────── */
 const TABS = { x: 676, y: 312, w: 232, h: 48 };
 function drawTabs(t) {
-  layer(vis(t, 11.6, 32), () => {
+  layer(vis(t, 10.6, 32), () => {
     const { x, y, w, h } = TABS;
     rrect(x, y, w, h, h / 2); ctx.fillStyle = C.chip; ctx.fill();
     const L = springs([[0, x + 5], [24, x + 105, 9]], t), R = springs([[0, x + 101], [24, x + w - 5, 21]], t);
@@ -507,27 +538,25 @@ const OFF = [1080, 1100];
 const deskPt = (x, y) => at(S.desk, x, y);
 const payPt = (row, x = 300) => payAt(S.desk, x, row - 5);
 const CURSOR = () => {
-  const rapid = Array.from({ length: 24 }, (_, k) => [19.4 + k * 0.125, k % 2 ? deskPt(CALC_AT.x + 300, calcRowY(2 + (k >> 1) % 3)) : payPt([PAY.rows.gross, PAY.rows.ord, PAY.rows.allow][(k >> 1) % 3]), 34]);
   return [
-    [0, OFF], [11.6, deskPt(DESK_PAY.x + 196, DESK_PAY.y + 230)],
-    [13, payPt(PAY.rows.tfn, 138)], [13.9, payPt(PAY.rows.tfn, 186), 7], [14.5, payPt(PAY.rows.tfn, 232), 7],
-    [15.1, payPt(PAY.rows.ord)], [15.7, deskPt(CALC_AT.x + 300, calcRowY(0))],
-    [17.1, payPt(PAY.rows.allow)], [17.7, deskPt(CALC_AT.x + 300, calcRowY(1))],
-    ...rapid,
-    [22.6, deskPt(CALC_AT.x + 220, CALC_AT.y + CALC_AT.h - 40)], [23.4, [TABS.x + 168, TABS.y + 30]],
+    [0, OFF], [10.2, deskPt(DESK_PAY.x + 196, DESK_PAY.y + 230)],
+    [11.35, payPt(PAY.rows.tfn, 138)], [12, payPt(PAY.rows.tfn, 186), 7], [12.6, payPt(PAY.rows.tfn, 232), 7],
+    ...COPIES.flatMap((c) => [[c.start - 0.3, payPt(rowOf(c.key), c.x), 16], [c.start + 0.2, deskPt(CALC_AT.x + 300, calcRowY(c.row) - 4), 16]]),
+    [PERIODS_AT - 0.3, deskPt(CALC_AT.x + 300, calcRowY(9) - 4), 16],
+    [CALCULATE_AT - 0.4, deskPt(CALCULATE.x + 200, CALCULATE.y + 22)], [23.4, [TABS.x + 168, TABS.y + 30]],
     [25, [1080, 640]],
     [39.2, [1060, 760]], [40.2, at(S.review, RV.x + 250, reviewRowY(2) - 6)], [41.8, at(S.review, CONFIRM.x + 220, CONFIRM.y + 30)],
     [44.5, [1080, 860]]
   ];
 };
-const CLICKS = [12.5, 15.5, 16, 17.5, 18, ...DESK_CLICKS.slice(6, 30), 23, 24, 43];
+const CLICKS = [11, ...COPY_CLICKS, PERIODS_AT, CALCULATE_AT, 24, 43];
 let CURSOR_KEYS = null, ACCENT_KEYS = null;
 const cursorAt = (t) => springs(CURSOR_KEYS, t, 9.5);
 function drawCursor(t) {
   const [x, y] = cursorAt(t);
   if (x > 1030 || y > 1030) return;
-  const down = CLICKS.reduce((m, b) => Math.max(m, pulse(t, b - 0.06, 0.16)), 0) + (t > sec(13.5) && t < sec(15) ? 1 : 0);
-  for (const b of [...CLICKS, 13.5]) {
+  const down = CLICKS.reduce((m, b) => Math.max(m, pulse(t, b - 0.06, 0.16)), 0) + (t > sec(11.75) && t < sec(13) ? 1 : 0);
+  for (const b of [...CLICKS, 11.75]) {
     const u = (t - sec(b)) / 0.4;
     if (u > 0 && u < 1) { ctx.strokeStyle = `rgba(27,27,32,${0.32 * (1 - u)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 6 + u * 24, 0, 7); ctx.stroke(); }
   }
