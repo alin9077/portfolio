@@ -248,21 +248,21 @@ window.H_PROJECTS = {
           "brand": "MENU FINDER",
           "number": "01",
           "title": "From a menu to a searchable meal.",
-          "caption": "Real prototype screens show the extracted dishes, descriptions and prices, with the search match carried into the restaurant detail. Source observations still need verification.",
+          "caption": "Frames from the Menu Finder film: agents collect menus from photos and websites, then models tie each dish to its price. Source observations still need verification.",
           "images": [
             {
-              "id": "menu-extracted-menu",
-              "image": "assets/menu-story/product/03-extracted-menu.jpg",
+              "id": "menu-agents-collect",
+              "image": "assets/menu-story/film/01-agents-collect.webp",
               "position": "main",
-              "label": "A menu, structured into dishes",
-              "alt": "Menu Finder’s real restaurant detail showing the expanded Ramen section with dish names, descriptions and prices beside the restaurant map."
+              "label": "Menus collected from photos and websites",
+              "alt": "Menu Finder film frame: a grid of real Newtown restaurants whose menus were collected from photos or websites, including Take Sushi and Ramen Bar."
             },
             {
-              "id": "menu-matching-dish",
-              "image": "assets/menu-story/product/02-matching-dish-detail.jpg",
+              "id": "menu-dishes-prices",
+              "image": "assets/menu-story/film/02-dishes-and-prices.webp",
               "position": "detail",
-              "label": "The matching dish stays in view",
-              "alt": "The real Take Sushi and Ramen Bar detail screen with the hokkaido miso ramen search match and its observed $14.70 price above the menu."
+              "label": "Each dish tied to its price",
+              "alt": "Menu Finder film frame: Take Sushi and Ramen Bar's ramen section read into dishes and prices, with hokkaido miso ramen at 14.70 highlighted."
             }
           ]
         }
@@ -279,14 +279,14 @@ window.H_PROJECTS = {
           "brand": "MENU FINDER",
           "number": "02",
           "title": "The right dish. The right price.",
-          "caption": "The working prototype makes diet and per-item budget controls explicit. Reading a menu correctly and verifying its current prices remain separate source-quality challenges.",
+          "caption": "A frame from the film showing the prototype's real ramen-under-$20 search, with the budget applied to the matching dish. Reading a menu correctly and verifying current prices remain separate source-quality challenges.",
           "images": [
             {
-              "id": "menu-budget-filter",
-              "image": "assets/menu-story/product/04-budget-filter.jpg",
+              "id": "menu-ramen-under-20",
+              "image": "assets/menu-story/film/03-ramen-under-20.webp",
               "position": "main",
-              "label": "Budget applies to the item",
-              "alt": "Menu Finder’s real filter dialog with dietary options and an Under $20 budget per item; the preview action shows six matching places."
+              "label": "Budget applies to the dish",
+              "alt": "Menu Finder film frame: ramen under $20 within 2 km of Newtown. Take Sushi and Ramen Bar, hokkaido miso ramen $14.70 at 174 m; Miyama Japanese Kitchen $14.90; Izakaya Shogun $19; Sushi Jones $12.80."
             }
           ]
         }
@@ -303,21 +303,21 @@ window.H_PROJECTS = {
           "brand": "MENU FINDER",
           "number": "03",
           "title": "A national collection. A local decision.",
-          "caption": "Desktop and phone views connect nearby places to an attributed map. The 823 source identities shown in this Newtown preview are a local query result, not a count of verified unique restaurants.",
+          "caption": "Film frames plot real restaurant locations from the collection, then the prototype's Newtown clusters. The 823 places are a local query result, not a count of verified unique restaurants.",
           "images": [
             {
-              "id": "menu-neighbourhood",
-              "image": "assets/menu-story/product/06-neighbourhood-discovery.jpg",
+              "id": "menu-restaurants-australia",
+              "image": "assets/menu-story/film/04-restaurants-australia.webp",
               "position": "main",
-              "label": "Nearby places on the map",
-              "alt": "Menu Finder’s real desktop discovery screen for Newtown with a nearby restaurant list and clusters on an attributed greyscale map."
+              "label": "Restaurants with collected menus",
+              "alt": "Menu Finder film frame: a map of Australia filled with the locations of restaurants whose menus were collected, densest along the east coast."
             },
             {
-              "id": "menu-neighbourhood-phone",
-              "image": "assets/menu-story/product/07-neighbourhood-phone.jpg",
+              "id": "menu-newtown-up-close",
+              "image": "assets/menu-story/film/05-newtown-up-close.webp",
               "position": "phone",
-              "label": "The neighbourhood on a phone",
-              "alt": "A real phone-sized Menu Finder prototype capture showing the Newtown map, a list switch, the nearby-place count and the beginning of the restaurant list."
+              "label": "Newtown up close",
+              "alt": "Menu Finder film frame: the Newtown map with the prototype's clusters, 823 places within 2 km, and Take Sushi and Ramen Bar marked."
             }
           ]
         }
@@ -334,14 +334,14 @@ window.H_PROJECTS = {
           "brand": "MENU FINDER",
           "number": "04",
           "title": "Start with what you want to eat.",
-          "caption": "A real ramen-under-$20 search in the internal prototype. Prices shown are extracted observations with unconfirmed source dates, rather than a promise of current availability.",
+          "caption": "The film ends on the prototype's real match. Prices shown are extracted observations with unconfirmed source dates, rather than a promise of current availability.",
           "images": [
             {
-              "id": "menu-dish-search",
-              "image": "assets/menu-story/product/05-dish-budget-search.jpg",
+              "id": "menu-your-match",
+              "image": "assets/menu-story/film/06-your-match.webp",
               "position": "main",
-              "label": "Dishes, prices and nearby alternatives",
-              "alt": "Menu Finder’s real ramen search with an Under $20 filter, matching dishes and observed prices in a nearby restaurant list beside an attributed map."
+              "label": "Your match",
+              "alt": "Menu Finder film frame: your match, hokkaido miso ramen for $14.70 at Take Sushi and Ramen Bar, 292 King St, 174 m away."
             }
           ]
         }

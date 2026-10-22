@@ -566,10 +566,11 @@ function draw(t) {
     state.draw(t, v);
     ctx.restore();
   }
-  drawCaptions(t);
+  // ?clean: product stills for the case study, without the film's captions and cursor.
+  if (!params.has('clean')) drawCaptions(t);
   drawTabs(t);
   drawAccent(t, ACCENT_KEYS);
-  drawCursor(t);
+  if (!params.has('clean')) drawCursor(t);
 }
 
 /* ── Playback (preview) and frame export (render.py) ────────────────────────── */

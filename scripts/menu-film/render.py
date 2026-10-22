@@ -47,11 +47,11 @@ def serve(frames=None):
     return server, f'http://127.0.0.1:{server.server_address[1]}'
 
 
-async def open_film(browser, base, size):
+async def open_film(browser, base, size, extra=''):
     context = await browser.new_context(viewport={'width': size, 'height': size}, device_scale_factor=1)
     page = await context.new_page()
     page.on('pageerror', lambda e: print('page error:', e, file=sys.stderr))
-    await page.goto(f'{base}/{PAGE}?render&size={size}')
+    await page.goto(f'{base}/{PAGE}?render&size={size}{extra}')
     await page.evaluate('() => window.film.ready')
     return page
 
@@ -85,15 +85,15 @@ async def sheet(beats, step, size=900, cols=4):
         print(path)
 
 
-async def still(times, size):
+async def still(times, size, clean=False):
     OUT.mkdir(parents=True, exist_ok=True)
     server, base = serve()
     async with async_playwright() as p:
         browser = await p.chromium.launch(channel=os.environ.get('PW_CHANNEL', 'chrome'))
-        page = await open_film(browser, base, size)
+        page = await open_film(browser, base, size, '&clean' if clean else '')
         for t in times:
             url = await page.evaluate('(t) => { window.film.draw(t); return document.getElementById("film").toDataURL("image/png"); }', t)
-            path = OUT / f'still-{t:06.2f}s.png'
+            path = OUT / f"still-{t:06.2f}s{'-clean' if clean else ''}.png"
             path.write_bytes(__import__('base64').b64decode(url.split(',')[1]))
             print(path)
         await browser.close()
@@ -137,6 +137,7 @@ if __name__ == '__main__':
     ap.add_argument('mode', choices=['sheet', 'still', 'video'])
     ap.add_argument('--film', choices=list(FILMS), default='menu')
     ap.add_argument('--at', default='0')
+    ap.add_argument('--clean', action='store_true', help='still: leave out captions and the cursor')
     ap.add_argument('--beats', default='0-51.5')
     ap.add_argument('--step', type=float, default=1)
     ap.add_argument('--size', type=int, default=1300)
@@ -144,5 +145,5 @@ if __name__ == '__main__':
     a = ap.parse_args()
     PAGE, OUT, VIDEO = FILMS[a.film]
     if a.mode == 'sheet': asyncio.run(sheet([float(v) for v in a.beats.split('-')], a.step))
-    elif a.mode == 'still': asyncio.run(still([float(v) for v in a.at.split(',')], a.size))
+    elif a.mode == 'still': asyncio.run(still([float(v) for v in a.at.split(',')], a.size, a.clean))
     else: asyncio.run(video(a.size, a.workers))
