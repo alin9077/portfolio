@@ -732,7 +732,10 @@
       subEl.classList.add('is-leaving');
       const base = source.getBoundingClientRect();
       const pose = rect => `translate(${rect.left - base.left}px, ${rect.top - base.top}px) scale(${rect.width / base.width}, ${rect.height / base.height})`;
-      const fade = subCopy.animate([{ opacity: getComputedStyle(subCopy).opacity }, { opacity: 0 }], { duration: 220, fill: 'forwards' });
+      // Visual-story copy is display: contents (no box to fade), so fade its children.
+      const fading = getComputedStyle(subCopy).display === 'contents' ? [...subCopy.children] : [subCopy];
+      const fades = fading.map((el) => el.animate([{ opacity: getComputedStyle(el).opacity }, { opacity: 0 }], { duration: 220, fill: 'forwards' }));
+      const fade = { cancel: () => fades.forEach((a) => a.cancel()) };
       const returning = source.animate([{ transform: pose(start) }, { transform: pose(target) }],
         { duration: 850, easing: 'cubic-bezier(.85,0,.35,1)', fill: 'forwards' });
       const finish = () => returning.cancel();
