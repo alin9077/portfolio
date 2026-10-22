@@ -63,9 +63,10 @@ async def sheet(beats, step, size=900, cols=4):
         browser = await p.chromium.launch(channel=os.environ.get('PW_CHANNEL', 'chrome'))
         page = await open_film(browser, base, size)
         times = [b for b in frange(beats[0], beats[1], step)]
+        beat = await page.evaluate('() => window.film.BEAT')
         shots = []
         for b in times:
-            url = await page.evaluate('(t) => { window.film.draw(t); return document.getElementById("film").toDataURL("image/png"); }', b * 0.5)
+            url = await page.evaluate('(t) => { window.film.draw(t); return document.getElementById("film").toDataURL("image/png"); }', b * beat)
             shots.append((b, Image.open(io.BytesIO(__import__('base64').b64decode(url.split(',')[1])))))
         await browser.close()
     server.shutdown()
@@ -78,7 +79,7 @@ async def sheet(beats, step, size=900, cols=4):
         draw = ImageDraw.Draw(sheet)
         for k, (b, im) in enumerate(group):
             x, y = gap + (k % cols) * (cell + gap), gap + (k // cols) * (cell + gap + label)
-            draw.text((x, y + 2), f'beat {b:g}  ·  {b * 0.5:.2f}s', fill='#ddd', font=font)
+            draw.text((x, y + 2), f'beat {b:g}  ·  {b * beat:.2f}s', fill='#ddd', font=font)
             sheet.paste(im.resize((cell, cell), Image.LANCZOS), (x, y + label))
         path = OUT / f'contact-{shots[n][0]:05.1f}-{group[-1][0]:05.1f}.png'
         sheet.save(path)

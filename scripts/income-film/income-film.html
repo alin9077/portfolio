@@ -24,6 +24,8 @@ canvas { display: block; width: min(100vw, 100vh); height: min(100vw, 100vh); }
 /* ── Grid, springs and tracks ─────────────────────────────────────────────── */
 const BPM = 120, BEAT = 60 / BPM, BEATS = 56, T = BEATS * BEAT;
 const sec = (beats) => beats * BEAT;
+// Playback runs 1.6× slower than the beat grid: every beat, spring and blur is stretched evenly.
+const SLOW = 1.6;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const mix = (a, b, p) => a + (b - a) * p;
 
@@ -555,7 +557,7 @@ function drawTouch(t) {
 
 /* ── draw(t): everything on screen is a function of t ───────────────────────── */
 function draw(t) {
-  t = ((t % T) + T) % T;
+  t = (((t / SLOW) % T) + T) % T;
   ctx.setTransform(PX, 0, 0, PX, 0, 0);
   ctx.globalAlpha = 1; ctx.filter = 'none';
   ctx.fillStyle = C.bg; ctx.fillRect(0, 0, 1000, 1000);
@@ -593,7 +595,7 @@ async function ready() {
   await Promise.all([400, 500, 600, 700].map((w) => document.fonts.load(`${w} 40px Archivo`)));
   ACCENT_KEYS = ACCENT(); CURSOR_KEYS = CURSOR();
 }
-window.film = { T, BEAT, draw, ready: ready() };
+window.film = { T: T * SLOW, BEAT: BEAT * SLOW, draw, ready: ready() };
 window.film.frame = function (i, fps = 60, sub = 6) {
   const n = SIZE * SIZE, acc = new Uint16Array(n * 3);
   for (let k = 0; k < sub; k++) {
@@ -612,9 +614,9 @@ window.film.ready.then(() => {
   let paused = false, origin = performance.now(), held = 0;
   addEventListener('keydown', (e) => {
     if (e.code === 'Space') { paused = !paused; if (!paused) origin = performance.now() - held * 1000; }
-    if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { paused = true; held = (Math.round(held / BEAT * 2) / 2 + (e.code === 'ArrowRight' ? 0.5 : -0.5)) * BEAT; draw(held); }
+    if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { paused = true; held = (Math.round(held / (BEAT * SLOW) * 2) / 2 + (e.code === 'ArrowRight' ? 0.5 : -0.5)) * BEAT * SLOW; draw(held); }
   });
-  const tick = (now) => { if (!paused) { held = ((now - origin) / 1000) % T; draw(held); } requestAnimationFrame(tick); };
+  const tick = (now) => { if (!paused) { held = ((now - origin) / 1000) % (T * SLOW); draw(held); } requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
 });
 </script>
