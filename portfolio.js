@@ -274,7 +274,7 @@
     if (f.ready) return;
     f.api = (f.source === 'menu-film-square.html' ? window.MenuFilm : window.IncomeFilm).mount(f.host);
     // Show a useful still for readers who prefer reduced motion.
-    if (reduce.matches) f.api.set(f.source === 'menu-film-square.html' ? 24.35 : 43.1);
+    if (reduce.matches) f.api.set(f.source === 'menu-film-square.html' ? 24.35 : 22.1);
     f.ready = true;
   }
   const filmIO = new IntersectionObserver((entries) => entries.forEach(e => {
