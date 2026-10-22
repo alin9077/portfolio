@@ -222,7 +222,7 @@ window.H_PROJECTS = {
   'menu-finder': {
     "illustrativeImages": true,
     "gid": "restaurant-discovery",
-    "name": "Find the dish. Then the restaurant.",
+    "name": "Find the dish, then the restaurant",
     "subtitle": "35,000 restaurants. 800,000 menu items.",
     "eyebrow": "Personal project",
     "headline": "",
@@ -351,7 +351,7 @@ window.H_PROJECTS = {
     "demoLabel": "Menu Finder"
   },
   'ev': {
-    name: 'Know what to look for in an EV.', eyebrow: 'Personal project',
+    name: 'Know what to look for in an EV', eyebrow: 'Personal project',
     visualStory: true,
     brandMark: { image: 'assets/ev-story/roadmark-ev.svg', alt: 'Roadmark EV', width: 128, height: 138 },
     headline: '',
@@ -400,7 +400,7 @@ window.H_PROJECTS = {
   },
   'appointment-booking': {
     "gid": "appointment-booking",
-    "name": "Book a home lender directly.",
+    "name": "Book a home lender directly",
     "eyebrow": "CommBank · Released 2018 (Design lead)",
     "headline": "",
     "highlights": [
@@ -561,7 +561,7 @@ window.H_PROJECTS = {
   },
   'canwork': {
     "gid": "canwork",
-    "name": "Connecting staff to shifts across branches.",
+    "name": "Connecting staff to shifts across branches",
     "eyebrow": "CommBank · Branch staffing (Design lead)",
     "headline": "",
     "highlights": [
@@ -717,7 +717,7 @@ window.H_PROJECTS = {
   },
   'expense-capture': {
     "gid": "expense-capture",
-    "name": "Loan expenses: 16 required fields reduced to two.",
+    "name": "Loan expenses: 16 required fields reduced to two",
     "eyebrow": "NAB · Expense research and design (Design lead)",
     "headline": "",
     "highlights": [
@@ -938,7 +938,7 @@ window.H_PROJECTS = {
   },
   'qantas': {
     "gid": "qantas",
-    "name": "Choose travel cover with COVID in mind (2021).",
+    "name": "Choose travel cover with COVID in mind (2021)",
     "eyebrow": "Qantas · Research and concepts, 2022 (Design lead)",
     "headline": "",
     "highlights": [
@@ -1163,7 +1163,7 @@ window.H_PROJECTS = {
   },
   'nrma': {
     "gid": "nrma",
-    "name": "Quotes, claims and policies. One account.",
+    "name": "Quotes, claims and policies, one account",
     "eyebrow": "NRMA · Design standards, 2019–2021 (Design lead)",
     "headline": "",
     "highlights": [
