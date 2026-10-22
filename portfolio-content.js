@@ -222,13 +222,14 @@ window.H_PROJECTS = {
   'menu-finder': {
     "illustrativeImages": true,
     "gid": "restaurant-discovery",
-    "name": "Finding dinner shouldn’t mean squinting at tiny menus and pinching to zoom on your phone.",
+    "name": "Find the dish. Then the restaurant.",
+    "subtitle": "35,000 restaurants. 800,000 menu items.",
     "eyebrow": "Personal project",
     "headline": "",
     "highlights": [
       "Working prototype: browse dishes, compare nearby options, then explore the restaurant.",
       "Built menu-collecting agents and fine-tuned models to turn menus into searchable data.",
-      "82,000+ collected menu documents and hundreds of thousands of menu-item observations."
+      "82,000+ menu documents collected from websites and photos."
     ],
     "text": "Finding dinner means searching restaurants, opening menu PDFs and zooming in on your phone.<br><br><strong>Start with the food:</strong> browse dishes, compare similar meals at nearby restaurants, then explore the restaurant.",
     "media": {
@@ -292,7 +293,7 @@ window.H_PROJECTS = {
       },
       {
         "label": "Scale",
-        "title": "82,000+ menu documents, over 700,000 menu items and more than 35,000 restaurants across Australia.",
+        "title": "82,000+ menu documents, 800,000 menu items and 35,000 restaurants across Australia.",
         "more": [
           "I realised early on that you can build an app, but without data, it offers very little value. So I immediately pivoted to creating a large database of menu items and restaurants, with coverage across Australia’s states and cities.",
           "The collection includes repeated menus and older versions. Those source records are different from verified current dishes or unique restaurant locations; the prototype screens show a local Newtown search within that broader collection.",
@@ -350,7 +351,7 @@ window.H_PROJECTS = {
     "demoLabel": "Menu Finder"
   },
   'ev': {
-    name: 'Choosing an EV shouldn’t mean digging through spec sheets to work out how it fits your everyday life.', eyebrow: 'Personal project',
+    name: 'Know what to look for in an EV.', eyebrow: 'Personal project',
     visualStory: true,
     brandMark: { image: 'assets/ev-story/roadmark-ev.svg', alt: 'Roadmark EV', width: 128, height: 138 },
     headline: '',
@@ -399,7 +400,7 @@ window.H_PROJECTS = {
   },
   'appointment-booking': {
     "gid": "appointment-booking",
-    "name": "Booking a home lender shouldn’t mean waiting a day for a callback.",
+    "name": "Book a home lender directly.",
     "eyebrow": "CommBank · Released 2018 (Design lead)",
     "headline": "",
     "highlights": [
@@ -560,7 +561,7 @@ window.H_PROJECTS = {
   },
   'canwork': {
     "gid": "canwork",
-    "name": "Finding an extra shift shouldn’t depend on who you know.",
+    "name": "Connecting staff to shifts across branches.",
     "eyebrow": "CommBank · Branch staffing (Design lead)",
     "headline": "",
     "highlights": [
@@ -716,7 +717,7 @@ window.H_PROJECTS = {
   },
   'expense-capture': {
     "gid": "expense-capture",
-    "name": "Applying for a loan shouldn’t mean squeezing everyday spending into 16 separate boxes.",
+    "name": "Loan expenses: 16 required fields reduced to two.",
     "eyebrow": "NAB · Expense research and design (Design lead)",
     "headline": "",
     "highlights": [
@@ -937,7 +938,7 @@ window.H_PROJECTS = {
   },
   'qantas': {
     "gid": "qantas",
-    "name": "Buying travel insurance shouldn’t mean guessing what’s covered or which steps you can skip.",
+    "name": "Choose travel cover with COVID in mind (2021).",
     "eyebrow": "Qantas · Research and concepts, 2022 (Design lead)",
     "headline": "",
     "highlights": [
@@ -1162,7 +1163,7 @@ window.H_PROJECTS = {
   },
   'nrma': {
     "gid": "nrma",
-    "name": "Managing insurance shouldn’t mean finding your way through disconnected quotes, policies and renewal steps.",
+    "name": "Quotes, claims and policies. One account.",
     "eyebrow": "NRMA · Design standards, 2019–2021 (Design lead)",
     "headline": "",
     "highlights": [

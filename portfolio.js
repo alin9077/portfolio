@@ -230,6 +230,7 @@
           ${p.brandMark ? `<img class="project-brand-mark project-brand-mark--row" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}
           <p class="row__eyebrow"><span class="row__identity"><span class="row__number">${i + 1}.${k + 1}</span><span class="row__brand">${logo}${brand}</span></span>${context.length ? `<span class="row__context">${context.join(' · ')}</span>` : ''}</p>
           <h3 class="row__title">${p.name}</h3>
+          ${p.subtitle ? `<p class="row__p">${p.subtitle}</p>` : ''}
           ${p.headline ? `<p class="row__p">${p.headline}</p>` : ''}
           ${p.highlights?.length ? `<ul class="row__p row__highlights">${p.highlights.map(point => `<li>${point}</li>`).join('')}</ul>` : ''}
           ${linked ? `<a class="row__link" href="#${b.id}/${id}" data-open="${id}" aria-label="View More: ${p.name}">View More</a>` : ''}
@@ -558,7 +559,7 @@
       const bullets = s.bullets ? `<ul class="sc__p sc__bullets">${s.bullets.map((t) => `<li>${t}</li>`).join('')}</ul>` : '';
       return `<li class="sc__sec${s.mediaLayout ? ' sc__sec--composed' : ''}${s.showcase ? ' sc__sec--showcase' : ''}"><span class="sc__lab${s.pictogram ? ' sc__lab--illustrated' : ''}">${pictogram}${s.label}</span><div class="sc__body"><h3 class="sc__h">${s.title}</h3>${s.more.map((t) => `<p class="sc__p">${t}</p>`).join('')}${bullets}${s.mediaLayout ? '' : media}</div>${s.showcase ? showcaseHTML(s.showcase, { illustrative: p.illustrativeImages === true }) : ''}${s.mediaLayout ? media : ''}</li>`;
     }).join('');
-    const intro = `${p.brandMark ? `<img class="project-brand-mark project-brand-mark--case" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}<p class="sc__eyebrow">${p.eyebrow}</p><h2 class="sc__title">${p.headline || p.name}</h2><p class="sc__lede">${p.text}</p>`;
+    const intro = `${p.brandMark ? `<img class="project-brand-mark project-brand-mark--case" src="${p.brandMark.image}" width="${p.brandMark.width}" height="${p.brandMark.height}" alt="${p.brandMark.alt}" decoding="async">` : ''}<p class="sc__eyebrow">${p.eyebrow}</p><h2 class="sc__title">${p.headline || p.name}</h2>${p.subtitle ? `<p class="sc__lede">${p.subtitle}</p>` : ''}<p class="sc__lede">${p.text}</p>`;
     return `${p.visualStory ? `<header class="visual-story__intro">${intro}</header>` : intro}<ol class="sc__sections">${secs}</ol>`;
   }
   function subHeroHTML(p) {
