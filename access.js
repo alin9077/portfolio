@@ -1,6 +1,7 @@
 /* Casual invitation gate for static hosting; this is not server authentication.
    Only a SHA-256 verifier is stored here. Portfolio scripts load after validation. */
 (async () => {
+  const activeInvitationDigest = null;
   const root = document.documentElement;
   const status = document.getElementById('access-status');
   const loader = document.getElementById('portfolio-loader');
@@ -16,11 +17,15 @@
   });
   const code = new URLSearchParams(location.search).get('access');
   if (!code) return;
+  if (!activeInvitationDigest) {
+    status.textContent = 'This invitation link has been disabled.';
+    return;
+  }
   try {
     if (!crypto.subtle) throw new Error('Secure browser context required');
     const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(code));
     const digest = Array.from(new Uint8Array(bytes), (b) => b.toString(16).padStart(2, '0')).join('');
-    if (digest !== 'dbb3602445b9beeecc41df69e7fb0cf92680dc34ff13586909ee572c7ef00891') {
+    if (digest !== activeInvitationDigest) {
       status.textContent = 'This invitation link is not valid. Please use the complete link shared with you.';
       return;
     }
